@@ -1,6 +1,9 @@
 *.class
 
-/BUILDS
+BUILDS/
+.metadata/
+Servers/
+RemoteSystemsTempFiles/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
