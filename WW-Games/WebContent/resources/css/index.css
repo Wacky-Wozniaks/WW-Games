@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+body {
+	margin: 0;
+	font-family: 'Overpass', sans-serif;
+}
+
+.footer {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+.container {
+	margin: 0 auto;
+	width: 80%;
+	text-align: center;
+	vertical-align: middle;
+}
