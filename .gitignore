@@ -2,6 +2,7 @@
 
 BUILDS/
 .metadata/
+.settings/
 Servers/
 RemoteSystemsTempFiles/
 
