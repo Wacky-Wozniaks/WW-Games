@@ -2,6 +2,7 @@ package com.wackywozniaks.daos;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -15,9 +16,82 @@ import com.wackywozniaks.controllers.ConnectionController;
  *
  */
 public class UserDAO {
-	
 	static Connection currentCon = null;
-	static ResultSet rs = null; 
+	static ResultSet rs = null;
+	
+	public static UserBean newUser(UserBean bean)
+	{
+		Statement stmt = null;
+		try
+		{
+			currentCon = ConnectionController.getConnection();
+			stmt = currentCon.createStatement();
+			
+			//verify that there is not already a user with the same email
+			String username = bean.getUsername();
+			String searchQuery = "select email from users where email = \'" + username + "\'";
+			
+			rs = stmt.executeQuery(searchQuery);
+			if(rs.next()) //next returns true if there is a next row
+			{
+				bean.setValid(false);
+				// TODO send error message
+			}
+			else
+			{
+				String password = bean.getPassword();
+				if(!meetsRequirements(password))
+				{
+					bean.setValid(false);
+					// TODO send error message
+				}
+				else
+				{
+					String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+					String updateQuery = "insert into users values(default, \'" + username + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
+							"\', \'" + bean.getLastName() + "\')";
+					stmt.executeUpdate(updateQuery);
+					bean.setValid(true);
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			// TODO exception handing
+		}
+		finally
+		{
+			if(stmt != null)
+			{
+				try
+				{
+					stmt.close();
+				}
+				catch(SQLException e)
+				{
+					stmt = null;
+				}
+			}
+			if(currentCon != null)
+			{
+				try
+				{
+					currentCon.close();
+				}
+				catch(SQLException e)
+				{
+					currentCon = null;
+				}
+			}
+		}
+		return bean;
+	}
+	
+	private static boolean meetsRequirements(String password)
+	{
+		if(password.length() < 8) return false; //password must be at least 8 characters
+		return true;
+	}
 	
 	public static UserBean login(UserBean bean) { //preparing some objects for connection
 		Statement stmt = null;
