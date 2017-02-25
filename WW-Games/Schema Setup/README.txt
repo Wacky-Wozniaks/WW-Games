@@ -1,9 +1,5 @@
 LATEST PUT INTO AWS: N/A
 
-Luke: N/A
-Julia: 1
-Hyun: N/A
-
 In this folder will be files that contain the SQL updates to the database that you have done on your local database. Ultimately these changes will be put into the AWS database.
 
 When you should do this:
