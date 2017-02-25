@@ -9,9 +9,9 @@
 	<div class="text-container">
 		<br>
 		<form action="LoginServlet" method="post">
-			<label>Username
-				<input type="text" name="un" id="username" placeholder="" aria-describedby="Enter Your Username" required >
-				<span class="form-error">Please Enter a Username</span>
+			<label>Email
+				<input type="text" name="un" id="username" placeholder="" aria-describedby="Enter Your Email" required >
+				<span class="form-error">Please Enter an Email</span>
 			</label>
 			<label>Password
 				<input type="password" name="pw" id="password" placeholder="" aria-describedby="Enter Your Password" required >
@@ -20,12 +20,16 @@
 			
 			<br>
 			
-			<button class="button" type="submit" value="Submit">Submit</button>
+			<button class="button" type="submit" value="Submit">Log In</button>
 		</form>
+		
+		<a href="signup">New user? Sign up!</a>
+		
+		<br>
 		
 		<c:if test='${header.referer.substring(header.referer.lastIndexOf("/") + 1, header.referer.length()) eq "login"}'>
 			<br>
-			<p>Invalid Username/Password.</p>
+			<p class="invalid"><b>Invalid Email/Password.</b></p>
 		</c:if>
 		<br>
 	</div>

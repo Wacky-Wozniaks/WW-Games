@@ -17,7 +17,7 @@
 	
 	<body>
 		<%
-        	if (!request.getServletPath().contains("/login")) {
+        	if (!request.getServletPath().contains("/login") && !request.getServletPath().contains("/signup")) {
    		%>
 			<%@ include file="header.jsp" %>
 		<%
