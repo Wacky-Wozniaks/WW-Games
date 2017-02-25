@@ -1,14 +1,19 @@
 <html>
 	<head>
 		<link rel="shortcut icon" href="images/favicon.ico"/>
-		<link rel="stylesheet" href="resources/css/index.css">
+		<link rel="stylesheet" href="resources/css/textindex.css">
 		<link href="https://fonts.googleapis.com/css?family=Overpass" rel="stylesheet">
 		<title>Wacky Wozniaks</title>
 	</head>
 
 	<body>
 		<div class="container">
-			<h1>Website under construction.</h1>
+			<form action="LoginServlet"> 
+				Please enter your username <input type="text" name="un"/>
+				<br> 
+				Please enter your password <input type="text" name="pw"/> 
+				<input type="submit" value="submit">
+			</form>
 		</div>
 
 		<div class="footer">
