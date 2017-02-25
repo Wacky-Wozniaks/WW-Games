@@ -3,6 +3,7 @@
 BUILDS/
 .metadata/
 .settings/
+.recommenders/
 Servers/
 RemoteSystemsTempFiles/
 
