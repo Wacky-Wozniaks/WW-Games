@@ -9,9 +9,9 @@
 	<div class="text-container">
 		<br>
 		<form action="SignupServlet" method="post">
-			<label>Username
-				<input type="text" name="un" id="username" placeholder="" aria-describedby="Enter Your Username" required >
-				<span class="form-error">Please Enter a Username</span>
+			<label>Email
+				<input type="text" name="un" id="username" placeholder="" aria-describedby="Enter Your Email" required >
+				<span class="form-error">Please Enter your Email</span>
 			</label>
 			<label>Password
 				<input type="password" name="pw" id="password" placeholder="" aria-describedby="Enter Your Password" required >
