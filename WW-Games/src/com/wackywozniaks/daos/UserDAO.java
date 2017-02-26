@@ -29,6 +29,7 @@ public class UserDAO {
 			
 			//verify that there is not already a user with the same email
 			String username = bean.getUsername();
+			username.trim(); //removing possible whitespace
 			String searchQuery = "select email from users where email = \'" + username + "\'";
 			
 			rs = stmt.executeQuery(searchQuery);
@@ -39,19 +40,27 @@ public class UserDAO {
 			}
 			else
 			{
-				String password = bean.getPassword();
-				if(!meetsRequirements(password))
+				if(!username.endsWith(".mxschool.edu"))
 				{
 					bean.setValid(false);
-					// TODO send error message
+					//TODO send error message
 				}
 				else
 				{
-					String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-					String updateQuery = "insert into users values(default, \'" + username + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
-							"\', \'" + bean.getLastName() + "\')";
-					stmt.executeUpdate(updateQuery);
-					bean.setValid(true);
+					String password = bean.getPassword();
+					if(!meetsRequirements(password))
+					{
+						bean.setValid(false);
+						// TODO send error message
+					}
+					else
+					{
+						String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+						String updateQuery = "insert into users values(default, \'" + username + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
+								"\', \'" + bean.getLastName() + "\')";
+						stmt.executeUpdate(updateQuery);
+						bean.setValid(true);
+					}
 				}
 			}
 		}
