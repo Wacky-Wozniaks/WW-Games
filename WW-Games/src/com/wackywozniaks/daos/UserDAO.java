@@ -40,7 +40,7 @@ public class UserDAO {
 			}
 			else
 			{
-				if(!username.endsWith(".mxschool.edu"))
+				if(!username.endsWith("@mxschool.edu"))
 				{
 					bean.setValid(false);
 					//TODO send error message
