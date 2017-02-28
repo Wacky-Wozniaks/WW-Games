@@ -39,9 +39,9 @@ public class UserDAO {
 			stmt = currentCon.createStatement();
 			
 			//verify that there is not already a user with the same email
-			String username = bean.getUsername();
-			username.trim(); //removing possible whitespace
-			String searchQuery = "select email from users where email = \'" + username + "\'";
+			String email = bean.getEmail();
+			email.trim(); //removing possible whitespace
+			String searchQuery = "select email from users where email = \'" + email + "\'";
 			
 			rs = stmt.executeQuery(searchQuery);
 			if(rs.next()) //next returns true if there is a next row
@@ -50,7 +50,7 @@ public class UserDAO {
 			}
 			else
 			{
-				if(!username.endsWith("@mxschool.edu"))
+				if(!email.endsWith("@mxschool.edu"))
 				{
 					//TODO send error message
 				}
@@ -64,7 +64,7 @@ public class UserDAO {
 					else
 					{
 						String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-						String updateQuery = "insert into users values(default, \'" + username + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
+						String updateQuery = "insert into users values(default, \'" + email + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
 								"\', \'" + bean.getLastName() + "\', false)";
 						stmt.executeUpdate(updateQuery);
 						sendEmail(bean);
@@ -133,7 +133,7 @@ public class UserDAO {
 		{
 			MimeMessage message = new MimeMessage(mailSession);
 			message.setFrom(new InternetAddress("prrpapm@gmail.com"));
-			String email = bean.getUsername();
+			String email = bean.getEmail();
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			
 			String link = url + "verify.jsp?hash=" + BCrypt.hashpw(email, BCrypt.gensalt());
@@ -148,9 +148,9 @@ public class UserDAO {
 	
 	public static UserBean login(UserBean bean) { //preparing some objects for connection
 		Statement stmt = null;
-		String username = bean.getUsername();
+		String email = bean.getEmail();
 		String password = bean.getPassword();
-		String searchQuery = "select * from users where email='" + username + "'";
+		String searchQuery = "select * from users where email='" + email + "'";
 		//System.out.println("Your user name is " + username);
 		//System.out.println("Your password is " + password);
 		//System.out.println("Query: "+searchQuery);

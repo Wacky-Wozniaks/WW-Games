@@ -42,7 +42,7 @@ public class SignupServlet extends HttpServlet {
 		try {
 			if(request.getParameter("pw").equals(request.getParameter("pw2"))) {
 				UserBean user = new UserBean();
-				user.setUsername(request.getParameter("un"));
+				user.setEmail(request.getParameter("un"));
 				user.setPassword(request.getParameter("pw"));
 				user.setFirstName(request.getParameter("fn"));
 				user.setLastName(request.getParameter("ln"));
