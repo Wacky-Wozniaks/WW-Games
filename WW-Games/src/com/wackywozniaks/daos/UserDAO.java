@@ -4,6 +4,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -18,9 +27,11 @@ import com.wackywozniaks.controllers.ConnectionController;
 public class UserDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
+	static String url = "http://localhost:8080/WW-Games/";
 	
 	public static UserBean newUser(UserBean bean)
 	{
+		bean.setValid(false);
 		Statement stmt = null;
 		try
 		{
@@ -35,14 +46,12 @@ public class UserDAO {
 			rs = stmt.executeQuery(searchQuery);
 			if(rs.next()) //next returns true if there is a next row
 			{
-				bean.setValid(false);
 				// TODO send error message
 			}
 			else
 			{
 				if(!username.endsWith("@mxschool.edu"))
 				{
-					bean.setValid(false);
 					//TODO send error message
 				}
 				else
@@ -50,16 +59,15 @@ public class UserDAO {
 					String password = bean.getPassword();
 					if(!meetsRequirements(password))
 					{
-						bean.setValid(false);
 						// TODO send error message
 					}
 					else
 					{
 						String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
 						String updateQuery = "insert into users values(default, \'" + username + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
-								"\', \'" + bean.getLastName() + "\')";
+								"\', \'" + bean.getLastName() + "\', false)";
 						stmt.executeUpdate(updateQuery);
-						bean.setValid(true);
+						sendEmail(bean);
 					}
 				}
 			}
@@ -100,6 +108,42 @@ public class UserDAO {
 	{
 		if(password.length() < 8) return false; //password must be at least 8 characters
 		return true;
+	}
+	
+	//Adapted from https://www.tutorialspoint.com/jsp/jsp_sending_email.htm
+	//with gmail help from http://stackoverflow.com/questions/15597616/sending-email-via-gmail-smtp-server-in-java
+	private static void sendEmail(UserBean bean)
+	{
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+		
+		Session mailSession = Session.getInstance(props, new javax.mail.Authenticator()
+		{
+			protected PasswordAuthentication getPasswordAuthentication()
+			{
+				return new PasswordAuthentication("prrpapm", "mxclubwebsite");
+			}
+		});
+		
+		try
+		{
+			MimeMessage message = new MimeMessage(mailSession);
+			message.setFrom(new InternetAddress("prrpapm@gmail.com"));
+			String email = bean.getUsername();
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			
+			String link = url + "verify.jsp?hash=" + BCrypt.hashpw(email, BCrypt.gensalt());
+			message.setSubject("Verify Your Email for Wacky-Wozniaks");
+			message.setText("Hi " + bean.getFirstName() + ",/nIn order to create an account on Wacky-Wozniaks, you need to verify that this email is yours. "
+					+ "Please use the link below and enter your password to comfirm you email.\n" + link);
+			
+			Transport.send(message);
+		}
+		catch (MessagingException mex) {}
 	}
 	
 	public static UserBean login(UserBean bean) { //preparing some objects for connection
