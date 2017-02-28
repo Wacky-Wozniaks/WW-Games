@@ -146,6 +146,78 @@ public class UserDAO {
 		catch (MessagingException mex) {}
 	}
 	
+	public static UserBean verify(UserBean bean, String url)
+	{
+		String email = bean.getEmail();
+		if(!BCrypt.checkpw(email, url))
+		{
+			// TODO send error message
+			bean.setValid(false);
+			return bean;
+		}
+		
+		Statement stmt = null;
+		try
+		{
+			currentCon = ConnectionController.getConnection();
+			stmt = currentCon.createStatement();
+			
+			String query = "select * from users where email = \'" + email + "\'";
+			rs = stmt.executeQuery(query);
+			
+			if(!rs.next()) // if there is no user with that email
+			{
+				//TODO send error message
+				bean.setValid(false);
+			}
+			else
+			{
+				String password = rs.getString("password");
+				if(!BCrypt.checkpw(bean.getPassword(), password))
+				{
+					//TODO send error message
+					bean.setValid(false);
+				}
+				else
+				{
+					String update = "update users set verified = true where email = \'" + email + "\'";
+					stmt.executeUpdate(update);
+					bean.setValid(true);
+				}
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(stmt != null)
+			{
+				try
+				{
+					stmt.close();
+				}
+				catch(SQLException e)
+				{
+					stmt = null;
+				}
+			}
+			if(currentCon != null)
+			{
+				try
+				{
+					currentCon.close();
+				}
+				catch(SQLException e)
+				{
+					currentCon = null;
+				}
+			}
+		}
+		return bean;
+	}
+	
 	public static UserBean login(UserBean bean) { //preparing some objects for connection
 		Statement stmt = null;
 		String email = bean.getEmail();
