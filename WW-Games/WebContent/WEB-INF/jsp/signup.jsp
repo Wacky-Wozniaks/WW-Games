@@ -35,6 +35,16 @@
 			<button class="button" type="submit" value="Submit">Sign Up</button>
 		</form>
 		
+		<c:if test='${header.referer.substring(header.referer.lastIndexOf("/") + 1, header.referer.length()) eq "signup"}'>
+			<br>
+			<p class="invalid"><b>Please ensure the following:</b></p>
+			<ul class="invalid">
+				<li>Email must be a Middlesex email</li>
+				<li>Passwords must match and be at least 8 characters</li>
+				<li>All fields must be filled out</li>
+			</ul>
+		</c:if>
+		
 		<br>
 	</div>
 </div>

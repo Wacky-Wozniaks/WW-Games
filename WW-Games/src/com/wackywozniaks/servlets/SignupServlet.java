@@ -54,7 +54,7 @@ public class SignupServlet extends HttpServlet {
 				}
 			}
 			  
-			response.sendRedirect("login");
+			response.sendRedirect("signup");
 		} 
 		catch (Throwable theException) {
 			System.out.println(theException);

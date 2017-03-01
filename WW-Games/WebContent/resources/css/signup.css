@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+
+.background {
+	text-align: center;
+	background-color: #e0e0e0;
+	width: 60%;
+	margin: auto;
+	border-radius: 2px;
+}
+
+.text-container {
+	width: 60%;
+	margin: auto;
+}
+
+.invalid {
+	color: red;
+}
