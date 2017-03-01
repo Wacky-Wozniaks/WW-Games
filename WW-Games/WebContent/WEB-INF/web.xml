@@ -49,4 +49,13 @@
     <servlet-name>UserLogged</servlet-name>
     <url-pattern>/userLogged</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Verify</servlet-name>
+    <jsp-file>/WEB-INF/jsp/verify.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Verify</servlet-name>
+    <url-pattern>/verify</url-pattern>
+  </servlet-mapping>
 </web-app>
