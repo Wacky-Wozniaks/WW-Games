@@ -1,1 +1,1 @@
-ALTER TABLE users ADD verified boolean NOT NULL
+ALTER TABLE users ADD verified boolean NOT NULL DEFAULT false
