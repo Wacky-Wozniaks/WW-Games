@@ -138,8 +138,6 @@ public class UserDAO {
 			
 			String link = url + "verify?hash=" + BCrypt.hashpw(email, BCrypt.gensalt());
 			message.setSubject("Verify Your Email for Wacky-Wozniaks");
-			message.setText("Hi " + bean.getFirstName() + ",/nIn order to create an account on Wacky-Wozniaks, you need to verify that this email is yours. "
-					+ "Please use the link below and enter your password to comfirm you email.\n" + link);
 			
 			Transport.send(message);
 		}
