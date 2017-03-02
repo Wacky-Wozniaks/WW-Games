@@ -31,7 +31,7 @@ public class UserDAO {
 	
 	public static UserBean newUser(UserBean bean)
 	{
-		bean.setValid(false);
+		bean.setVerified(false);
 		Statement stmt = null;
 		try
 		{
@@ -44,33 +44,17 @@ public class UserDAO {
 			String searchQuery = "select email from users where email = \'" + email + "\'";
 			
 			rs = stmt.executeQuery(searchQuery);
-			if(rs.next()) //next returns true if there is a next row
+			String password = bean.getPassword();
+			if(!rs.next() && email.endsWith("@mxschool.edu") && meetsRequirements(password)) //next returns true if there is a next row
 			{
-				// TODO send error message
+				String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+				String updateQuery = "insert into users values(default, \'" + email + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
+						"\', \'" + bean.getLastName() + "\', false)";
+				stmt.executeUpdate(updateQuery);
+				sendEmail(bean);
+				bean.setValid(true);
 			}
-			else
-			{
-				if(!email.endsWith("@mxschool.edu"))
-				{
-					//TODO send error message
-				}
-				else
-				{
-					String password = bean.getPassword();
-					if(!meetsRequirements(password))
-					{
-						// TODO send error message
-					}
-					else
-					{
-						String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-						String updateQuery = "insert into users values(default, \'" + email + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
-								"\', \'" + bean.getLastName() + "\', false)";
-						stmt.executeUpdate(updateQuery);
-						sendEmail(bean);
-					}
-				}
-			}
+			else bean.setValid(false);
 		}
 		catch(SQLException e)
 		{
@@ -183,6 +167,7 @@ public class UserDAO {
 					String update = "update users set verified = true where email = \'" + email + "\'";
 					stmt.executeUpdate(update);
 					bean.setValid(true);
+					bean.setVerified(true);
 					bean.setFirstName(first);
 					bean.setLastName(last);
 				}
@@ -224,15 +209,17 @@ public class UserDAO {
 		Statement stmt = null;
 		String email = bean.getEmail();
 		String password = bean.getPassword();
-		String searchQuery = "select * from users where email='" + email + "' and verified = true";
-		//System.out.println("Your user name is " + username);
-		//System.out.println("Your password is " + password);
-		//System.out.println("Query: "+searchQuery);
+		String searchQuery = "select * from users where email='" + email;
+		
 		try { //connect to DB\
 			currentCon = ConnectionController.getConnection();
 			stmt = currentCon.createStatement();	
 			rs = stmt.executeQuery(searchQuery);
 			boolean more = rs.next(); // if user does not exist set the isValid variable to false
+			System.out.println(rs.getBoolean("verified"));
+			if(more && !rs.getBoolean("verified")) bean.setVerified(false);
+			else if(more) bean.setVerified(true);
+			
 			if(!BCrypt.checkpw(password, rs.getString("password")) || !more) {
 				//System.out.println("Sorry, you are not a registered user! Please sign up first");
 				bean.setValid(false);
@@ -240,7 +227,6 @@ public class UserDAO {
 			else if(more) { 
 				String firstName = rs.getString("first_name");
 				String lastName = rs.getString("last_name");
-				//System.out.println("Welcome " + firstName);
 				bean.setFirstName(firstName);
 				bean.setLastName(lastName);
 				bean.setValid(true);

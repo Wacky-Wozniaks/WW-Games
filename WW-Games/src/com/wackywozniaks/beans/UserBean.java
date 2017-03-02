@@ -11,6 +11,7 @@ public class UserBean {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private boolean verified;
 	public boolean valid;
 	
 	public String getPassword() {
@@ -43,6 +44,16 @@ public class UserBean {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public boolean isVerified()
+	{
+		return verified;
+	}
+	
+	public void setVerified(boolean newVerified)
+	{
+		verified = newVerified;
 	}
 	
 	public boolean isValid() { 

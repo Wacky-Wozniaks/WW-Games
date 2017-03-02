@@ -58,4 +58,13 @@
     <servlet-name>Verify</servlet-name>
     <url-pattern>/verify</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>VerifyEmail</servlet-name>
+  	<jsp-file>/WEB-INF/jsp/verifyEmail.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VerifyEmail</servlet-name>
+    <url-pattern>/verifyEmail</url-pattern>
+  </servlet-mapping>
 </web-app>

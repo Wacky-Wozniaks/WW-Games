@@ -40,6 +40,7 @@ public class SignupServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			boolean redirected = false;
 			if(request.getParameter("pw").equals(request.getParameter("pw2"))) {
 				UserBean user = new UserBean();
 				user.setEmail(request.getParameter("un"));
@@ -48,13 +49,13 @@ public class SignupServlet extends HttpServlet {
 				user.setLastName(request.getParameter("ln"));
 				user = UserDAO.newUser(user);
 				if(user.isValid()) {
-					HttpSession session = request.getSession(true); 
-					session.setAttribute("currentSessionUser",user);
-					response.sendRedirect("login");
+					redirected = true;
+					//HttpSession session = request.getSession(true); 
+					//session.setAttribute("currentSessionUser",user);
+					response.sendRedirect("verifyEmail");
 				}
 			}
-			  
-			response.sendRedirect("signup");
+			if(!redirected) response.sendRedirect("signup");
 		} 
 		catch (Throwable theException) {
 			System.out.println(theException);

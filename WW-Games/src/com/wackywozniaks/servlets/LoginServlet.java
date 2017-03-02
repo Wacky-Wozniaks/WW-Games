@@ -45,10 +45,15 @@ public class LoginServlet extends HttpServlet {
 			user.setEmail(request.getParameter("un"));
 			user.setPassword(request.getParameter("pw"));
 			user = UserDAO.login(user);
+			
 			if (user.isValid()) {
-				HttpSession session = request.getSession(true); 
-				session.setAttribute("currentSessionUser",user);
-				response.sendRedirect("userLogged"); //logged-in page
+				if(user.isVerified())
+				{
+					HttpSession session = request.getSession(true); 
+					session.setAttribute("currentSessionUser",user);
+					response.sendRedirect("userLogged"); //logged-in page
+				}
+				else response.sendRedirect("verifyEmail");
 			} 
 			  
 			response.sendRedirect("login");
