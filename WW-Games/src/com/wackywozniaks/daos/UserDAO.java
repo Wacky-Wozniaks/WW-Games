@@ -172,7 +172,7 @@ public class UserDAO {
 			}
 			else
 			{
-				String password = rs.getString("password");
+				String password = rs.getString("password"), first = rs.getString("first_name"), last = rs.getString("last_name");
 				if(!BCrypt.checkpw(bean.getPassword(), password))
 				{
 					//TODO send error message
@@ -183,8 +183,8 @@ public class UserDAO {
 					String update = "update users set verified = true where email = \'" + email + "\'";
 					stmt.executeUpdate(update);
 					bean.setValid(true);
-					bean.setFirstName(rs.getString("first_name"));
-					bean.setLastName(rs.getString("last_name"));
+					bean.setFirstName(first);
+					bean.setLastName(last);
 				}
 			}
 		}
@@ -274,14 +274,4 @@ public class UserDAO {
 		}
 		return bean;
 	}
-	
-	public static void main(String[] args)
-	{
-		UserBean bean = new UserBean();
-		bean.setPassword("!General10");
-		bean.setEmail("jmcclellan@mxschool.edu");
-		verify(bean, "$2a$10$7OrtjPHsIvijlpknxE6.7.sqYkAJgiQU0TedJRBnvjv96VLqTdCEu");
-		System.out.println(bean.isValid());
-	}
-
 }
