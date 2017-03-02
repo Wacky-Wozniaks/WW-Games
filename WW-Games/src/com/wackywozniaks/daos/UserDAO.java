@@ -224,7 +224,7 @@ public class UserDAO {
 		Statement stmt = null;
 		String email = bean.getEmail();
 		String password = bean.getPassword();
-		String searchQuery = "select * from users where email='" + email + "'";
+		String searchQuery = "select * from users where email='" + email + "' and verified = true";
 		//System.out.println("Your user name is " + username);
 		//System.out.println("Your password is " + password);
 		//System.out.println("Query: "+searchQuery);
