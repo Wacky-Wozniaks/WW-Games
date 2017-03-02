@@ -8,6 +8,7 @@
 <div class="background">
 	<div class="text-container">
 		<br>
+		<p class="verify"><b>Please Log In to Finish Verification</b></p>
 		<form action="VerifyServlet" method="post">
 			<label>Email
 				<input type="text" name="em" id="email" placeholder="" aria-describedby="Enter Your Email" required >
@@ -17,11 +18,18 @@
 				<input type="password" name="pw" id="password" placeholder="" aria-describedby="Enter Your Password" required >
 				<span class="form-error">Please Enter a Password</span>
 			</label>
-			<input type="text" name="hash" id="hash" value=<% out.println(request.getParameter("hash")); %>> 
+			<input type="text" name="hash" id="hash" value="${param.hash}">
+			
 			<br>
 			
 			<button class="button" type="submit" value="Submit">Sign Up</button>
 		</form>
+		
+		<c:if test='${header.referer.substring(header.referer.lastIndexOf("/") + 1, header.referer.length()).contains("verify")}'>
+			<br>
+			<p class="invalid"><b>There has been an error in verification.</b></p>
+		</c:if>
+		
 		<br>
 	</div>
 </div>

@@ -17,8 +17,11 @@
 	color: red;
 }
 
-#hash
-{
+#hash {
 	visibility: hidden;
 	position: absolute;
+}
+
+.verify {
+	color: green;
 }

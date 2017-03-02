@@ -30,25 +30,33 @@ public class VerifyServlet extends HttpServlet
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		String url = request.getParameter("hash");
+		String hash = request.getParameter("hash");
 		
 		UserBean bean = new UserBean();
 		bean.setEmail(request.getParameter("em"));
 		bean.setPassword(request.getParameter("pw"));
 		
-		bean = UserDAO.verify(bean, url);
-		if(bean.isValid())
-		{
-			HttpSession session = request.getSession(true); 
-			session.setAttribute("currentSessionUser",bean);
-			response.sendRedirect("userLogged"); //logged-in page
+		if(hash != null && hash.length() > 0) { //making sure there was actually a hash in the url
+			bean = UserDAO.verify(bean, hash);
+			if(bean.isValid())
+			{
+				HttpSession session = request.getSession(true); 
+				session.setAttribute("currentSessionUser", bean);
+				response.sendRedirect("userLogged"); //logged-in page
+			}
+			else {
+				response.sendRedirect("verify?hash=" + hash); //going back to the verify page with the same hash
+			}
+		}
+		else {
+			response.sendRedirect("verify"); //going back to the verify page (but originally there was no hash)
 		}
 	}
 

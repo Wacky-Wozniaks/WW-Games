@@ -50,7 +50,7 @@ public class SignupServlet extends HttpServlet {
 				if(user.isValid()) {
 					HttpSession session = request.getSession(true); 
 					session.setAttribute("currentSessionUser",user);
-					response.sendRedirect("userLogged"); //logged-in page
+					response.sendRedirect("login");
 				}
 			}
 			  

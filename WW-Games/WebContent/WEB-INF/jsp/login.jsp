@@ -31,6 +31,11 @@
 			<br>
 			<p class="invalid"><b>Invalid Email/Password.</b></p>
 		</c:if>
+		<c:if test='${header.referer.substring(header.referer.lastIndexOf("/") + 1, header.referer.length()) eq "signup"}'>
+			<br>
+			<p class="verify"><b>Please verify your email. A message has been sent to you.</b></p>
+		</c:if>
+		
 		<br>
 	</div>
 </div>
