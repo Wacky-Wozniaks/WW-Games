@@ -13,6 +13,7 @@ import com.wackywozniaks.daos.UserDAO;
 
 /**
  * Servlet implementation class VerifyServlet
+ * @author WackyWozniaks Company
  */
 @WebServlet("/VerifyServlet")
 public class VerifyServlet extends HttpServlet
@@ -33,6 +34,8 @@ public class VerifyServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
 	/**
+	 * Takes the information provided from the login page and sends it to UserDAO to verify their information. 
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

@@ -21,6 +21,11 @@ import com.wackywozniaks.controllers.ConnectionController;
 
 /**
  * 
+ * This is the user data access object which handles queries to the database, etc. 
+ * 
+ * This code was based off http://met.guc.edu.eg/OnlineTutorials/JSP%20-%20Servlets/Full%20Login%20Example.aspx but was
+ * heavily modified by the Wacky Wozniaks Company.
+ * 
  * @author WackyWozniaks Company
  *
  */
@@ -29,6 +34,12 @@ public class UserDAO {
 	static ResultSet rs = null;
 	static String url = "http://localhost:8080/WW-Games/";
 	
+	/**
+	 * This method takes in a user bean with new information and makes a new user if possible. Returns a valid bean if successful.
+	 * 
+	 * @param bean the original bean
+	 * @return the modified bean
+	 */
 	public static UserBean newUser(UserBean bean)
 	{
 		bean.setVerified(false);
@@ -88,14 +99,26 @@ public class UserDAO {
 		return bean;
 	}
 	
+	/**
+	 * Checks whether a password meets the defined set of requirements
+	 * 
+	 * @param password the password
+	 * @return Whether the password meets requirements
+	 */
 	private static boolean meetsRequirements(String password)
 	{
 		if(password.length() < 8) return false; //password must be at least 8 characters
 		return true;
 	}
 	
-	//Adapted from https://www.tutorialspoint.com/jsp/jsp_sending_email.htm
-	//with gmail help from http://stackoverflow.com/questions/15597616/sending-email-via-gmail-smtp-server-in-java
+	/**
+	 * Sends a verification email
+	 * 
+	 * Adapted from https://www.tutorialspoint.com/jsp/jsp_sending_email.htm with gmail help 
+	 * from http://stackoverflow.com/questions/15597616/sending-email-via-gmail-smtp-server-in-java
+	 * 
+	 * @param bean the user to be verified
+	 */
 	private static void sendEmail(UserBean bean)
 	{
 		Properties props = System.getProperties();
@@ -130,10 +153,17 @@ public class UserDAO {
 		catch (MessagingException mex) {}
 	}
 	
-	public static UserBean verify(UserBean bean, String url)
+	/**
+	 * Verifies the email of a user. Returns a valid bean if successful.
+	 * 
+	 * @param bean The user to be verified
+	 * @param hash The hash provided in the link
+	 * @return The modified user
+	 */
+	public static UserBean verify(UserBean bean, String hash)
 	{
 		String email = bean.getEmail();
-		if(!BCrypt.checkpw(email, url))
+		if(!BCrypt.checkpw(email, hash))
 		{
 			// TODO send error message
 			bean.setValid(false);
@@ -205,6 +235,12 @@ public class UserDAO {
 		return bean;
 	}
 	
+	/**
+	 * Logs a user in. Returns a valid bean if successful.
+	 * 
+	 * @param bean The user to log in.
+	 * @return The modified bean.
+	 */
 	public static UserBean login(UserBean bean) { //preparing some objects for connection
 		Statement stmt = null;
 		String email = bean.getEmail();

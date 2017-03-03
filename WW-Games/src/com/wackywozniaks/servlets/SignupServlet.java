@@ -14,6 +14,8 @@ import com.wackywozniaks.daos.UserDAO;
 
 /**
  * Servlet implementation class SignupServlet
+ * 
+ * @author WackyWozniaks Company
  */
 @WebServlet("/SignupServlet")
 public class SignupServlet extends HttpServlet {
@@ -24,7 +26,6 @@ public class SignupServlet extends HttpServlet {
      */
     public SignupServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,10 +36,11 @@ public class SignupServlet extends HttpServlet {
 	}
 
 	/**
+	 * Sends the user information given at signup and sends it to UserDAO to send the information to the database.
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			boolean redirected = false;
 			if(request.getParameter("pw").equals(request.getParameter("pw2"))) {

@@ -15,6 +15,11 @@ import com.wackywozniaks.daos.UserDAO;
 
 /**
  * Servlet implementation class LoginServlet
+ * 
+ * This code was based off http://met.guc.edu.eg/OnlineTutorials/JSP%20-%20Servlets/Full%20Login%20Example.aspx but was
+ * heavily modified by the Wacky Wozniaks Company.
+ * 
+ * @author WackyWozniaks Company
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -25,7 +30,6 @@ public class LoginServlet extends HttpServlet {
      */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -36,10 +40,11 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	/**
+	 * Takes the login request of the server and handles it.g
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			UserBean user = new UserBean();
 			user.setEmail(request.getParameter("un"));
