@@ -32,6 +32,8 @@ import com.wackywozniaks.controllers.ConnectionController;
 public class UserDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
+	// TODO Uncomment before uploading to Amazon!
+	//static String url = "http://wackywozniaks.com/";
 	static String url = "http://localhost:8080/WW-Games/";
 	
 	/**
