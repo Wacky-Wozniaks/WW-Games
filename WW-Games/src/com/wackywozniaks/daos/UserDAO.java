@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -71,6 +73,7 @@ public class UserDAO {
 		}
 		catch(SQLException e)
 		{
+			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
 			// TODO exception handing
 		}
 		finally
@@ -152,7 +155,9 @@ public class UserDAO {
 			
 			Transport.send(message);
 		}
-		catch (MessagingException mex) {}
+		catch (MessagingException e) {
+			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
+		}
 	}
 	
 	/**
@@ -207,6 +212,7 @@ public class UserDAO {
 		}
 		catch(SQLException e)
 		{
+			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
 			e.printStackTrace();
 		}
 		finally
@@ -247,7 +253,8 @@ public class UserDAO {
 		Statement stmt = null;
 		String email = bean.getEmail();
 		String password = bean.getPassword();
-		String searchQuery = "select * from users where email='" + email;
+		String searchQuery = "select * from users where email = \'" + email + "\'";
+		//String searchQuery = "select * from users where email='" + email;
 		
 		try { //connect to DB\
 			currentCon = ConnectionController.getConnection();
@@ -270,7 +277,8 @@ public class UserDAO {
 				bean.setValid(true);
 			}
 		} 
-		catch(Exception ex) { 
+		catch(Exception e) { 
+			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
 			//System.out.println("Log In failed: An Exception has occurred! " + ex);
 		} //some exception handling
 		finally { 

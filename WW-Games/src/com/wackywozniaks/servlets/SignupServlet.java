@@ -1,6 +1,8 @@
 package com.wackywozniaks.servlets;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,8 +61,9 @@ public class SignupServlet extends HttpServlet {
 			}
 			if(!redirected) response.sendRedirect("signup");
 		} 
-		catch (Throwable theException) {
-			System.out.println(theException);
+		catch (Throwable e) {
+			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
+			System.out.println(e);
 		}
 			
 		response.getWriter().append("Served at: ").append(request.getContextPath());
