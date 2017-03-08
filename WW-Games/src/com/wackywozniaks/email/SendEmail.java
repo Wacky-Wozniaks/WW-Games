@@ -44,6 +44,7 @@ public class SendEmail {
 			Client client = ClientBuilder.newClient();
 			client.register(HttpAuthenticationFeature.basic(
 					"api",
+					System.getProperty("EMAIL_KEY") //Our secret key
 					));
 
 			WebTarget mgRoot = client.target("https://api.mailgun.net/v3");
