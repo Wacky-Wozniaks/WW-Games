@@ -4,22 +4,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.wackywozniaks.beans.UserBean;
 import com.wackywozniaks.controllers.ConnectionController;
+import com.wackywozniaks.email.SendEmail;
 
 /**
  * 
@@ -66,7 +58,7 @@ public class UserDAO {
 				String updateQuery = "insert into users values(default, \'" + email + "\', \'" + hashed + "\', \'" + bean.getFirstName() + 
 						"\', \'" + bean.getLastName() + "\', false)";
 				stmt.executeUpdate(updateQuery);
-				sendEmail(bean);
+				SendEmail.sendVerificationEmail(bean);
 				bean.setValid(true);
 			}
 			else bean.setValid(false);
@@ -114,50 +106,6 @@ public class UserDAO {
 	{
 		if(password.length() < 8) return false; //password must be at least 8 characters
 		return true;
-	}
-	
-	/**
-	 * Sends a verification email
-	 * 
-	 * Adapted from https://www.tutorialspoint.com/jsp/jsp_sending_email.htm with gmail help 
-	 * from http://stackoverflow.com/questions/15597616/sending-email-via-gmail-smtp-server-in-java
-	 * 
-	 * @param bean the user to be verified
-	 */
-	private static void sendEmail(UserBean bean)
-	{
-		Properties props = System.getProperties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "465");
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
-		
-		Session mailSession = Session.getInstance(props, new javax.mail.Authenticator()
-		{
-			protected PasswordAuthentication getPasswordAuthentication()
-			{
-				return new PasswordAuthentication("prrpapm", "mxclubwebsite");
-			}
-		});
-		
-		try
-		{
-			MimeMessage message = new MimeMessage(mailSession);
-			message.setFrom(new InternetAddress("prrpapm@gmail.com"));
-			String email = bean.getEmail();
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			
-			String link = url + "verify?hash=" + BCrypt.hashpw(email, BCrypt.gensalt());
-			message.setSubject("Verify Your Email for Wacky-Wozniaks");
-			message.setText("Hi " + bean.getFirstName() + ",\r\nIn order to create an account on Wacky-Wozniaks, you need to verify that this email is yours. "
-					+ "Please use the link below and enter your password to comfirm your email.\r\n" + link);
-			
-			Transport.send(message);
-		}
-		catch (MessagingException e) {
-			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
-		}
 	}
 	
 	/**
@@ -269,7 +217,7 @@ public class UserDAO {
 				//System.out.println("Sorry, you are not a registered user! Please sign up first");
 				bean.setValid(false);
 			} //if user exists set the isValid variable to true
-			else if(more) { 
+			else if(more) {
 				String firstName = rs.getString("first_name");
 				String lastName = rs.getString("last_name");
 				bean.setFirstName(firstName);
