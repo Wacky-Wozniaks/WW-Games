@@ -26,9 +26,6 @@ import com.wackywozniaks.email.SendEmail;
 public class UserDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
-	// TODO Uncomment before uploading to Amazon!
-	//static String url = "http://wackywozniaks.com/";
-	static String url = "http://localhost:8080/WW-Games/";
 	
 	/**
 	 * This method takes in a user bean with new information and makes a new user if possible. Returns a valid bean if successful.

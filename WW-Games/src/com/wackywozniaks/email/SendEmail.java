@@ -25,9 +25,6 @@ import com.wackywozniaks.beans.UserBean;
  * @author WackyWozniaks Company
  */
 public class SendEmail {
-	
-	//final static String URL = "http://wackywozniaks.com/";
-	final static String URL = "http://localhost:8080/WW-Games/";
 
 	/**
 	 * The generic email sending method. Uses MailGun.
@@ -73,7 +70,7 @@ public class SendEmail {
 	 * @return The ClientResponse from the email
 	 */
 	public static ClientResponse sendVerificationEmail(UserBean bean) {
-		String link = URL + "verify?hash=" + BCrypt.hashpw(bean.getEmail(), BCrypt.gensalt());
+		String link = System.getProperty("URL") + "verify?hash=" + BCrypt.hashpw(bean.getEmail(), BCrypt.gensalt());
 		
 		return sendEmail("Wacky Wozniaks <no-reply@wackywozniaks.com>", bean.getEmail(), "Wacky Wozniaks Email Verification", 
 				"Your email does not support HTML!", 
