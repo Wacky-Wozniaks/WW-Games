@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.wackywozniaks.daos.UserDAO;
+
 /**
  * Manages connections to the database.
  * 
@@ -23,19 +25,21 @@ public class ConnectionController {
 	 * @return The Connection
 	 */
 	public static Connection getConnection() {
-	    if (System.getProperty("RDS_HOSTNAME") != null) {
+	    if (System.getenv("RDS_HOSTNAME") != null) {
 			try {
 				Class.forName("org.postgresql.Driver");
-				String dbName = System.getProperty("RDS_DB_NAME");
-				String userName = System.getProperty("RDS_USERNAME");
-				String password = System.getProperty("RDS_PASSWORD");
-				String hostname = System.getProperty("RDS_HOSTNAME");
-				String port = System.getProperty("RDS_PORT");
+				String dbName = System.getenv("RDS_DB_NAME");
+				String userName = System.getenv("RDS_USERNAME");
+				String password = System.getenv("RDS_PASSWORD");
+				String hostname = System.getenv("RDS_HOSTNAME");
+				String port = System.getenv("RDS_PORT");
 				String jdbcUrl = "jdbc:postgresql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
 				Connection con = DriverManager.getConnection(jdbcUrl);
 				return con;
 			}
-			catch (ClassNotFoundException | SQLException e) {}
+			catch (ClassNotFoundException | SQLException e) {
+				Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
+			}
 	    }
 	    
 	    return null;
