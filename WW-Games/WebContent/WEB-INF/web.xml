@@ -1,71 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>Wacky Wozniaks</display-name>
-  <!--<welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>-->
-  
-  <welcome-file-list>
-  	<welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
-  </welcome-file-list>
-  
-  	<filter>
-  		<filter-name>sitemesh</filter-name>
-  		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>Wacky Wozniaks</display-name>
+
+	<welcome-file-list>
+		<welcome-file>/WEB-INF/jsp/login.html</welcome-file>
+		<welcome-file>/WEB-INF/jsp/login.htm</welcome-file>
+		<welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/errors/404Error.jsp</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/jsp/errors/genericError.jsp</location>
+	</error-page>
+
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
 	</filter>
 	<filter-mapping>
-	  <filter-name>sitemesh</filter-name>
-	  <url-pattern>/*</url-pattern>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-  
-  <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <jsp-file>/WEB-INF/jsp/login.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/login</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>Signup</servlet-name>
-    <jsp-file>/WEB-INF/jsp/signup.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Signup</servlet-name>
-    <url-pattern>/signup</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>UserLogged</servlet-name>
-    <jsp-file>/WEB-INF/jsp/userLogged.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserLogged</servlet-name>
-    <url-pattern>/userLogged</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>Verify</servlet-name>
-    <jsp-file>/WEB-INF/jsp/verify.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Verify</servlet-name>
-    <url-pattern>/verify</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>VerifyEmail</servlet-name>
-  	<jsp-file>/WEB-INF/jsp/verifyEmail.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>VerifyEmail</servlet-name>
-    <url-pattern>/verifyEmail</url-pattern>
-  </servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<jsp-file>/WEB-INF/jsp/login.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Signup</servlet-name>
+		<jsp-file>/WEB-INF/jsp/signup.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Signup</servlet-name>
+		<url-pattern>/signup</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UserLogged</servlet-name>
+		<jsp-file>/WEB-INF/jsp/userLogged.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UserLogged</servlet-name>
+		<url-pattern>/userLogged</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Verify</servlet-name>
+		<jsp-file>/WEB-INF/jsp/verify.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Verify</servlet-name>
+		<url-pattern>/verify</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>VerifyEmail</servlet-name>
+		<jsp-file>/WEB-INF/jsp/verifyEmail.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerifyEmail</servlet-name>
+		<url-pattern>/verifyEmail</url-pattern>
+	</servlet-mapping>
 </web-app>
