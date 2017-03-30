@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 				if(user.isVerified())
 				{
 					HttpSession session = request.getSession(true); 
-					session.setAttribute("currentSessionUser",user);
+					session.setAttribute("currentSessionUser", user);
 					response.sendRedirect("userLogged"); //logged-in page
 				}
 				else response.sendRedirect("verifyEmail");

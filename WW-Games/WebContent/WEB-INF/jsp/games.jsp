@@ -1,0 +1,1 @@
+<h1>Sorry, no games available at this time!</h1>

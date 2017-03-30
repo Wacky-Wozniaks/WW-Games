@@ -74,4 +74,14 @@
 		<servlet-name>VerifyEmail</servlet-name>
 		<url-pattern>/verifyEmail</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Games</servlet-name>
+		<jsp-file>/WEB-INF/jsp/games.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Games</servlet-name>
+		<url-pattern>/games</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
