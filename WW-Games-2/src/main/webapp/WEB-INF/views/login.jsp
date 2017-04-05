@@ -29,6 +29,7 @@
 		
 		<br>
 		<p class="invalid"><b>${error}</b></p>
+		<p class="message"><b>${msg}</b></p>
 		
 		<br>
 	</div>

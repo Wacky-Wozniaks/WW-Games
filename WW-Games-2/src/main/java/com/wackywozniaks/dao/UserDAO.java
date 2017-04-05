@@ -2,8 +2,6 @@ package com.wackywozniaks.dao;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import com.wackywozniaks.dto.LoginBean;
 import com.wackywozniaks.entity.User;
 
@@ -16,11 +14,13 @@ import com.wackywozniaks.entity.User;
  */
 public interface UserDAO {
 	
-	public void setDataSource(DataSource ds);
+	//public void setDataSource(DataSource dataSource);
 	
 	public void createUser(LoginBean user);
 	
 	public User getUser(Long id);
+	
+	public User getUser(String email);
 	
 	public List<User> listUsers();
 	

@@ -1,30 +1,29 @@
 package com.wackywozniaks.dao.impl;
 
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
-import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.wackywozniaks.dao.UserDAO;
 import com.wackywozniaks.dto.LoginBean;
 import com.wackywozniaks.entity.User;
 import com.wackywozniaks.mapper.UserMapper;
 
+@Repository("userDAOImpl")
 public class UserDAOImpl implements UserDAO {
 	
-	private DataSource dataSource;
-	private JdbcTemplate jdbcTemplateObject;
+	//private DataSource dataSource;
+	private JdbcTemplate jdbcTemplate;
 	
+	//@Autowired
 	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+		//this.dataSource = dataSource;
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
 		String sql = "select * from Users where id = ?";
 		User user = null;
 		try {
-			user = jdbcTemplateObject.queryForObject(sql, new Object[]{id}, new UserMapper());
+			user = jdbcTemplate.queryForObject(sql, new Object[]{id}, new UserMapper());
 		}
 		catch(EmptyResultDataAccessException e) {
 			return null;
@@ -48,7 +47,7 @@ public class UserDAOImpl implements UserDAO {
 		String sql = "select * from Users where email = ?";
 		User user = null;
 		try {
-			user = jdbcTemplateObject.queryForObject(sql, new Object[]{email}, new UserMapper());
+			user = jdbcTemplate.queryForObject(sql, new Object[]{email}, new UserMapper());
 		}
 		catch(EmptyResultDataAccessException e) {
 			return null;
@@ -58,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
 
 	public List<User> listUsers() {
 		String sql = "select * from Users";
-		List<User> users = jdbcTemplateObject.query(sql, new UserMapper());
+		List<User> users = jdbcTemplate.query(sql, new UserMapper());
 		return users;
 	}
 

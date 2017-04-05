@@ -33,13 +33,9 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-	<session-config>
+	<!--<session-config>
 		<session-timeout>30</session-timeout>
-	</session-config>
-	
-	<welcome-file-list>
-		<welcome-file>/WEB-INF/views/login.jsp</welcome-file>
-	</welcome-file-list>
+	</session-config>-->
 	
 	<error-page>
 		<error-code>404</error-code>
