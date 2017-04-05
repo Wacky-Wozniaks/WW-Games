@@ -1,28 +1,23 @@
 package com.wackywozniaks.games;
 
 import java.util.Observable;
+import java.util.Observer;
 
 public abstract class Game extends Observable
 {
-	protected Player winner;
+	private String name;
 	
-	/**
-	 * Calls on the next player to take their turn. Should only be called if gameOver returns false.
-	 */
-	public abstract void play();
+	protected Game(String name, Observer o)
+	{
+		this.name = name;
+		addObserver(o);
+	}
+	
+	public abstract boolean doMove(Move m);
 	
 	/**
 	 * Determines if the game has reached its ending point.
-	 * @return If the game is over.
+	 * @return The winner, or null if the game is not over.
 	 */
-	public abstract boolean gameOver();
-	
-	/**
-	 * Determines who has won the game. Should only be called if gameOver returns true.
-	 * @return The winner of the game, or null if there isn't one.
-	 */
-	public Player winner()
-	{
-		return winner;
-	}
+	public abstract Player gameOver();
 }

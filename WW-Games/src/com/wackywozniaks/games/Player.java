@@ -4,5 +4,5 @@ public abstract class Player
 {
 	private String name;
 	
-	public abstract void move(Game g);
+	public abstract Move move(Game g);
 }
