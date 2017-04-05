@@ -17,6 +17,12 @@ import com.wackywozniaks.email.SendEmail;
 import com.wackywozniaks.entity.User;
 import com.wackywozniaks.mapper.UserMapper;
 
+/**
+ * The Implementation of the UserDAO interface.
+ * 
+ * @author Wacky Wozniaks Company
+ * @version 04/05/2017
+ */
 @Repository("userDAOImpl")
 public class UserDAOImpl implements UserDAO {
 	
@@ -28,7 +34,7 @@ public class UserDAOImpl implements UserDAO {
 		//this.dataSource = dataSource;
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
-
+	
 	@Override
 	public void createUser(SignupBean signupBean) {
 		String sql = "insert into users values(default, ?, ?, ?, ?, false)";
@@ -41,7 +47,8 @@ public class UserDAOImpl implements UserDAO {
 		}
 		
 	}
-
+	
+	@Override
 	public User getUser(Long id) {
 		String sql = "select * from Users where id = ?";
 		User user = null;
@@ -55,6 +62,7 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 	
+	@Override
 	public User getUser(String email) {
 		String sql = "select * from Users where email = ?";
 		User user = null;
@@ -67,13 +75,15 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return user;
 	}
-
+	
+	@Override
 	public List<User> listUsers() {
 		String sql = "select * from Users";
 		List<User> users = jdbcTemplate.query(sql, new UserMapper());
 		return users;
 	}
 	
+	@Override
 	public void verifyUser(String email) {
 		String sql = "update users set verified = true where email = ?";
 		try {

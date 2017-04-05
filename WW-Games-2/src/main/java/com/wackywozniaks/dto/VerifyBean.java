@@ -4,6 +4,7 @@ package com.wackywozniaks.dto;
  * Stores Verification information.
  * 
  * @author WackyWozniaks Company
+ * @version 04/05/2017
  */
 public class VerifyBean {
 	

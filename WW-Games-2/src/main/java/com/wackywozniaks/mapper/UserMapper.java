@@ -7,6 +7,12 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.wackywozniaks.entity.User;
 
+/**
+ * Takes the raw data from a query for a user and maps it to a user object.
+ * 
+ * @author Wacky Wozniaks Company
+ * @version 04/05/2017
+ */
 public class UserMapper implements RowMapper<User> {
 	
 	public User mapRow(ResultSet rs, int fowNum) throws SQLException {

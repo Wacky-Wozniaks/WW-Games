@@ -19,6 +19,12 @@ import com.wackywozniaks.dto.SignupBean;
 import com.wackywozniaks.dto.VerifyBean;
 import com.wackywozniaks.entity.User;
 
+/**
+ * This class is the controller for logins, signups, and email verifications.
+ * 
+ * @author Wacky Wozniaks
+ * @version 04/05/2017
+ */
 @Controller
 public class LoginController /*extends WWController*/ {
 	
@@ -27,13 +33,27 @@ public class LoginController /*extends WWController*/ {
 	
 	//@Autowired
 	private ApplicationContext context;
-
+	
+	/**
+	 * This page takes the GET request associated with "/login" and serves up the login page.
+	 * 
+	 * @param model Variables to be passed to the web page.
+	 * @return Login Page
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String initLogin(Model model) {
         model.addAttribute("msg", "Please Enter Your Login Details");
         return "login";
     }
 	
+	/**
+	 * Takes the login page POST request (the login form).
+	 * 
+	 * @param model Variables to be passed to the web page.
+	 * @param loginBean The values from the form.
+	 * @param request The HttpServletRequest from the page.
+	 * @return The appropriate redirect.
+	 */
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String login(Model model, @ModelAttribute("loginBean") LoginBean loginBean, HttpServletRequest request) {
 		if(loginBean == null) {
@@ -65,11 +85,24 @@ public class LoginController /*extends WWController*/ {
 		}
 	}
 	
+	/**
+	 * This page takes the GET request associated with "/signup" and serves up the signup page.
+	 * 
+	 * @param model Variables to be passed to the web page.
+	 * @return Signup Page
+	 */
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String initSignup(Model model) {
 		return "signup";
 	}
 	
+	/**
+	 * Takes the signup page POST request (the signup form).
+	 * 
+	 * @param model Variables to be passed to the web page.
+	 * @param signupBean The values from the form.
+	 * @return The appropriate redirect.
+	 */
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(Model model, SignupBean signupBean) {
 		context = new ClassPathXmlApplicationContext("Beans.xml");
@@ -99,16 +132,36 @@ public class LoginController /*extends WWController*/ {
 		}
 	}
 	
+	/**
+	 * Takes a password and sees if it meets the requirements for a password.
+	 * 
+	 * @param password The password to be checked,
+	 * @return Whether the password meets requirements
+	 */
 	private static boolean meetsRequirements(String password) {
 		if(password.length() < 8) return false; //password must be at least 8 characters
 		return true;
 	}
 	
+	/**
+	 * This page takes the GET request associated with "/verify" and serves up the verify page.
+	 * 
+	 * @param model Variables to be passed to the web page.
+	 * @return Verify Page
+	 */
 	@RequestMapping(value = "/verify", method = RequestMethod.GET)
 	public String initVerify(Model model) {
 		return "verify";
 	}
 	
+	/**
+	 * Takes the verify page POST request (the verify form).
+	 * 
+	 * @param model Variables to be passed to the web page.
+	 * @param verifyBean The values from the form.
+	 * @param request The HttpServletRequest from the page.
+	 * @return The appropriate redirect.
+	 */
 	@RequestMapping(value = "/verify", method = RequestMethod.POST)
 	public String verify(Model model, VerifyBean verifyBean, HttpServletRequest request) {
 		context = new ClassPathXmlApplicationContext("Beans.xml");

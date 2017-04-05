@@ -1,7 +1,7 @@
 package com.wackywozniaks.dto;
 
 /**
- * Stores user information.
+ * Stores login information.
  * 
  * @author WackyWozniaks Company
  */
