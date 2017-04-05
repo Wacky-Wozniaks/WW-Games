@@ -2,7 +2,7 @@ package com.wackywozniaks.dao;
 
 import java.util.List;
 
-import com.wackywozniaks.dto.LoginBean;
+import com.wackywozniaks.dto.SignupBean;
 import com.wackywozniaks.entity.User;
 
 /**
@@ -16,12 +16,14 @@ public interface UserDAO {
 	
 	//public void setDataSource(DataSource dataSource);
 	
-	public void createUser(LoginBean user);
+	public void createUser(SignupBean user);
 	
 	public User getUser(Long id);
 	
 	public User getUser(String email);
 	
 	public List<User> listUsers();
+	
+	public void verifyUser(String email);
 	
 }

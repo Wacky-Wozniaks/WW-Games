@@ -25,3 +25,7 @@
 .verify {
 	color: green;
 }
+
+.error {
+	color: red;
+}
