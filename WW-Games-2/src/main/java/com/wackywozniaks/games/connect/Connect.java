@@ -6,6 +6,12 @@ import java.util.Observer;
 import com.wackywozniaks.games.Game;
 import com.wackywozniaks.games.Player;
 
+/**
+ * An abstract framework for games like Connect4 and Tic Tac Toe.
+ * 
+ * @author WackyWozniaks Company
+ * @version 04/07/2017
+ */
 public abstract class Connect extends Game
 {
 	public static final int EMPTY = 0, PLAYER1 = 1, PLAYER2 = 2;
@@ -25,6 +31,10 @@ public abstract class Connect extends Game
 		count = 0;
 	}
 	
+	/**
+	 * If the game has a winner, the highlight is all of the indices of the winning chain.
+	 * @return The highlight, or null if the game isn't over.
+	 */
 	public int[][] getHighlight()
 	{
 		return highlight;
@@ -64,12 +74,30 @@ public abstract class Connect extends Game
 				{
 					int i = board[r][c];
 					
-					boolean row =  r <= board.length - connection, col = c <= board[0].length - connection;
+					boolean row = r <= board.length - connection, col = c <= board[0].length - connection, reverse = c >= connection - 1;
 					
 					if(row && col)
 					{
 						highlight = new int[connection][2];
 						for(int rt = r, ct = c, count = 0; count < connection; count++, rt++, ct++)
+						{
+							if(board[rt][ct] == i)
+							{
+								highlight[count][0] = rt;
+								highlight[count][1] = ct;
+							}
+							else
+							{
+								highlight = null;
+								break;
+							}
+						}
+						if(highlight != null) return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
+					}
+					else if(row && reverse)
+					{
+						highlight = new int[connection][2];
+						for(int rt = r, ct = c, count = 0; count < connection; count++, rt++, ct--)
 						{
 							if(board[rt][ct] == i)
 							{
