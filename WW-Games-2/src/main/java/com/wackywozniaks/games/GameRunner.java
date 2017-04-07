@@ -15,10 +15,7 @@ public class GameRunner
 		Connect4View view = new Connect4View();
 		Connect4 game = new Connect4(p1, p2, view);
 		Controller c = new Controller(game, p1, p2);
-		
-		Player winner = c.play();
-		if(winner.equals(p1)) System.out.println("Player 1 wins!");
-		else if(winner.equals(p2)) System.out.println("Player 2 wins!");
+		play(c);
 	}
 	
 	public static void tictactoe()
@@ -28,10 +25,16 @@ public class GameRunner
 		TicTacToeView view = new TicTacToeView();
 		TicTacToe game = new TicTacToe(p1, p2, view);
 		Controller c = new Controller(game, p1, p2);
-		
-		Player winner = c.play();
-		if(winner.equals(p1)) System.out.println("Player 1 wins!");
-		else if(winner.equals(p2)) System.out.println("Player 2 wins!");
+		play(c);
+	}
+	
+	private static void play(Controller c)
+	{
+		int winner = c.play();
+		if(winner == Game.TIE) System.out.println("It's a tie!");
+		else if(winner == Game.WIN1) System.out.println("Player 1 wins!");
+		else if(winner == Game.WIN2) System.out.println("Player 2 wins!");
+		else System.out.println("Error");
 	}
 	
 	public static void main(String[] args)

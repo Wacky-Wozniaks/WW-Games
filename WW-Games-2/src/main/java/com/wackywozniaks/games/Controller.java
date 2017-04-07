@@ -12,13 +12,11 @@ public class Controller
 		this.p2 = p2;
 	}
 	
-	public Player play()
+	public int play()
 	{
-		Player winner = null;
-		boolean turn1 = false;
-		while(winner == null)
+		int state = Game.NOT_OVER;
+		for(boolean turn1 = true; state == Game.NOT_OVER; turn1 = !turn1)
 		{
-			turn1 = !turn1;
 			Move next = null;
 			if(turn1) next = p1.move(g);
 			else next = p2.move(g);
@@ -28,8 +26,8 @@ public class Controller
 				System.out.println("Invalid move");
 				turn1 = ! turn1;
 			}
-			else winner = g.gameOver();
+			else state = g.gameOver();
 		}
-		return winner;
+		return state;
 	}
 }

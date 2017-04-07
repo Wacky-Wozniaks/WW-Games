@@ -13,6 +13,7 @@ public abstract class Connect extends Game
 	private Player p1, p2;
 	private int[][] board, highlight;
 	private int connection;
+	private int count;
 	
 	protected Connect(int length, int width, int connection, Observer o, String name, Player p1, Player p2)
 	{
@@ -21,6 +22,7 @@ public abstract class Connect extends Game
 		this.connection = connection;
 		this.p1 = p1;
 		this.p2 = p2;
+		count = 0;
 	}
 	
 	public int[][] getHighlight()
@@ -34,6 +36,7 @@ public abstract class Connect extends Game
 		board[row][col] = p == p1 ? PLAYER1 : PLAYER2;
 		setChanged();
 		notifyObservers();
+		count++;
 		return true;
 	}
 	
@@ -51,7 +54,7 @@ public abstract class Connect extends Game
 	}
 	
 	@Override
-	public Player gameOver()
+	public int gameOver()
 	{
 		for(int r = 0; r < board.length; r++)
 		{
@@ -79,7 +82,7 @@ public abstract class Connect extends Game
 								break;
 							}
 						}
-						if(highlight != null) return i == PLAYER1 ? p1 : p2;
+						if(highlight != null) return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
 					}
 					else if(row)
 					{
@@ -97,7 +100,7 @@ public abstract class Connect extends Game
 								break;
 							}
 						}
-						if(highlight != null) return i == PLAYER1 ? p1 : p2;
+						if(highlight != null) return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
 					}
 					else if(col)
 					{
@@ -115,12 +118,13 @@ public abstract class Connect extends Game
 								break;
 							}
 						}
-						if(highlight != null) return i == PLAYER1 ? p1 : p2;
+						if(highlight != null) return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
 					}
 				}
 			}
 		}
-		return null;
+		if(count == board.length * board[0].length) return Game.TIE;
+		else return Game.NOT_OVER;
 	}
 	
 	public int[][] getBoard()
