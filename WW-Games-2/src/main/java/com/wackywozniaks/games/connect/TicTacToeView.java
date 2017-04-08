@@ -28,7 +28,7 @@ public class TicTacToeView implements Observer
 			{
 				if(game[row][col] == Connect.PLAYER2) System.out.print("O");
 				else if(game[row][col] == Connect.PLAYER1) System.out.print("X");
-				else if(game[row][col] == 5) System.out.println("*");
+				else if(game[row][col] == 5) System.out.print("*");
 				else System.out.print("-");
 			}
 			System.out.println();

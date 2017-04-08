@@ -74,7 +74,7 @@ public abstract class Connect extends Game
 				{
 					int i = board[r][c];
 					
-					boolean row = r <= board.length - connection, col = c <= board[0].length - connection, reverse = c >= connection - 1;
+					boolean row = r <= board.length - connection, col = c <= board[0].length - connection, reverse = c >= connection - 1, gameOver = false;
 					
 					if(row && col)
 					{
@@ -92,9 +92,9 @@ public abstract class Connect extends Game
 								break;
 							}
 						}
-						if(highlight != null) return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
+						if(highlight != null) gameOver = true;
 					}
-					else if(row && reverse)
+					if(!gameOver && row && reverse)
 					{
 						highlight = new int[connection][2];
 						for(int rt = r, ct = c, count = 0; count < connection; count++, rt++, ct--)
@@ -110,9 +110,9 @@ public abstract class Connect extends Game
 								break;
 							}
 						}
-						if(highlight != null) return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
+						if(highlight != null) gameOver = true;
 					}
-					else if(row)
+					if(!gameOver && row)
 					{
 						highlight = new int[connection][2];
 						for(int rt = r, count = 0; count < connection; count++, rt++)
@@ -128,9 +128,9 @@ public abstract class Connect extends Game
 								break;
 							}
 						}
-						if(highlight != null) return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
+						if(highlight != null) gameOver = true;
 					}
-					else if(col)
+					if(!gameOver && col)
 					{
 						highlight = new int[connection][2];
 						for(int ct = c, count = 0; count < connection; count++, ct++)
@@ -146,7 +146,14 @@ public abstract class Connect extends Game
 								break;
 							}
 						}
-						if(highlight != null) return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
+						if(highlight != null) gameOver = true;
+					}
+					
+					if(gameOver)
+					{
+						setChanged();
+						notifyObservers();
+						return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
 					}
 				}
 			}
