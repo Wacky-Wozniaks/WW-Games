@@ -3,6 +3,12 @@ package com.wackywozniaks.games;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * An abstract instance of a game.
+ * 
+ * @author WackyWozniaks Company
+ * @version 04/07/2017
+ */
 public abstract class Game extends Observable
 {
 	public static final int NOT_OVER = -1, TIE = 0, WIN1 = 1, WIN2 = 2;

@@ -5,6 +5,12 @@ import java.util.Scanner;
 import com.wackywozniaks.games.Game;
 import com.wackywozniaks.games.Player;
 
+/**
+ * A player for a connect game.
+ * 
+ * @author WackyWozniaks Company
+ * @version 04/07/2017
+ */
 public class ConnectPlayer extends Player
 {
 

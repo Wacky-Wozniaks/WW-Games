@@ -1,5 +1,11 @@
 package com.wackywozniaks.games;
 
+/**
+ * Manages a game and its players.
+ * 
+ * @author WackyWozniaks Company
+ * @version 04/07/2017
+ */
 public class Controller
 {
 	private Game g;

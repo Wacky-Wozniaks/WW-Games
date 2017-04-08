@@ -3,6 +3,12 @@ package com.wackywozniaks.games.connect;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * A view of a Connect4 game, updated after each change.
+ * 
+ * @author WackyWozniaks Company
+ * @version 04/07/2017
+ */
 public class Connect4View implements Observer
 {
 
