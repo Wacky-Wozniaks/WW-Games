@@ -1,0 +1,30 @@
+.board {
+	width: 54%;
+	margin: auto;
+	table-layout: fixed;
+}
+
+.board-row {
+	padding-top: 33.3%;
+	background-color: white !important;
+}
+
+.board-cell {
+	width: 33.3%;
+	/*padding-top: 24%;*/
+}
+
+.text {
+	font-size: 7rem;
+	text-align: center;
+}
+
+.vertical {
+	border-left: 5px solid #000;
+    border-right: 5px solid #000;
+}
+
+.horizontal {
+	border-top: 5px solid #000;
+    border-bottom: 5px solid #000;
+}

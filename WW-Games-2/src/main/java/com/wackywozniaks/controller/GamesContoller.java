@@ -13,25 +13,17 @@ import com.wackywozniaks.dao.impl.UserDAOImpl;
 import com.wackywozniaks.entity.User;
 
 /**
- * The home page for the user.
  * 
  * @author Wacky Wozniaks Company
- * @version 04/05/2017
+ * @version 04/08/2017
  */
 @Controller
-@RequestMapping("/home")
-public class HomeController {
+@RequestMapping("/games")
+public class GamesContoller {
 	
 	private UserDAOImpl userDAOImpl;
 	private ApplicationContext context;
 	
-	/**
-	 * Takes the GET request associated with "/home" and serves the user home page.
-	 * 
-	 * @param model The variable to be passed to the web page.
-	 * @param request The HttpServletRequest for the page.
-	 * @return The user home page.
-	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String init(Model model, HttpServletRequest request) {
 		String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");
@@ -42,7 +34,21 @@ public class HomeController {
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
-        return "userLogged";
-    }
+        return "games";
+	}
+	
+	@RequestMapping(value = "tictactoe", method = RequestMethod.GET)
+	public String tictactoe(Model model, HttpServletRequest request) {
+		String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");
+		if(currSessionUser == null) {
+			return "redirect:/login";
+		}
+		context = new ClassPathXmlApplicationContext("Beans.xml");
+		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
+		User user = userDAOImpl.getUser(currSessionUser);
+		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+        return "tictactoe";
+	}
+
 
 }

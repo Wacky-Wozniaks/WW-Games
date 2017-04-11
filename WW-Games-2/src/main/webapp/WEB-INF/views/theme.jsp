@@ -6,6 +6,9 @@
 <html>
 
 	<head>
+		<base href="/WW-Games-2/">
+	    <link rel="shortcut icon" href="resources/images/favicon.ico"/>
+
 		<link rel="stylesheet" href="resources/css/foundation.min.css"> <%-- Foundation CSS --%>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <%-- Google Icons --%>
 		
