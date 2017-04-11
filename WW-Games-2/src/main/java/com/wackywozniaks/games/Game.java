@@ -11,20 +11,54 @@ import java.util.Observer;
  */
 public abstract class Game extends Observable
 {
-	public static final int NOT_OVER = -1, TIE = 0, WIN1 = 1, WIN2 = 2;
 	private String name;
+	protected Player[] players;
+	protected Player winner;
 	
-	protected Game(String name, Observer o)
+	protected Game(String name, Observer o, Player[] players)
 	{
 		this.name = name;
 		addObserver(o);
+		this.players = players;
 	}
 	
+	/**
+	 * Returns the game's name.
+	 * @return The name of the game.
+	 */
+	public String getName()
+	{
+		return name;
+	}
+	
+	/**
+	 * Returns the number of players in the game.
+	 * @return The number of players
+	 */
+	public int getNumPlayers()
+	{
+		return players.length;
+	}
+	
+	/**
+	 * Updates the game based on the given move.
+	 * @param m The move made.
+	 * @return If the move was successful.
+	 */
 	public abstract boolean doMove(Move m);
 	
 	/**
 	 * Determines if the game has reached its ending point.
-	 * @return One of the integer constants representing the state of the game.
+	 * @return Whether the game is over.
 	 */
-	public abstract int gameOver();
+	public abstract boolean gameOver();
+	
+	/**
+	 * Returns the winner of the game, or null if the game is not over or ended in a tie.
+	 * @return The winner
+	 */
+	public Player getWinner()
+	{
+		return winner;
+	}
 }

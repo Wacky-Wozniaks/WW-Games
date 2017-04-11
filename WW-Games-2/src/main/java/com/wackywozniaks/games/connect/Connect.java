@@ -16,18 +16,15 @@ public abstract class Connect extends Game
 {
 	public static final int EMPTY = 0, PLAYER1 = 1, PLAYER2 = 2;
 	
-	private Player p1, p2;
 	private int[][] board, highlight;
 	private int connection;
 	private int count;
 	
-	protected Connect(int length, int width, int connection, Observer o, String name, Player p1, Player p2)
+	protected Connect(int length, int width, int connection, Observer o, String name, Player[] players)
 	{
-		super(name, o);
+		super(name, o, players);
 		board = new int[length][width];
 		this.connection = connection;
-		this.p1 = p1;
-		this.p2 = p2;
 		count = 0;
 	}
 	
@@ -43,7 +40,7 @@ public abstract class Connect extends Game
 	protected boolean insert(int row, int col, Player p)
 	{
 		if(board[row][col] != EMPTY) return false;
-		board[row][col] = p == p1 ? PLAYER1 : PLAYER2;
+		board[row][col] = p == players[0] ? PLAYER1 : PLAYER2;
 		setChanged();
 		notifyObservers();
 		count++;
@@ -64,7 +61,7 @@ public abstract class Connect extends Game
 	}
 	
 	@Override
-	public int gameOver()
+	public boolean gameOver()
 	{
 		for(int r = 0; r < board.length; r++)
 		{
@@ -151,17 +148,22 @@ public abstract class Connect extends Game
 					
 					if(gameOver)
 					{
+						winner = i == PLAYER1 ? players[0] : players[1];
 						setChanged();
 						notifyObservers();
-						return i == PLAYER1 ? Game.WIN1 : Game.WIN2;
+						return true;
 					}
 				}
 			}
 		}
-		if(count == board.length * board[0].length) return Game.TIE;
-		else return Game.NOT_OVER;
+		if(count == board.length * board[0].length) return true;
+		else return false;
 	}
 	
+	/**
+	 * Makes a copy of the current configuration of the board.
+	 * @return The current state of the board.
+	 */
 	public int[][] getBoard()
 	{
 		return Arrays.copyOf(board, board.length);

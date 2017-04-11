@@ -9,31 +9,29 @@ package com.wackywozniaks.games;
 public class Controller
 {
 	private Game g;
-	private Player p1, p2;
+	private Player[] players;
 	
-	public Controller(Game g, Player p1, Player p2)
+	public Controller(Game g, Player[] players)
 	{
 		this.g = g;
-		this.p1 = p1;
-		this.p2 = p2;
+		this.players = players;
 	}
 	
-	public int play()
+	public Player play()
 	{
-		int state = Game.NOT_OVER;
-		for(boolean turn1 = true; state == Game.NOT_OVER; turn1 = !turn1)
+		boolean gameOver = false;
+		for(int player = 0; !gameOver; player++, player %= players.length)
 		{
 			Move next = null;
-			if(turn1) next = p1.move(g);
-			else next = p2.move(g);
+			next = players[player].move(g);
 			boolean moved = g.doMove(next);
 			if(!moved)
 			{
 				System.out.println("Invalid move");
-				turn1 = ! turn1;
+				player--;
 			}
-			else state = g.gameOver();
+			else gameOver = g.gameOver();
 		}
-		return state;
+		return g.getWinner();
 	}
 }

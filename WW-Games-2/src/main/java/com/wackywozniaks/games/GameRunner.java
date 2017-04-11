@@ -16,31 +16,27 @@ public class GameRunner
 {
 	public static void connect4()
 	{
-		ConnectPlayer p1 = new ConnectPlayer();
-		ConnectPlayer p2 = new ConnectPlayer();
+		Player[] players = {new ConnectPlayer("Player 1"), new ConnectPlayer("Player 2")};
 		Connect4View view = new Connect4View();
-		Connect4 game = new Connect4(p1, p2, view);
-		Controller c = new Controller(game, p1, p2);
+		Connect4 game = new Connect4(players, view);
+		Controller c = new Controller(game, players);
 		play(c);
 	}
 	
 	public static void tictactoe()
 	{
-		ConnectPlayer p1 = new ConnectPlayer();
-		ConnectPlayer p2 = new ConnectPlayer();
+		Player[] players = {new ConnectPlayer("Player 1"), new ConnectPlayer("Player 2")};
 		TicTacToeView view = new TicTacToeView();
-		TicTacToe game = new TicTacToe(p1, p2, view);
-		Controller c = new Controller(game, p1, p2);
+		TicTacToe game = new TicTacToe(players, view);
+		Controller c = new Controller(game, players);
 		play(c);
 	}
 	
 	private static void play(Controller c)
 	{
-		int winner = c.play();
-		if(winner == Game.TIE) System.out.println("It's a tie!");
-		else if(winner == Game.WIN1) System.out.println("Player 1 wins!");
-		else if(winner == Game.WIN2) System.out.println("Player 2 wins!");
-		else System.out.println("Error");
+		Player winner = c.play();
+		if(winner == null) System.out.println("It's a tie!");
+		else System.out.println(winner.getName());
 	}
 	
 	public static void main(String[] args)

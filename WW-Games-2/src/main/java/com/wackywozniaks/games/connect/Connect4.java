@@ -13,9 +13,9 @@ import com.wackywozniaks.games.Player;
  */
 public class Connect4 extends Connect
 {
-	public Connect4(Player p1, Player p2, Observer o)
+	public Connect4(Player[] players, Observer o)
 	{
-		super(7, 6, 4, o, "Connect 4", p1, p2);
+		super(7, 6, 4, o, "Connect 4", players);
 	}
 
 	@Override

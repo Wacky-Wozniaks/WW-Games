@@ -13,9 +13,9 @@ import com.wackywozniaks.games.Player;
  */
 public class TicTacToe extends Connect
 {
-	public TicTacToe(Player p1, Player p2, Observer o)
+	public TicTacToe(Player[] players, Observer o)
 	{
-		super(3, 3, 3, o, "Tic-Tac-Toe", p1, p2);
+		super(3, 3, 3, o, "Tic-Tac-Toe", players);
 		
 	}
 

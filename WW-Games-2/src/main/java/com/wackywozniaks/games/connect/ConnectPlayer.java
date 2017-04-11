@@ -13,6 +13,14 @@ import com.wackywozniaks.games.Player;
  */
 public class ConnectPlayer extends Player
 {
+	/**
+	 * Creates a player with the given name.
+	 * @param name The Player's name.
+	 */
+	public ConnectPlayer(String name)
+	{
+		super(name);
+	}
 
 	@Override
 	public ConnectMove move(Game g)
