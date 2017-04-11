@@ -10,7 +10,7 @@ import com.wackywozniaks.games.Player;
  * An abstract framework for games like Connect4 and Tic Tac Toe.
  * 
  * @author WackyWozniaks Company
- * @version 04/07/2017
+ * @version 04/11/2017
  */
 public abstract class Connect extends Game
 {

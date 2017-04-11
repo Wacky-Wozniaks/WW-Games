@@ -4,7 +4,7 @@ package com.wackywozniaks.games;
  * Manages a game and its players.
  * 
  * @author WackyWozniaks Company
- * @version 04/07/2017
+ * @version 04/11/2017
  */
 public class Controller
 {

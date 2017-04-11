@@ -9,7 +9,7 @@ import com.wackywozniaks.games.Player;
  * A player for a connect game.
  * 
  * @author WackyWozniaks Company
- * @version 04/07/2017
+ * @version 04/11/2017
  */
 public class ConnectPlayer extends Player
 {

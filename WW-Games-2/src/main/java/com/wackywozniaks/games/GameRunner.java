@@ -10,7 +10,7 @@ import com.wackywozniaks.games.connect.TicTacToeView;
  * Creates a new instance of a game and calls a Controller to play it.
  * 
  * @author WackyWozniaks Company
- * @version 04/07/2017
+ * @version 04/11/2017
  */
 public class GameRunner
 {

@@ -9,7 +9,7 @@ import com.wackywozniaks.games.Player;
  * A game of Connect 4.
  * 
  * @author WackyWozniaks Company
- * @version 04/07/2017
+ * @version 04/11/2017
  */
 public class Connect4 extends Connect
 {

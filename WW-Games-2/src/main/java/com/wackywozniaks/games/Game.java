@@ -7,7 +7,7 @@ import java.util.Observer;
  * An abstract instance of a game.
  * 
  * @author WackyWozniaks Company
- * @version 04/07/2017
+ * @version 04/11/2017
  */
 public abstract class Game extends Observable
 {
