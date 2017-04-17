@@ -1,5 +1,5 @@
 .board {
-	width: 54%;
+	width: 40%;
 	margin: auto;
 	table-layout: fixed;
 }
@@ -8,14 +8,24 @@
 	padding-top: 33.3%;
 	background-color: white !important;
 }
-
 .board-cell {
 	width: 33.3%;
-	/*padding-top: 24%;*/
+	position: relative;
 }
 
-.text {
-	font-size: 7rem;
+.board-cell:after {
+  content: '';
+  display: block;
+  margin-top: 100%;
+}
+
+.board-cell .text {
+	/*font-size: 700% !important;*/
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	text-align: center;
 }
 
@@ -27,4 +37,8 @@
 .horizontal {
 	border-top: 5px solid #000;
     border-bottom: 5px solid #000;
+}
+
+#msg {
+	text-align: center;
 }

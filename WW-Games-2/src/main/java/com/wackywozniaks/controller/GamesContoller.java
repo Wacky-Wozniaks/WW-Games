@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wackywozniaks.dao.impl.UserDAOImpl;
+import com.wackywozniaks.dto.TicTacToeBean;
 import com.wackywozniaks.entity.User;
 
 /**
@@ -48,6 +49,11 @@ public class GamesContoller {
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
         return "tictactoe";
+	}
+	
+	@RequestMapping(value = "tictactoe", method = RequestMethod.POST) 
+	public String tictactoe(Model model, TicTacToeBean bean) {
+		model.addAttribute("gameState", TicTacToe.doMove(bean.getGameState(), true)); //gamestate, isAI
 	}
 
 
