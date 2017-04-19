@@ -6,16 +6,15 @@
 <html>
 
 	<head>
-		<base href="/WW-Games-2/">
-	    <link rel="shortcut icon" href="resources/images/favicon.ico"/>
+	    <link rel="shortcut icon" href="/resources/images/favicon.ico"/>
 
-		<link rel="stylesheet" href="resources/css/foundation.min.css"> <%-- Foundation CSS --%>
+		<link rel="stylesheet" href="/resources/css/foundation.min.css"> <%-- Foundation CSS --%>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <%-- Google Icons --%>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"> <%-- Sweetalert --%>
 		
-		<script src="resources/js/jquery.js"></script> <%-- JQuery --%>
-		<script src="resources/js/what-input.js"></script> <%-- What-Input (for Foundation) --%>
-		<script src="resources/js/foundation.min.js"></script> <%-- Foundation JS --%>
+		<script src="/resources/js/jquery.js"></script> <%-- JQuery --%>
+		<script src="/resources/js/what-input.js"></script> <%-- What-Input (for Foundation) --%>
+		<script src="/resources/js/foundation.min.js"></script> <%-- Foundation JS --%>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> <%-- Sweetalert --%>
 		
 		<script src="resources/js/theme.js"></script>

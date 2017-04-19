@@ -3,10 +3,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" href="resources/css/foundation.min.css"> <%-- Foundation CSS --%>
+		<link rel="stylesheet" href="/resources/css/foundation.min.css"> <%-- Foundation CSS --%>
 		<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script> <%-- MathJax --%>
 		<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
-		<link rel="stylesheet" href="resources/css/404Error.css">
+		<link rel="stylesheet" href="/resources/css/404Error.css">
 		<title>Wacky Wozniaks</title>
 	</head>
 	<body>

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.wackywozniaks.dao.impl.UserDAOImpl;
 import com.wackywozniaks.dto.TicTacToeBean;
 import com.wackywozniaks.entity.User;
+import com.wackywozniaks.games.connect.Connect4;
+import com.wackywozniaks.games.connect.TicTacToe;
 
 /**
  * 
@@ -55,6 +57,23 @@ public class GamesContoller {
 	public String tictactoe(Model model, TicTacToeBean bean) {
 		model.addAttribute("gameState", TicTacToe.doMove(bean.getGameState(), true)); //gamestate, isAI
 	}
-
+	
+	@RequestMapping(value = "getfour", method = RequestMethod.GET)
+	public String getfour(Model model, HttpServletRequest request) {
+		String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");
+		if(currSessionUser == null) {
+			return "redirect:/login";
+		}
+		context = new ClassPathXmlApplicationContext("Beans.xml");
+		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
+		User user = userDAOImpl.getUser(currSessionUser);
+		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+        return "getfour";
+	}
+	
+	@RequestMapping(value = "getfour", method = RequestMethod.POST) 
+	public String getfour(Model model, TicTacToeBean bean) {
+		model.addAttribute("gameState", Connect4.doMove(bean.getGameState(), true)); //gamestate, isAI
+	}
 
 }

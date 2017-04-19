@@ -3,8 +3,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" href="resources/css/foundation.min.css"> <%-- Foundation CSS --%>
-		<link rel="stylesheet" href="resources/css/genericError.css">
+		<link rel="stylesheet" href="/resources/css/foundation.min.css"> <%-- Foundation CSS --%>
+		<link rel="stylesheet" href="/resources/css/genericError.css">
 		<title>Wacky Wozniaks</title>
 	</head>
 	<body>

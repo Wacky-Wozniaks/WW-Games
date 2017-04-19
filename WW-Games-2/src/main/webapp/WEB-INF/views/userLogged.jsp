@@ -4,5 +4,5 @@
 	<h1>Welcome ${name}!</h1>
 	<%--You have <%= currentUser.getPoints() %> points.--%>
 	<br>
-	<a class="large button" href="games">Play Games</a>
+	<a class="large button" href="/games">Play Games</a>
 </center>
