@@ -21,3 +21,7 @@ td:after {
   display: block;
   margin-top: 100%;
 }
+
+#msg {
+	text-align: center;
+}

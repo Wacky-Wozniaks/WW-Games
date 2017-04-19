@@ -5,63 +5,65 @@
 <link rel="stylesheet" href="/resources/css/getfour.css">
 <script src="/resources/js/getfour.js"></script>
 
+<p id="msg">It's your turn! Click on a space. (You are red)</p>
+
 <br>
 
 <table>
 	<tbody>
 		<tr>
-			<td id="cell00"></td>
-			<td id="cell10"></td>
-			<td id="cell20"></td>
-			<td id="cell30"></td>
-			<td id="cell40"></td>
-			<td id="cell50"></td>
-			<td id="cell60"></td>
+			<td id="cell00" class="board-cell"></td>
+			<td id="cell10" class="board-cell"></td>
+			<td id="cell20" class="board-cell"></td>
+			<td id="cell30" class="board-cell"></td>
+			<td id="cell40" class="board-cell"></td>
+			<td id="cell50" class="board-cell"></td>
+			<td id="cell60" class="board-cell"></td>
 		</tr>
 		<tr>
-			<td id="cell01"></td>
-			<td id="cell11"></td>
-			<td id="cell21"></td>
-			<td id="cell31"></td>
-			<td id="cell41"></td>
-			<td id="cell51"></td>
-			<td id="cell61"></td>
+			<td id="cell01" class="board-cell"></td>
+			<td id="cell11" class="board-cell"></td>
+			<td id="cell21" class="board-cell"></td>
+			<td id="cell31" class="board-cell"></td>
+			<td id="cell41" class="board-cell"></td>
+			<td id="cell51" class="board-cell"></td>
+			<td id="cell61" class="board-cell"></td>
 		</tr>
 		<tr>
-			<td id="cell02"></td>
-			<td id="cell12"></td>
-			<td id="cell22"></td>
-			<td id="cell32"></td>
-			<td id="cell42"></td>
-			<td id="cell52"></td>
-			<td id="cell62"></td>
+			<td id="cell02" class="board-cell"></td>
+			<td id="cell12" class="board-cell"></td>
+			<td id="cell22" class="board-cell"></td>
+			<td id="cell32" class="board-cell"></td>
+			<td id="cell42" class="board-cell"></td>
+			<td id="cell52" class="board-cell"></td>
+			<td id="cell62" class="board-cell"></td>
 		</tr>
 		<tr>
-			<td id="cell03"></td>
-			<td id="cell13"></td>
-			<td id="cell23"></td>
-			<td id="cell33"></td>
-			<td id="cell43"></td>
-			<td id="cell53"></td>
-			<td id="cell63"></td>
+			<td id="cell03" class="board-cell"></td>
+			<td id="cell13" class="board-cell"></td>
+			<td id="cell23" class="board-cell"></td>
+			<td id="cell33" class="board-cell"></td>
+			<td id="cell43" class="board-cell"></td>
+			<td id="cell53" class="board-cell"></td>
+			<td id="cell63" class="board-cell"></td>
 		</tr>
 		<tr>
-			<td id="cell04"></td>
-			<td id="cell14"></td>
-			<td id="cell24"></td>
-			<td id="cell34"></td>
-			<td id="cell44"></td>
-			<td id="cell54"></td>
-			<td id="cell64"></td>
+			<td id="cell04" class="board-cell"></td>
+			<td id="cell14" class="board-cell"></td>
+			<td id="cell24" class="board-cell"></td>
+			<td id="cell34" class="board-cell"></td>
+			<td id="cell44" class="board-cell"></td>
+			<td id="cell54" class="board-cell"></td>
+			<td id="cell64" class="board-cell"></td>
 		</tr>
 		<tr>
-			<td id="cell05"></td>
-			<td id="cell15"></td>
-			<td id="cell25"></td>
-			<td id="cell35"></td>
-			<td id="cell45"></td>
-			<td id="cell55"></td>
-			<td id="cell65"></td>
+			<td id="cell05" class="board-cell"></td>
+			<td id="cell15" class="board-cell"></td>
+			<td id="cell25" class="board-cell"></td>
+			<td id="cell35" class="board-cell"></td>
+			<td id="cell45" class="board-cell"></td>
+			<td id="cell55" class="board-cell"></td>
+			<td id="cell65" class="board-cell"></td>
 		</tr>
 	</tbody>
 </table>
