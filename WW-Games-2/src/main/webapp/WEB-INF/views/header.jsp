@@ -17,7 +17,7 @@
 				<a href="">${name}</a>
 				<ul class="menu submenu is-dropdown-submenu first-sub vertical" role="menu">
 					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="">Profile <i class="material-icons">person</i></a></li>
-					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="">Logout <i class="material-icons">keyboard_tab</i></a></li>
+					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/logout">Logout <i class="material-icons">keyboard_tab</i></a></li>
 				</ul>
 			</li>
 		</ul>
