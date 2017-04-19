@@ -9,7 +9,7 @@
 
 <br>
 
-<table class="board">
+<table class="board" cellspacing="0">
 	<tr class="board-row">
 		<td class="board-cell"><h1 id="cell-1" class="text"></h1></td>
 		<td class="board-cell vertical"><h1 id="cell-2" class="text"></h1></td>
