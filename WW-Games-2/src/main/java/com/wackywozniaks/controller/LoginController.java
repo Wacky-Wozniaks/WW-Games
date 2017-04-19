@@ -192,4 +192,18 @@ public class LoginController /*extends WWController*/ {
 		}
 	}
 	
+	/**
+	 * Takes the request to logout, invalidates the session, and then redirects to the login page.
+	 * 
+	 * @param model Variables to be passed to the web page.
+	 * @param request
+	 * @return A redirect to the login page.
+	 */
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(true); 
+		session.invalidate();
+        return "redirect:login";
+	}
+	
 }
