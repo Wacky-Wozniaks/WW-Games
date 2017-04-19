@@ -1,10 +1,8 @@
 package com.wackywozniaks.games.connect;
 
 import java.util.Arrays;
-import java.util.Observer;
 
 import com.wackywozniaks.games.Game;
-import com.wackywozniaks.games.Player;
 
 /**
  * An abstract framework for games like Connect4 and Tic Tac Toe.
@@ -14,18 +12,26 @@ import com.wackywozniaks.games.Player;
  */
 public abstract class Connect extends Game
 {
-	public static final int EMPTY = 0, PLAYER1 = 1, PLAYER2 = 2;
+	public static final int EMPTY = 0, PLAYER1 = 1, PLAYER2 = 2, NUM_PLAYERS = 2;
 	
 	private int[][] board, highlight;
 	private int connection;
 	private int count;
 	
-	protected Connect(int length, int width, int connection, Observer o, String name, Player[] players)
+	protected Connect(int length, int width, int connection, String name)
 	{
-		super(name, o, players);
+		super(name, NUM_PLAYERS, 0);
 		board = new int[length][width];
 		this.connection = connection;
 		count = 0;
+	}
+	
+	protected Connect(int[][] board, int connection, String name, int count, int numPlayer)
+	{
+		super(name, NUM_PLAYERS, numPlayer);
+		this.board = board;
+		this.connection = connection;
+		this.count = count;
 	}
 	
 	/**
@@ -37,27 +43,9 @@ public abstract class Connect extends Game
 		return highlight;
 	}
 	
-	protected boolean insert(int row, int col, Player p)
+	protected int getCount()
 	{
-		if(board[row][col] != EMPTY) return false;
-		board[row][col] = p == players[0] ? PLAYER1 : PLAYER2;
-		setChanged();
-		notifyObservers();
-		count++;
-		return true;
-	}
-	
-	protected boolean drop(int col, Player p)
-	{
-		for(int r = board.length - 1; r >= 0; r--)
-		{
-			if(board[r][col] == EMPTY)
-			{
-				insert(r, col, p);
-				return true;
-			}
-		}
-		return false;
+		return count;
 	}
 	
 	@Override
@@ -148,9 +136,7 @@ public abstract class Connect extends Game
 					
 					if(gameOver)
 					{
-						winner = i == PLAYER1 ? players[0] : players[1];
-						setChanged();
-						notifyObservers();
+						winner = i == PLAYER1 ? 1 : 2;
 						return true;
 					}
 				}

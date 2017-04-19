@@ -1,25 +1,23 @@
 package com.wackywozniaks.games;
 
-import java.util.Observable;
-import java.util.Observer;
-
 /**
  * An abstract instance of a game.
  * 
  * @author WackyWozniaks Company
  * @version 04/11/2017
  */
-public abstract class Game extends Observable
+public abstract class Game
 {
 	private String name;
-	protected Player[] players;
-	protected Player winner;
+	protected int winner;
+	private int numPlayers, playerTurn;
 	
-	protected Game(String name, Observer o, Player[] players)
+	protected Game(String name, int numPlayers, int playerTurn)
 	{
 		this.name = name;
-		addObserver(o);
-		this.players = players;
+		this.numPlayers = numPlayers;
+		if(playerTurn >= numPlayers) playerTurn %= numPlayers;
+		this.playerTurn = playerTurn;
 	}
 	
 	/**
@@ -37,15 +35,19 @@ public abstract class Game extends Observable
 	 */
 	public int getNumPlayers()
 	{
-		return players.length;
+		return numPlayers;
 	}
 	
 	/**
 	 * Updates the game based on the given move.
 	 * @param m The move made.
-	 * @return If the move was successful.
+	 * @return The new state of the game.
 	 */
-	public abstract boolean doMove(Move m);
+	public abstract Game doMove(Move m);
+	
+	public abstract Move[] getLegalActions();
+	
+	public abstract int evaluate();
 	
 	/**
 	 * Determines if the game has reached its ending point.
@@ -57,8 +59,13 @@ public abstract class Game extends Observable
 	 * Returns the winner of the game, or null if the game is not over or ended in a tie.
 	 * @return The winner
 	 */
-	public Player getWinner()
+	public int getWinner()
 	{
 		return winner;
+	}
+	
+	protected int getPlayerTurn()
+	{
+		return playerTurn;
 	}
 }

@@ -1,10 +1,8 @@
 package com.wackywozniaks.games;
 
 import com.wackywozniaks.games.connect.Connect4;
-import com.wackywozniaks.games.connect.Connect4View;
 import com.wackywozniaks.games.connect.ConnectPlayer;
 import com.wackywozniaks.games.connect.TicTacToe;
-import com.wackywozniaks.games.connect.TicTacToeView;
 
 /**
  * Creates a new instance of a game and calls a Controller to play it.
@@ -20,7 +18,7 @@ public class GameRunner
 		Connect4View view = new Connect4View();
 		Connect4 game = new Connect4(players, view);
 		Controller c = new Controller(game, players);
-		play(c);
+		play(c);s
 	}
 	
 	public static void tictactoe()

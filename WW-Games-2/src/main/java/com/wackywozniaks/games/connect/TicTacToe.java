@@ -13,16 +13,33 @@ import com.wackywozniaks.games.Player;
  */
 public class TicTacToe extends Connect
 {
-	public TicTacToe(Player[] players, Observer o)
+	public static final int LENGTH = 3, WIDTH = 3, CONNECTION = 3, NUM_PLAYERS = 2;
+	
+	public TicTacToe()
 	{
-		super(3, 3, 3, o, "Tic-Tac-Toe", players);
+		super(LENGTH, WIDTH, CONNECTION, "Tic Tac Toe");
 		
+	}
+	
+	private TicTacToe(int[][] board, int count, int numPlayer)
+	{
+		super(board, CONNECTION, "Tic Tac Toe", count, numPlayer);
 	}
 
 	@Override
-	public boolean doMove(Move m)
+	public TicTacToe doMove(Move m)
 	{
 		ConnectMove move = (ConnectMove) m;
-		return insert(move.getRow(), move.getCol(), move.getPlayer());
+		
+		//return insert(move.getRow(), move.getCol(), move.getPlayer());
+		return null;
+	}
+	
+	protected boolean insert(int row, int col)
+	{
+		if(board[row][col] != EMPTY) return false;
+		board[row][col] = p == players[0] ? PLAYER1 : PLAYER2;
+		count++;
+		return true;
 	}
 }
