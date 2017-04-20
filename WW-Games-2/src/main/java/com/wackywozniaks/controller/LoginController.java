@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.wackywozniaks.dao.PasswordRecoveryDAO;
 import com.wackywozniaks.dao.UserDAO;
 import com.wackywozniaks.dao.impl.UserDAOImpl;
+import com.wackywozniaks.dto.ChangePasswordBean;
+import com.wackywozniaks.dto.ForgotPasswordBean;
 import com.wackywozniaks.dto.LoginBean;
 import com.wackywozniaks.dto.SignupBean;
 import com.wackywozniaks.dto.VerifyBean;
+import com.wackywozniaks.email.SendEmail;
 import com.wackywozniaks.entity.User;
 
 /**
@@ -30,6 +34,8 @@ public class LoginController /*extends WWController*/ {
 	
 	//@Autowired
 	private UserDAO userDAOImpl /*= (UserDAO) (new ClassPathXmlApplicationContext("Beans.xml")).getBean("userDAOImpl")*/;
+	
+	private PasswordRecoveryDAO passwordRecoveryDAOImpl;
 	
 	//@Autowired
 	private ApplicationContext context;
@@ -168,12 +174,15 @@ public class LoginController /*extends WWController*/ {
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
 		User user = userDAOImpl.getUser(verifyBean.getEmail());
 		
+		System.out.println(verifyBean.getEmail());
+		System.out.println(user.getEmail());
+		
 		if(verifyBean.getHash() == null) {
 			model.addAttribute("error", "Invalid Verification Link");
 	        return "verify";
 		}
 		else if(!BCrypt.checkpw(verifyBean.getEmail(), verifyBean.getHash()))  {
-			model.addAttribute("error", verifyBean.getHash());
+			model.addAttribute("error", "Incorrect Verification Link");
 	        return "verify";
 		}
 		else if(user == null) {
@@ -204,6 +213,64 @@ public class LoginController /*extends WWController*/ {
 		HttpSession session = request.getSession(true); 
 		session.invalidate();
         return "redirect:login";
+	}
+	
+	@RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+	public String initForgotPassword(Model model) {
+		return "forgotPassword";
+	}
+	
+	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+	public String forgotPassword(Model model, @ModelAttribute("forgotPasswordBean") ForgotPasswordBean forgotPasswordBean) {
+		context = new ClassPathXmlApplicationContext("Beans.xml");
+		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
+		passwordRecoveryDAOImpl = (PasswordRecoveryDAO) context.getBean("passwordRecoveryDAOImpl");
+		
+		User user = userDAOImpl.getUser(forgotPasswordBean.getEmail());
+		if(user != null) {
+			String hash = BCrypt.hashpw(forgotPasswordBean.getEmail() + ((int) Math.random() * 100000000), BCrypt.gensalt()); //something random
+			passwordRecoveryDAOImpl.addPasswordRecovery(forgotPasswordBean.getEmail(), hash);
+			SendEmail.sendRecoveryEmail(forgotPasswordBean, user, hash);
+		}
+		
+		model.addAttribute("msg", "If there is an account associated with that email, an email was sent.");
+		return "forgotPassword";
+	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+	public String initChangePassword(Model model) {
+		return "changePassword";
+	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public String changePassword(Model model, ChangePasswordBean changePasswordBean, HttpServletRequest request) {
+		context = new ClassPathXmlApplicationContext("Beans.xml");
+		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
+		passwordRecoveryDAOImpl = (PasswordRecoveryDAO) context.getBean("passwordRecoveryDAOImpl");
+		
+		if(changePasswordBean.getHash() == null || changePasswordBean.getHash().equals("")) {
+			model.addAttribute("error", "Password Change Failed");
+			return "changePassword";
+		}
+		else if(!changePasswordBean.getPassword1().equals(changePasswordBean.getPassword2())) {
+			model.addAttribute("error", "Passwords Do Not Match");
+			return "changePassword";
+		}
+		else if(!passwordRecoveryDAOImpl.isActiveHash(changePasswordBean.getHash())) {
+			model.addAttribute("error", "This Link Is Not Active");
+			return "changePassword";
+		}
+		else if(!meetsRequirements(changePasswordBean.getPassword1())) {
+			model.addAttribute("error", "Passwords Must Be At Least 8 Characters");
+			return "changePassword";
+		}
+		else {
+			String email = passwordRecoveryDAOImpl.getEmail(changePasswordBean.getHash());
+			userDAOImpl.changePassword(email, changePasswordBean.getPassword1());
+			HttpSession session = request.getSession(true); 
+			session.setAttribute("currentSessionUser", email);
+	        return "redirect:home";
+		}
 	}
 	
 }

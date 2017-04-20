@@ -8,28 +8,20 @@
 <div class="background">
 	<div class="text-container">
 		<br>
-		<form:form name="loginForm" method="POST">
+		<br>
+		<p class="message"><b>Enter your email to recover your password.</b></p>
+		<form:form name="forgotPasswordForm" method="POST">
 			<label>Email
 				<input type="text" name="email" id="email" placeholder="" aria-describedby="Enter Your Email" required >
 				<span class="form-error">Please Enter an Email</span>
 			</label>
-			<label>Password
-				<input type="password" name="password" id="password" placeholder="" aria-describedby="Enter Your Password" required >
-				<span class="form-error">Please Enter a Password</span>
-			</label>
 			
 			<br>
 			
-			<button class="button" type="submit" value="Submit">Log In</button>
+			<button class="button" type="submit" value="Submit">Recover Password</button>
 		</form:form>
 		
-		<a href="/signup">New user? Sign up!</a>
-		<br>
-		<a href="/forgotPassword">Forgot password?</a>
-		
-		<br>
-		<p class="invalid"><b>${error}</b></p>
-		<p class="message"><b>${msg}</b></p>
+		<p class="invalid"><b>${msg}</b></p>
 		
 		<br>
 	</div>

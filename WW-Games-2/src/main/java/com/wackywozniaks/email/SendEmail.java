@@ -15,7 +15,9 @@ import org.glassfish.jersey.client.ClientResponse;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.wackywozniaks.dto.ForgotPasswordBean;
 import com.wackywozniaks.dto.SignupBean;
+import com.wackywozniaks.entity.User;
 
 /**
  * This class handles the sending of emails using MailGun
@@ -75,6 +77,20 @@ public class SendEmail {
 		return sendEmail("Wacky Wozniaks <no-reply@wackywozniaks.com>", bean.getEmail(), "Wacky Wozniaks Email Verification", 
 				"Your email does not support HTML!", 
 				"<html>Hi " + bean.getFirstName() + ",<br><br>Thank you for signing up for Wacky Wozniaks! Please verify your email using this link: " + link + "<br><br>Sincerely,<br><br>The Wacky Wozniaks Team</html>");
+	}
+	
+	/**
+	 * This method sends an email to the user for password reset.
+	 * 
+	 * @param bean The user who needs password reset.
+	 * @return The ClientResponse from the email
+	 */
+	public static ClientResponse sendRecoveryEmail(ForgotPasswordBean bean, User user, String hash) {
+		String link = System.getenv("URL") + "changePassword?hash=" + hash;
+		
+		return sendEmail("Wacky Wozniaks <no-reply@wackywozniaks.com>", bean.getEmail(), "Wacky Wozniaks Password Recovery", 
+				"Your email does not support HTML!", 
+				"<html>Hi " + user.getFirstName() + ",<br><br>Please reset your password with <a href='" + link + "'>this</a> link.<br><br>Sincerely,<br><br>The Wacky Wozniaks Team</html>");
 	}
 
 }

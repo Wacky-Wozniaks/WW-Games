@@ -19,6 +19,8 @@
 				<span class="form-error">Please Enter a Password</span>
 			</label>
 			
+			<input type="text" name="hash" id="hash" value="${param.hash}">
+			
 			<br>
 			
 			<button class="button" type="submit" value="Submit">Sign Up</button>

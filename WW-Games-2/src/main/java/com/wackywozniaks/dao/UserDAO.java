@@ -53,4 +53,6 @@ public interface UserDAO {
 	 */
 	public void verifyUser(String email);
 	
+	public void changePassword(String email, String newPassword);
+	
 }

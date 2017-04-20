@@ -95,4 +95,15 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 
+	@Override
+	public void changePassword(String email, String newPassword) {
+		String sql = "update users set password = ? where email = ?";
+		try {
+			jdbcTemplate.update(sql, new Object[]{BCrypt.hashpw(newPassword, BCrypt.gensalt()), email});
+		}
+		catch(EmptyResultDataAccessException e) {
+			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
+		}
+	}
+
 }
