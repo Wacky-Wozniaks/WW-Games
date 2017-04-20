@@ -5,16 +5,21 @@ import com.wackywozniaks.games.Move;
 import com.wackywozniaks.games.PlayerAI;
 
 /**
- *
+ * An AI for Connect games
+ * 
+ * @author WackyWozniaks Company
+ * @version 04/20/2017
  */
 public class ConnectAI extends PlayerAI
 {
+	public ConnectAI()
+	{
+		super(9);
+	}
 
 	@Override
-	public Move move(Game g)
+	public Move chooseMove(Game g)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return minimax(g);
 	}
-	
 }

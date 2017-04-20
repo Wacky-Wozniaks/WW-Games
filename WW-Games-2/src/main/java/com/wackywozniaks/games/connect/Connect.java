@@ -8,7 +8,7 @@ import com.wackywozniaks.games.Game;
  * An abstract framework for games like Connect4 and Tic Tac Toe.
  * 
  * @author WackyWozniaks Company
- * @version 04/11/2017
+ * @version 04/20/2017
  */
 public abstract class Connect extends Game
 {
@@ -144,6 +144,19 @@ public abstract class Connect extends Game
 		}
 		if(count == board.length * board[0].length) return true;
 		else return false;
+	}
+	
+	@Override
+	public int evaluate()
+	{
+		// TODO improve evaluation
+		if(this.gameOver())
+		{
+			if(getWinner() == getPlayerTurn() + 1) return Integer.MAX_VALUE;
+			else if(getWinner() == 0) return 0;
+			else return Integer.MIN_VALUE;
+		}
+		return 0;
 	}
 	
 	/**

@@ -1,16 +1,14 @@
 package com.wackywozniaks.games.connect;
 
 import java.util.LinkedList;
-import java.util.Observer;
 
 import com.wackywozniaks.games.Move;
-import com.wackywozniaks.games.Player;
 
 /**
  * A game of Connect 4.
  * 
  * @author WackyWozniaks Company
- * @version 04/11/2017
+ * @version 04/20/2017
  */
 public class Connect4 extends Connect
 {
@@ -39,27 +37,28 @@ public class Connect4 extends Connect
 			if(board[r][col] == EMPTY)
 			{
 				board[r][col] = (getPlayerTurn() == 0 ? PLAYER1 : PLAYER2);
-				return new Connect4(board, getCount(), getPlayerTurn() + 1);
+				return new Connect4(board, getCount() + 1, getPlayerTurn() + 1);
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public Move[] getLegalActions()
+	public LinkedList<Move> getLegalActions()
 	{
 		int[][] board = getBoard();
-		int count = 0;
-		LinkedList<int[]> list = new LinkedList<int[]>();
+		LinkedList<Move> list = new LinkedList<Move>();
 		for(int col = 0; col < board[0].length; col++)
 		{
 			for(int row = board.length - 1; row >= 0; row--)
+			{
+				if(board[row][col] == EMPTY)
+				{
+					list.add(new ConnectMove(row, col));
+					break;
+				}
+			}
 		}
-	}
-
-	@Override
-	public int evaluate() {
-		// TODO Auto-generated method stub
-		return 0;
+		return list;
 	}
 }

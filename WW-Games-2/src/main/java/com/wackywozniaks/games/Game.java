@@ -1,10 +1,12 @@
 package com.wackywozniaks.games;
 
+import java.util.LinkedList;
+
 /**
  * An abstract instance of a game.
  * 
  * @author WackyWozniaks Company
- * @version 04/11/2017
+ * @version 04/20/2017
  */
 public abstract class Game
 {
@@ -41,11 +43,11 @@ public abstract class Game
 	/**
 	 * Updates the game based on the given move.
 	 * @param m The move made.
-	 * @return The new state of the game.
+	 * @return The new state of the game, or null if the move was unsuccessful.
 	 */
 	public abstract Game doMove(Move m);
 	
-	public abstract Move[] getLegalActions();
+	public abstract LinkedList<Move> getLegalActions();
 	
 	public abstract int evaluate();
 	

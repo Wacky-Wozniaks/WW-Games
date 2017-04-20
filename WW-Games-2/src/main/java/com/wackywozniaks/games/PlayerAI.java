@@ -1,6 +1,14 @@
 package com.wackywozniaks.games;
 
-public abstract class PlayerAI extends Player
+import java.util.LinkedList;
+
+/**
+ * Generic methods for minimax and expectimax.
+ * 
+ * @author WackyWozniaks Company
+ * @version 04/20/2017
+ */
+public abstract class PlayerAI
 {
 	private int depth;
 	
@@ -10,9 +18,15 @@ public abstract class PlayerAI extends Player
 	 */
 	public PlayerAI(int depth)
 	{
-		super("Computer");
 		this.depth = depth;
 	}
+	
+	/**
+	 * Implementing classes must decide how to move based on the current game state.
+	 * @param s The state of the game.
+	 * @return The selected move.
+	 */
+	public abstract Move chooseMove(Game s);
 	
 	protected Move minimax(Game s)
 	{
@@ -33,8 +47,8 @@ public abstract class PlayerAI extends Player
 			agent = 0;
 		}
         
-		Move[] next = s.getLegalActions();
-        if(next.length == 0) return new Object[]{s.evaluate(), null};
+		LinkedList<Move> next = s.getLegalActions();
+        if(next.isEmpty()) return new Object[]{s.evaluate(), null};
         
         if(agent == 0) return max(s, next, agent, depth, alpha, beta);
         else return min(s, next, agent, depth, alpha, beta);
@@ -49,14 +63,14 @@ public abstract class PlayerAI extends Player
 			agent = 0;
 		}
 		
-		Move[] next = s.getLegalActions();
-        if(next.length == 0) return new Object[]{s.evaluate(), null};
+		LinkedList<Move> next = s.getLegalActions();
+        if(next.isEmpty()) return new Object[]{s.evaluate(), null};
         
         if(agent == 0) return max(s, next, agent, depth);
         else return expect(s, next, agent, depth);
 	}
 	
-	protected Object[] max(Game s, Move[] next, int agent, int depth, int alpha, int beta)
+	protected Object[] max(Game s, LinkedList<Move> next, int agent, int depth, int alpha, int beta)
 	{
 		int value = Integer.MIN_VALUE;
 		Move m = null;
@@ -74,7 +88,7 @@ public abstract class PlayerAI extends Player
 		return new Object[]{value, m};
 	}
 	
-	protected Object[] max(Game s, Move[] next, int agent, int depth)
+	protected Object[] max(Game s, LinkedList<Move> next, int agent, int depth)
 	{
 		int value = Integer.MIN_VALUE;
 		Move m = null;
@@ -90,7 +104,7 @@ public abstract class PlayerAI extends Player
 		return new Object[]{value, m};
 	}
 	
-	protected Object[] min(Game s, Move[] next, int agent, int depth, int alpha, int beta)
+	protected Object[] min(Game s, LinkedList<Move> next, int agent, int depth, int alpha, int beta)
 	{
 		int value = Integer.MAX_VALUE;
 		Move m = null;
@@ -108,13 +122,15 @@ public abstract class PlayerAI extends Player
 		return new Object[]{value, m};
 	}
 	
-	protected Object[] expect(Game s, Move[] next, int agent, int depth)
+	protected Object[] expect(Game s, LinkedList<Move> next, int agent, int depth)
 	{
 		int total = 0;
+		int count = 0;
 		for(Move action: next)
 		{
 			total += (Integer) expectimax(s.doMove(action), agent + 1, depth)[0];
+			count++;
 		}
-		return new Object[]{total / next.length, null};
+		return new Object[]{total / count, null};
 	}
 }
