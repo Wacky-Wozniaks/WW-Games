@@ -29,7 +29,7 @@ public class PasswordRecoveryDAOImpl implements PasswordRecoveryDAO {
 
 	@Override
 	public boolean addPasswordRecovery(String email, String hash) {
-		String sql = "insert into passwordRecovery values(default, ?, ?, true)";
+		String sql = "insert into passwordrecovery values(default, ?, ?, true)";
 		try {
 			jdbcTemplate.update(sql, new Object[]{email, hash});
 			return true;
@@ -42,7 +42,7 @@ public class PasswordRecoveryDAOImpl implements PasswordRecoveryDAO {
 
 	@Override
 	public boolean verifyPasswordRecovery(String hash) {
-		String sql1 = "select * from passwordRecovery where hash = ?";
+		String sql1 = "select * from passwordrecovery where hash = ?";
 		
 		PasswordRecovery pr = null;
 		try {
@@ -57,7 +57,7 @@ public class PasswordRecoveryDAOImpl implements PasswordRecoveryDAO {
 			return false;
 		}
 		
-		String sql2 = "update passwordRecovery set active = false where hash = ?";
+		String sql2 = "update passwordrecovery set active = false where hash = ?";
 		try {
 			jdbcTemplate.update(sql2, new Object[]{hash});
 		}
@@ -71,7 +71,7 @@ public class PasswordRecoveryDAOImpl implements PasswordRecoveryDAO {
 
 	@Override
 	public String getEmail(String hash) {
-		String sql = "select * from passwordRecovery where hash = ?";
+		String sql = "select * from passwordrecovery where hash = ?";
 		PasswordRecovery pr = null;
 		
 		try {
@@ -86,7 +86,7 @@ public class PasswordRecoveryDAOImpl implements PasswordRecoveryDAO {
 
 	@Override
 	public boolean isActiveHash(String hash) {
-		String sql = "select * from passwordRecovery where hash = ?";
+		String sql = "select * from passwordrecovery where hash = ?";
 		PasswordRecovery pr = null;
 		
 		try {

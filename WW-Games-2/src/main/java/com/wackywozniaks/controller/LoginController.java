@@ -284,7 +284,7 @@ public class LoginController /*extends WWController*/ {
 			return "changePassword";
 		}
 		else if(!passwordRecoveryDAOImpl.isActiveHash(changePasswordBean.getHash())) {
-			model.addAttribute("error", "This Link Is Not Active");
+			model.addAttribute("error", changePasswordBean.getHash());
 			return "changePassword";
 		}
 		else if(!meetsRequirements(changePasswordBean.getPassword1())) {

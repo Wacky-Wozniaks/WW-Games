@@ -18,12 +18,10 @@
 				<input type="password" name="password" id="password" placeholder="" aria-describedby="Enter Your Password" required >
 				<span class="form-error">Please Enter a Password</span>
 			</label>
-			
-			<input type="text" name="hash" id="hash" value="${param.hash}">
-			
+						
 			<br>
 			
-			<button class="button" type="submit" value="Submit">Sign Up</button>
+			<button class="button" type="submit" value="Submit">Verify Email</button>
 		</form:form>
 		
 		<p class="error"><b>${error}</b></p>

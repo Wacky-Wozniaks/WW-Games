@@ -20,9 +20,7 @@
 				<input type="password" name="password2" id="password2" placeholder="" aria-describedby="Confirm Your Password" required >
 				<span class="form-error">Please Confirm Your Password</span>
 			</label>
-			
-			<input type="text" name="hash" id="hash" value="${param.hash}">
-			
+						
 			<br>
 			
 			<button class="button" type="submit" value="Submit">Change Password</button>
