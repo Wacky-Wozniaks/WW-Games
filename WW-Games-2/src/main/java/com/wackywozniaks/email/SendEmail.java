@@ -25,6 +25,7 @@ import com.wackywozniaks.entity.User;
  * Adapted from https://documentation.mailgun.com/quickstart-sending.html
  * 
  * @author WackyWozniaks Company
+ * @version 04/21/2017
  */
 public class SendEmail {
 

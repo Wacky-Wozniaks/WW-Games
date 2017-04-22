@@ -27,7 +27,7 @@ import com.wackywozniaks.entity.User;
  * This class is the controller for logins, signups, and email verifications.
  * 
  * @author Wacky Wozniaks
- * @version 04/05/2017
+ * @version 04/21/2017
  */
 @Controller
 public class LoginController /*extends WWController*/ {
@@ -215,11 +215,24 @@ public class LoginController /*extends WWController*/ {
         return "redirect:login";
 	}
 	
+	/**
+	 * This page takes the GET request associated with "/forgotPassword" and serves up the forgotPassword page.
+	 * 
+	 * @param model The variables to be passed to the page
+	 * @return The forgot password page
+	 */
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
 	public String initForgotPassword(Model model) {
 		return "forgotPassword";
 	}
 	
+	/**
+	 * Takes the request to reset the password, checks whether it is a valid user, then sends a reset email.
+	 * 
+	 * @param model The variables to be passed to the page
+	 * @param forgotPasswordBean The contents of the form
+	 * @return The forgot password page with a redirect.
+	 */
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
 	public String forgotPassword(Model model, @ModelAttribute("forgotPasswordBean") ForgotPasswordBean forgotPasswordBean) {
 		context = new ClassPathXmlApplicationContext("Beans.xml");
@@ -237,11 +250,25 @@ public class LoginController /*extends WWController*/ {
 		return "forgotPassword";
 	}
 	
+	/**
+	 * This page takes the GET request associated with "/changePassword" and serves up the changePassword page.
+	 * 
+	 * @param model
+	 * @return The changePassword page.
+	 */
 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
 	public String initChangePassword(Model model) {
 		return "changePassword";
 	}
 	
+	/**
+	 * Takes the request to change the password, and if all conditions are met, changes it and invalidates the reset link.
+	 * 
+	 * @param model The variables to be passed to the page
+	 * @param changePasswordBean The information in the form
+	 * @param request
+	 * @return The appropriate web page
+	 */
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
 	public String changePassword(Model model, ChangePasswordBean changePasswordBean, HttpServletRequest request) {
 		context = new ClassPathXmlApplicationContext("Beans.xml");

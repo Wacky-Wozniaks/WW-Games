@@ -21,7 +21,7 @@ import com.wackywozniaks.mapper.UserMapper;
  * The Implementation of the UserDAO interface.
  * 
  * @author Wacky Wozniaks Company
- * @version 04/05/2017
+ * @version 04/21/2017
  */
 @Repository("userDAOImpl")
 public class UserDAOImpl implements UserDAO {

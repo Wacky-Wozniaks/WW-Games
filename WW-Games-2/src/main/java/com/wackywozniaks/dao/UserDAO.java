@@ -6,11 +6,10 @@ import com.wackywozniaks.dto.SignupBean;
 import com.wackywozniaks.entity.User;
 
 /**
- * 
  * This is the user data access object which handles queries to the database, etc in regards to Users. 
  * 
  * @author WackyWozniaks Company
- * @version 04/05/2017
+ * @version 04/21/2017
  */
 public interface UserDAO {
 	
@@ -53,6 +52,12 @@ public interface UserDAO {
 	 */
 	public void verifyUser(String email);
 	
+	/**
+	 * Changes the password of a user.
+	 * 
+	 * @param email The email of the user.
+	 * @param newPassword The hashed new password.
+	 */
 	public void changePassword(String email, String newPassword);
 	
 }

@@ -13,6 +13,12 @@ import com.wackywozniaks.dao.UserDAO;
 import com.wackywozniaks.entity.PasswordRecovery;
 import com.wackywozniaks.mapper.PasswordRecoveryMapper;
 
+/**
+ * The Implementation of the PasswordRecoveryDAO interface.
+ * 
+ * @author WackyWozniaks Company
+ * @version 04/21/2017
+ */
 public class PasswordRecoveryDAOImpl implements PasswordRecoveryDAO {
 	
 	private JdbcTemplate jdbcTemplate;
