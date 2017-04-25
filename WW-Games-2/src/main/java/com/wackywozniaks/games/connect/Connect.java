@@ -171,6 +171,6 @@ public abstract class Connect extends Game
 				boardCopy[r][c] = board[r][c];
 			}
 		}
-		return board;
+		return boardCopy;
 	}
 }
