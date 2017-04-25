@@ -14,7 +14,7 @@ public class ConnectAI extends PlayerAI
 {
 	public ConnectAI()
 	{
-		super(9);
+		super(3);
 	}
 
 	@Override
