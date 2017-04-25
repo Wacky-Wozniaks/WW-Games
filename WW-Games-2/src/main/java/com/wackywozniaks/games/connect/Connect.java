@@ -1,14 +1,12 @@
 package com.wackywozniaks.games.connect;
 
-import java.util.Arrays;
-
 import com.wackywozniaks.games.Game;
 
 /**
  * An abstract framework for games like Connect4 and Tic Tac Toe.
  * 
  * @author WackyWozniaks Company
- * @version 04/20/2017
+ * @version 04/25/2017
  */
 public abstract class Connect extends Game
 {
@@ -165,6 +163,14 @@ public abstract class Connect extends Game
 	 */
 	public int[][] getBoard()
 	{
-		return Arrays.copyOf(board, board.length);
+		int[][] boardCopy = new int[board.length][board[0].length];
+		for(int r = 0; r < board.length; r++)
+		{
+			for(int c = 0; c < board[0].length; c++)
+			{
+				boardCopy[r][c] = board[r][c];
+			}
+		}
+		return board;
 	}
 }
