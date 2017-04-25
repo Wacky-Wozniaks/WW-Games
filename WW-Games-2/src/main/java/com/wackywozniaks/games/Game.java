@@ -12,7 +12,7 @@ public abstract class Game
 {
 	private String name;
 	protected int winner;
-	private int numPlayers, playerTurn;
+	protected int numPlayers, playerTurn;
 	
 	protected Game(String name, int numPlayers, int playerTurn)
 	{

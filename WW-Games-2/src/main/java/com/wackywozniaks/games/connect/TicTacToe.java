@@ -8,7 +8,7 @@ import com.wackywozniaks.games.Move;
  * A game of tic tac toe.
  * 
  * @author WackyWozniaks Company
- * @version 04/20/2017
+ * @version 04/25/2017
  */
 public class TicTacToe extends Connect
 {
@@ -17,6 +17,11 @@ public class TicTacToe extends Connect
 	public TicTacToe()
 	{
 		super(LENGTH, WIDTH, CONNECTION, "Tic Tac Toe");
+	}
+	
+	public TicTacToe(int[][] board)
+	{
+		super(LENGTH, WIDTH, CONNECTION, "Tic Tac Toe", board);
 	}
 	
 	private TicTacToe(int[][] board, int count, int numPlayer)

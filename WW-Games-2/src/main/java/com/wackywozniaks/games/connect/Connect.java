@@ -24,6 +24,30 @@ public abstract class Connect extends Game
 		count = 0;
 	}
 	
+	protected Connect(int length, int width, int connection, String name, int[][] board)
+	{
+		super(name, NUM_PLAYERS, 0);
+		this.connection = connection;
+		this.board = new int[board.length][board[0].length];
+		count = 0;
+		int c1 = 0, c2 = 0;
+		for(int r = 0; r < board.length; r++)
+		{
+			for(int c = 0; c < board[0].length; c++)
+			{
+				this.board[r][c] = board[r][c];
+				if(this.board[r][c] != EMPTY)
+				{
+					count++;
+					if(this.board[r][c] == PLAYER1) c1++;
+					else c2++;
+				}
+			}
+		}
+		if(c1 == c2) playerTurn = 0;
+		else playerTurn = 1;
+	}
+	
 	protected Connect(int[][] board, int connection, String name, int count, int numPlayer)
 	{
 		super(name, NUM_PLAYERS, numPlayer);
