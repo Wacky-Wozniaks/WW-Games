@@ -17,6 +17,11 @@ public class Connect4 extends Connect
 		super(7, 6, 4, "Connect4");
 	}
 	
+	public Connect4(int[][] board)
+	{
+		super(7, 6, 4, "Connect4", board);
+	}
+	
 	private Connect4(int[][] board, int count, int turn)
 	{
 		super(board, 4, "Connect4", count, turn);
