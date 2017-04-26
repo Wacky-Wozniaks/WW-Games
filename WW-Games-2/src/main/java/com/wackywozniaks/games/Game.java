@@ -6,42 +6,14 @@ import java.util.LinkedList;
  * An abstract instance of a game.
  * 
  * @author WackyWozniaks Company
- * @version 04/20/2017
+ * @version 04/26/2017
  */
 public abstract class Game
 {
-	private String name;
 	protected int winner;
-	protected int numPlayers, playerTurn;
-	
-	protected Game(String name, int numPlayers, int playerTurn)
-	{
-		this.name = name;
-		this.numPlayers = numPlayers;
-		if(playerTurn >= numPlayers) playerTurn %= numPlayers;
-		this.playerTurn = playerTurn;
-	}
 	
 	/**
-	 * Returns the game's name.
-	 * @return The name of the game.
-	 */
-	public String getName()
-	{
-		return name;
-	}
-	
-	/**
-	 * Returns the number of players in the game.
-	 * @return The number of players
-	 */
-	public int getNumPlayers()
-	{
-		return numPlayers;
-	}
-	
-	/**
-	 * Updates the game based on the given move.
+	 * Updates the game based on the given move. Should only be called by the AI.
 	 * @param m The move made.
 	 * @return The new state of the game, or null if the move was unsuccessful.
 	 */
@@ -64,10 +36,5 @@ public abstract class Game
 	public int getWinner()
 	{
 		return winner;
-	}
-	
-	protected int getPlayerTurn()
-	{
-		return playerTurn;
 	}
 }

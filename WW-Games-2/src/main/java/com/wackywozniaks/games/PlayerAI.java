@@ -6,77 +6,59 @@ import java.util.LinkedList;
  * Generic methods for minimax and expectimax.
  * 
  * @author WackyWozniaks Company
- * @version 04/20/2017
+ * @version 04/26/2017
  */
 public abstract class PlayerAI
-{
-	private int depth;
-	
-	/**
-	 * Creates a new AI agent which searches to the specified depth.
-	 * @param depth The maximum depth the agent should search to.
-	 */
-	public PlayerAI(int depth)
+{	
+	protected static Move minimax(Game s, int maxDepth)
 	{
-		this.depth = depth;
+		return (Move) minimax(s, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, maxDepth)[1];
 	}
 	
-	/**
-	 * Implementing classes must decide how to move based on the current game state.
-	 * @param s The state of the game.
-	 * @return The selected move.
-	 */
-	public abstract Move chooseMove(Game s);
-	
-	protected Move minimax(Game s)
+	protected static Move expectimax(Game s, int maxDepth)
 	{
-		return (Move) minimax(s, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE)[1];
-	}
-	
-	protected Move expectimax(Game s)
-	{
-		return (Move) expectimax(s, 0, 0)[1];
+		return (Move) expectimax(s, 0, 0, maxDepth)[1];
 	}
 
-	private Object[] minimax(Game s, int agent, int depth, int alpha, int beta)
+	private static Object[] minimax(Game s, int agent, int depth, int alpha, int beta, int maxDepth)
 	{
-		if(agent == s.getNumPlayers())
+		if(agent == 2) //assumes a 2 player game
 		{
 			depth += 1;
-			if(depth == this.depth) return new Object[]{s.evaluate(), null};
+			if(depth == maxDepth) return new Object[]{s.evaluate(), null};
 			agent = 0;
 		}
         
 		LinkedList<Move> next = s.getLegalActions();
         if(next.isEmpty()) return new Object[]{s.evaluate(), null};
         
-        if(agent == 0) return max(s, next, agent, depth, alpha, beta);
-        else return min(s, next, agent, depth, alpha, beta);
+        if(agent == 0) return max(s, next, agent, depth, alpha, beta, maxDepth);
+        else return min(s, next, agent, depth, alpha, beta, maxDepth);
 	}
 	
-	protected Object[] expectimax(Game s, int agent, int depth)
+	protected static Object[] expectimax(Game s, int agent, int depth, int maxDepth)
 	{
-		if(agent == s.getNumPlayers())
+		if(agent == 2) //assumes a 2 player game
 		{
 			depth += 1;
-			if(depth == this.depth) return new Object[]{s.evaluate(), null};
+			if(depth == maxDepth) return new Object[]{s.evaluate(), null};
 			agent = 0;
 		}
 		
 		LinkedList<Move> next = s.getLegalActions();
         if(next.isEmpty()) return new Object[]{s.evaluate(), null};
         
-        if(agent == 0) return max(s, next, agent, depth);
-        else return expect(s, next, agent, depth);
+        if(agent == 0) return max(s, next, agent, depth, maxDepth);
+        else return expect(s, next, agent, depth, maxDepth);
 	}
 	
-	protected Object[] max(Game s, LinkedList<Move> next, int agent, int depth, int alpha, int beta)
+	protected static Object[] max(Game s, LinkedList<Move> next, int agent, int depth, int alpha, int beta, int maxDepth)
 	{
 		int value = Integer.MIN_VALUE;
 		Move m = null;
 		for(Move action: next)
 		{
-			int newValue = (Integer) minimax(s.doMove(action), agent + 1, depth, alpha, beta)[0];
+			int newValue = (Integer) minimax(s.doMove(action), agent + 1, depth, alpha, beta, maxDepth)[0];
 			if(newValue > value)
 			{
 				value = newValue;
@@ -88,13 +70,13 @@ public abstract class PlayerAI
 		return new Object[]{value, m};
 	}
 	
-	protected Object[] max(Game s, LinkedList<Move> next, int agent, int depth)
+	protected static Object[] max(Game s, LinkedList<Move> next, int agent, int depth, int maxDepth)
 	{
 		int value = Integer.MIN_VALUE;
 		Move m = null;
 		for(Move action: next)
 		{
-			int newValue = (Integer) expectimax(s.doMove(action), agent + 1, depth)[0];
+			int newValue = (Integer) expectimax(s.doMove(action), agent + 1, depth, maxDepth)[0];
 			if(newValue > value)
 			{
 				value = newValue;
@@ -104,13 +86,13 @@ public abstract class PlayerAI
 		return new Object[]{value, m};
 	}
 	
-	protected Object[] min(Game s, LinkedList<Move> next, int agent, int depth, int alpha, int beta)
+	protected static Object[] min(Game s, LinkedList<Move> next, int agent, int depth, int alpha, int beta, int maxDepth)
 	{
 		int value = Integer.MAX_VALUE;
 		Move m = null;
 		for(Move action: next)
 		{
-			int newValue = (Integer) minimax(s.doMove(action), agent + 1, depth, alpha, beta)[0];
+			int newValue = (Integer) minimax(s.doMove(action), agent + 1, depth, alpha, beta, maxDepth)[0];
 			if(newValue < value)
 			{
 				value = newValue;
@@ -122,13 +104,13 @@ public abstract class PlayerAI
 		return new Object[]{value, m};
 	}
 	
-	protected Object[] expect(Game s, LinkedList<Move> next, int agent, int depth)
+	protected static Object[] expect(Game s, LinkedList<Move> next, int agent, int depth, int maxDepth)
 	{
 		int total = 0;
 		int count = 0;
 		for(Move action: next)
 		{
-			total += (Integer) expectimax(s.doMove(action), agent + 1, depth)[0];
+			total += (Integer) expectimax(s.doMove(action), agent + 1, depth, maxDepth)[0];
 			count++;
 		}
 		return new Object[]{total / count, null};

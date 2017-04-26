@@ -8,23 +8,17 @@ import com.wackywozniaks.games.Move;
  * A game of Connect 4.
  * 
  * @author WackyWozniaks Company
- * @version 04/20/2017
+ * @version 04/26/2017
  */
 public class Connect4 extends Connect
 {
-	public Connect4()
-	{
-		super(7, 6, 4, "Connect4");
-	}
-	
+	/**
+	 * Constructor to be called from the front end after it implements its move.
+	 * @param board The current state of the game.
+	 */
 	public Connect4(int[][] board)
 	{
 		super(7, 6, 4, "Connect4", board);
-	}
-	
-	private Connect4(int[][] board, int count, int turn)
-	{
-		super(board, 4, "Connect4", count, turn);
 	}
 
 	@Override
@@ -41,8 +35,8 @@ public class Connect4 extends Connect
 		{
 			if(board[r][col] == EMPTY)
 			{
-				board[r][col] = (getPlayerTurn() == 0 ? PLAYER1 : PLAYER2);
-				return new Connect4(board, getCount() + 1, getPlayerTurn() + 1);
+				board[r][col] = PLAYER2; //only called by the AI
+				return new Connect4(board);
 			}
 		}
 		return null;

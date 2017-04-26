@@ -6,7 +6,7 @@ import com.wackywozniaks.games.Game;
  * An abstract framework for games like Connect4 and Tic Tac Toe.
  * 
  * @author WackyWozniaks Company
- * @version 04/25/2017
+ * @version 04/26/2017
  */
 public abstract class Connect extends Game
 {
@@ -14,46 +14,17 @@ public abstract class Connect extends Game
 	
 	private int[][] board, highlight;
 	private int connection;
-	private int count;
-	
-	protected Connect(int length, int width, int connection, String name)
-	{
-		super(name, NUM_PLAYERS, 0);
-		board = new int[length][width];
-		this.connection = connection;
-		count = 0;
-	}
 	
 	protected Connect(int length, int width, int connection, String name, int[][] board)
 	{
-		super(name, NUM_PLAYERS, 0);
 		this.connection = connection;
-		this.board = new int[board.length][board[0].length];
-		count = 0;
-		int c1 = 0, c2 = 0;
-		for(int r = 0; r < board.length; r++)
-		{
-			for(int c = 0; c < board[0].length; c++)
-			{
-				this.board[r][c] = board[r][c];
-				if(this.board[r][c] != EMPTY)
-				{
-					count++;
-					if(this.board[r][c] == PLAYER1) c1++;
-					else c2++;
-				}
-			}
-		}
-		if(c1 == c2) playerTurn = 0;
-		else playerTurn = 1;
+		this.board = board;
 	}
 	
 	protected Connect(int[][] board, int connection, String name, int count, int numPlayer)
 	{
-		super(name, NUM_PLAYERS, numPlayer);
 		this.board = board;
 		this.connection = connection;
-		this.count = count;
 	}
 	
 	/**
@@ -65,20 +36,17 @@ public abstract class Connect extends Game
 		return highlight;
 	}
 	
-	protected int getCount()
-	{
-		return count;
-	}
-	
 	@Override
 	public boolean gameOver()
 	{
+		int filled = 0;
 		for(int r = 0; r < board.length; r++)
 		{
 			for(int c = 0; c < board[0].length; c++)
 			{
 				if(board[r][c] != EMPTY)
 				{
+					filled++;
 					int i = board[r][c];
 					
 					boolean row = r <= board.length - connection, col = c <= board[0].length - connection, reverse = c >= connection - 1, gameOver = false;
@@ -164,7 +132,7 @@ public abstract class Connect extends Game
 				}
 			}
 		}
-		if(count == board.length * board[0].length) return true;
+		if(filled == board.length * board[0].length) return true;
 		else return false;
 	}
 	
@@ -174,7 +142,7 @@ public abstract class Connect extends Game
 		// TODO improve evaluation
 		if(this.gameOver())
 		{
-			if(getWinner() == getPlayerTurn() + 1) return Integer.MAX_VALUE;
+			if(getWinner() == 2) return Integer.MAX_VALUE;
 			else if(getWinner() == 0) return 0;
 			else return Integer.MIN_VALUE;
 		}
