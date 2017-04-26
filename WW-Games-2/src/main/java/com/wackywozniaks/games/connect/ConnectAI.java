@@ -12,8 +12,8 @@ import com.wackywozniaks.games.PlayerAI;
  */
 public class ConnectAI extends PlayerAI
 {
-	public static Move chooseMove(Game g)
+	public static ConnectMove chooseMove(Game g)
 	{
-		return minimax(g, 3);
+		return (ConnectMove)minimax(g, 3);
 	}
 }
