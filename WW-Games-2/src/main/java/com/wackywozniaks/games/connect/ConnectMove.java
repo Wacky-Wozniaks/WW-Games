@@ -12,8 +12,9 @@ public class ConnectMove extends Move
 {
 	private int row, col;
 	
-	public ConnectMove(int row, int col)
+	public ConnectMove(int row, int col, int player)
 	{
+		super(player);
 		this.row = row;
 		this.col = col;
 	}

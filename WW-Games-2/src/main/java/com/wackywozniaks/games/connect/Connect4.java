@@ -25,17 +25,17 @@ public class Connect4 extends Connect
 	public Connect4 doMove(Move m)
 	{
 		ConnectMove move = (ConnectMove) m;
-		return drop(move.getCol());
+		return drop(move.getCol(), move.getPlayer());
 	}
 	
-	protected Connect4 drop(int col)
+	protected Connect4 drop(int col, int player)
 	{
 		int[][] board = getBoard();
 		for(int r = board.length - 1; r >= 0; r--)
 		{
 			if(board[r][col] == EMPTY)
 			{
-				board[r][col] = PLAYER2; //only called by the AI
+				board[r][col] = player;
 				return new Connect4(board);
 			}
 		}
@@ -43,7 +43,7 @@ public class Connect4 extends Connect
 	}
 
 	@Override
-	public LinkedList<Move> getLegalActions()
+	public LinkedList<Move> getLegalActions(int player)
 	{
 		int[][] board = getBoard();
 		LinkedList<Move> list = new LinkedList<Move>();
@@ -53,7 +53,7 @@ public class Connect4 extends Connect
 			{
 				if(board[row][col] == EMPTY)
 				{
-					list.add(new ConnectMove(row, col));
+					list.add(new ConnectMove(row, col, player));
 					break;
 				}
 			}

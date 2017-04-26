@@ -8,5 +8,15 @@ package com.wackywozniaks.games;
  */
 public abstract class Move
 {
+	private int player;
 	
+	public Move(int player)
+	{
+		this.player = player;
+	}
+	
+	public int getPlayer()
+	{
+		return player;
+	}
 }

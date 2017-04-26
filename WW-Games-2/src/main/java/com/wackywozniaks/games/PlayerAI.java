@@ -29,7 +29,7 @@ public abstract class PlayerAI
 			agent = 0;
 		}
         
-		LinkedList<Move> next = s.getLegalActions();
+		LinkedList<Move> next = s.getLegalActions(2 - agent);
         if(next.isEmpty()) return new Object[]{s.evaluate(), null};
         
         if(agent == 0) return max(s, next, agent, depth, alpha, beta, maxDepth);
@@ -45,7 +45,7 @@ public abstract class PlayerAI
 			agent = 0;
 		}
 		
-		LinkedList<Move> next = s.getLegalActions();
+		LinkedList<Move> next = s.getLegalActions(2 - agent);
         if(next.isEmpty()) return new Object[]{s.evaluate(), null};
         
         if(agent == 0) return max(s, next, agent, depth, maxDepth);

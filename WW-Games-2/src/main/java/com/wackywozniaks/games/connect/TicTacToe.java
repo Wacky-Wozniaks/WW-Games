@@ -23,11 +23,11 @@ public class TicTacToe extends Connect
 		super(LENGTH, WIDTH, CONNECTION, "Tic Tac Toe", board);
 	}
 	
-	protected TicTacToe insert(int row, int col)
+	protected TicTacToe insert(int row, int col, int player)
 	{
 		int[][] board = getBoard();
 		if(board[row][col] != EMPTY) return null;
-		board[row][col] = PLAYER2; //only ever called by AI
+		board[row][col] = player;
 		return new TicTacToe(board);
 	}
 	
@@ -35,11 +35,11 @@ public class TicTacToe extends Connect
 	public TicTacToe doMove(Move m)
 	{
 		ConnectMove move = (ConnectMove) m;
-		return insert(move.getRow(), move.getCol());
+		return insert(move.getRow(), move.getCol(), move.getPlayer());
 	}
 
 	@Override
-	public LinkedList<Move> getLegalActions()
+	public LinkedList<Move> getLegalActions(int player)
 	{
 		int[][] board = getBoard();
 		LinkedList<Move> list = new LinkedList<Move>();
@@ -49,7 +49,7 @@ public class TicTacToe extends Connect
 			{
 				if(board[row][col] == EMPTY)
 				{
-					list.add(new ConnectMove(row, col));
+					list.add(new ConnectMove(row, col, player));
 				}
 			}
 		}

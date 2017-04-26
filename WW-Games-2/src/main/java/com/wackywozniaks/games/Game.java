@@ -10,7 +10,7 @@ import java.util.LinkedList;
  */
 public abstract class Game
 {
-	protected int winner;
+	protected int winner = 0;
 	
 	/**
 	 * Updates the game based on the given move. Should only be called by the AI.
@@ -19,7 +19,12 @@ public abstract class Game
 	 */
 	public abstract Game doMove(Move m);
 	
-	public abstract LinkedList<Move> getLegalActions();
+	/**
+	 * Returns all possible move for the given player.
+	 * @param player The player who is next to move.
+	 * @return A LinkedList of the player's possible moves.
+	 */
+	public abstract LinkedList<Move> getLegalActions(int player);
 	
 	public abstract int evaluate();
 	
