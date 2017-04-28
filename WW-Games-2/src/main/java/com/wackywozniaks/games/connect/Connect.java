@@ -6,7 +6,7 @@ import com.wackywozniaks.games.Game;
  * An abstract framework for games like Connect4 and Tic Tac Toe.
  * 
  * @author WackyWozniaks Company
- * @version 04/26/2017
+ * @version 04/28/2017
  */
 public abstract class Connect extends Game
 {
@@ -132,7 +132,12 @@ public abstract class Connect extends Game
 				}
 			}
 		}
-		if(filled == board.length * board[0].length) return true;
+		if(filled == board.length * board[0].length)
+		{
+			winner = 0;
+			highlight = new int[0][0];
+			return true;
+		}
 		else return false;
 	}
 	
