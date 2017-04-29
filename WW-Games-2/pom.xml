@@ -15,6 +15,7 @@
 		<java.version>1.6</java.version>
 		<spring.version>4.3.7.RELEASE</spring.version>
 		<cglib.version>2.2.2</cglib.version>
+		<jackson.version>2.6.3</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -106,7 +107,19 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+		<!-- Need this for json to/from object -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
 
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
 
 	</dependencies>
 

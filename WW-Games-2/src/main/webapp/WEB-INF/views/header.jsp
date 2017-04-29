@@ -5,10 +5,8 @@
 <nav class="top-bar" data-topbar role="navigation">
 	<div class="top-bar-left">
 		<ul class="dropdown menu">
-			<li><a href="#!">One</a></li>
-			<li><a href="#!">Two</a></li>
-			<li><a href="#!">Three</a></li>
-			<li><a href="#!">Four</a></li>
+			<li><a href="/home">Home</a></li>
+			<li><a href="/games">Games</a></li>
 		</ul>
 	</div>
 	<div class="top-bar-right">
@@ -16,7 +14,7 @@
 			<li role="menuitem" class="is-dropdown-submenu-parent opens-right">
 				<a href="#!">${name}</a>
 				<ul class="menu submenu is-dropdown-submenu first-sub vertical" role="menu">
-					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="#!">Profile <i class="material-icons">person</i></a></li>
+					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/profile">Profile <i class="material-icons">person</i></a></li>
 					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/logout">Logout <i class="material-icons">keyboard_tab</i></a></li>
 				</ul>
 			</li>

@@ -6,6 +6,9 @@ function boardClick(e) {
 	if($(this).is("td.board-cell") &&  $(this).text().trim() === "") {
 		lockBoard();
 		$(this).find("h1").html("<i class='material-icons'>clear</i>");
+		var boardState = getBoardState();
+		var name = $(this).children("h1").attr("id");
+		playerMove(name.charAt(name.length - 2), name.charAt(name.length - 1), boardState);
 	}
 }
 
@@ -14,7 +17,24 @@ function boardClickLocked(e) {
 }
 
 function getBoardState() {
-	
+	var board = [[], [], []];
+	for(var row = 0; row < 3; row++) {
+		for(var col = 0; col < 3; col++) {
+			var cellName = "cell-" + String(row) + String(col);
+			var innerHtml = $("#" + cellName).html();
+			if(innerHtml === "<i class=\"material-icons\">clear</i>") {
+				board[row][col] = 1;
+			}
+			else if(innerHtml === "<i class=\"material-icons\">radio_button_unchecked</i>") {
+				board[row][col] = 2;
+			}
+			else {
+				board[row][col] = 0;
+			}
+		}
+	}
+	console.log(board);
+	return board;
 }
 
 function lockBoard() {
@@ -29,23 +49,38 @@ function unlockBoard() {
 	$("#msg").text("It's your turn! Click on a square. (You are X)");
 }
 
-function playerMove() {
-	var data = {};
-	data["gameState"] = getBoardState();
+function playerMove(row, col, boardState) {
+	var data = {
+			"boardState": boardState,
+			"row": row,
+			"col": col
+	};
 	
 	$.ajax({
 		type: "POST",
 		contentType: "application/json",
 		url: "/games/tictactoe",
 		data: JSON.stringify(data),
-		dataType: 'json',
 		success: function(data) {
-			setBoardState(data["gameState"]);
-			unlockBoard();
+			if(data.won) {
+				if(data.move) {
+					var cellName = "#cell-" + String(data.move.row) + String(data.move.col);
+					$(cellName).html("<i class=\"material-icons\">radio_button_unchecked</i>");
+				}
+				swal("The Game is Over!", (data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!");
+				$("#msg").text("Game over! " + ((data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!"));
+			}
+			else {
+				var cellName = "#cell-" + String(data.move.row) + String(data.move.col);
+				$(cellName).html("<i class=\"material-icons\">radio_button_unchecked</i>");
+				unlockBoard();
+			}
 		},
 		error: function(e) {
 			console.log("ERROR: ", e);
-			alert("Error connecting to server. Please refresh the page.");
+			console.log("ASDFHJKAHDJKASHDJKBAFL");
+			swal("Error connecting to server.", "Please refresh the page.", "error");
+			//alert("Error connecting to server. Please refresh the page.");
 		},
 		done: function(e) {
 			console.log("DONE");
