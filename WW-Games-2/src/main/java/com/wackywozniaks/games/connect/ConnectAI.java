@@ -7,12 +7,16 @@ import com.wackywozniaks.games.PlayerAI;
  * An AI for Connect games
  * 
  * @author WackyWozniaks Company
- * @version 04/26/2017
+ * @version 04/29/2017
  */
 public class ConnectAI extends PlayerAI
 {
-	public static ConnectMove chooseMove(Game g)
+	public static final int RANDOM = 0, MINIMAX = 1;
+	
+	public static ConnectMove chooseMove(Game g, int difficulty)
 	{
-		return (ConnectMove)minimax(g, 3);
+		if(difficulty == RANDOM) return (ConnectMove)random(g);
+		else if(difficulty == MINIMAX) return (ConnectMove)minimax(g, 3);
+		else return null;
 	}
 }

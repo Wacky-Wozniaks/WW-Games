@@ -10,6 +10,13 @@ import java.util.LinkedList;
  */
 public abstract class PlayerAI
 {	
+	protected static Move random(Game s)
+	{
+		LinkedList<Move> moves = s.getLegalActions(2);
+		int index = (int)(Math.random() * moves.size());
+		return moves.get(index);
+	}
+	
 	protected static Move minimax(Game s, int maxDepth)
 	{
 		return (Move) minimax(s, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, maxDepth)[1];
