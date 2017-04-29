@@ -33,7 +33,6 @@ function getBoardState() {
 			}
 		}
 	}
-	console.log(board);
 	return board;
 }
 
@@ -67,6 +66,9 @@ function playerMove(row, col, boardState) {
 					var cellName = "#cell-" + String(data.move.row) + String(data.move.col);
 					$(cellName).html("<i class=\"material-icons\">radio_button_unchecked</i>");
 				}
+				for(var i = 0; i < data.highlight.length; i++) {
+					$("#cell-" + data.highlight[i][0] + data.highlight[i][1]).css("color", "red");
+				}
 				swal("The Game is Over!", (data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!");
 				$("#msg").text("Game over! " + ((data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!"));
 			}
@@ -78,12 +80,7 @@ function playerMove(row, col, boardState) {
 		},
 		error: function(e) {
 			console.log("ERROR: ", e);
-			console.log("ASDFHJKAHDJKASHDJKBAFL");
 			swal("Error connecting to server.", "Please refresh the page.", "error");
-			//alert("Error connecting to server. Please refresh the page.");
-		},
-		done: function(e) {
-			console.log("DONE");
 		}
 	});
 }
