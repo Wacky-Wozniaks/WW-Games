@@ -60,4 +60,21 @@ public interface UserDAO {
 	 */
 	public void changePassword(String email, String newPassword);
 	
+	/**
+	 * Gets the number of points for a user.
+	 * 
+	 * @param email The email of the user.
+	 * @return The number of points the user has, null if user does not exist.
+	 */
+	public Integer getPoints(String email);
+	
+	/**
+	 * Adds the given number of points to a user.
+	 * 
+	 * @param email The email of the user.
+	 * @param points The number of points to add.
+	 * @return Whether the action was successful.
+	 */
+	public boolean addPoints(String email, int points);
+	
 }

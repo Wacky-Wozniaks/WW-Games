@@ -1,4 +1,4 @@
-LATEST PUT INTO AWS: N/A
+LATEST PUT INTO AWS: 3
 
 In this folder will be files that contain the SQL updates to the database that you have done on your local database. Ultimately these changes will be put into the AWS database.
 

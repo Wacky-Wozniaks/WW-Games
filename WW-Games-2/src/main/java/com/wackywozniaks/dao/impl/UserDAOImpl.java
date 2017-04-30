@@ -106,4 +106,36 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
+	public Integer getPoints(String email) {
+		String sql = "select points from users where email = ?";
+		try {
+			Integer num = jdbcTemplate.queryForObject(sql, new Object[]{email}, Integer.class);
+			return num;
+		}
+		catch(EmptyResultDataAccessException e) {
+			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
+			return null;
+		}
+	}
+
+	@Override
+	public boolean addPoints(String email, int points) {
+		Integer original = getPoints(email);
+		if(original == null) {
+			return false;
+		}
+		int newPoints = original + points;
+		
+		String sql = "update users set points = ? where email = ?";
+		try {
+			jdbcTemplate.update(sql, new Object[]{newPoints, email});
+			return true;
+		}
+		catch(EmptyResultDataAccessException e) {
+			Logger.getLogger(UserDAO.class.getName()).log(Level.WARNING, e.getMessage(), e);
+			return false;
+		}
+	}
+
 }
