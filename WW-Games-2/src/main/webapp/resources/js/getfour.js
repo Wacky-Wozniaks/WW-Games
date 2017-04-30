@@ -1,3 +1,6 @@
+var highlight2;
+var winner;
+
 $(document).ready(function() {
 	$("td.board-cell").click(boardClick);
 });
@@ -74,6 +77,18 @@ function unlockBoard() {
 	$("#msg").text("It's your turn! Click on a space. (You are red)");
 }
 
+function highlight() {
+	for(var i = 0; i < highlight2.length; i++) {
+		var cell = $("#cell-" + highlight2[i][0] + highlight2[i][1]);
+		if(cell.css("background-color") === "rgb(0, 128, 0)") {
+			cell.css("background-color", (winner === 1) ? "red" : "yellow");
+		}
+		else {
+			cell.css("background-color", "green");
+		}
+	}
+}
+
 function playerMove(row, col, boardState) {
 	var data = {
 			"boardState": boardState,
@@ -93,6 +108,9 @@ function playerMove(row, col, boardState) {
 					$(cellName).addClass("filled");
 					$(cellName).css("background-color", "yellow");
 				}
+				highlight2 = data.highlight;
+				winner = data.winner;
+				interval = setInterval(highlight, 1000);
 				swal("The Game is Over!", (data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!");
 				$("#msg").text("Game over! " + ((data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!"));
 			}
