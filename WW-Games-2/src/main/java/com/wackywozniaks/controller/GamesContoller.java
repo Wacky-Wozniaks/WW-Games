@@ -17,6 +17,7 @@ import com.wackywozniaks.dto.ConnectBean;
 import com.wackywozniaks.dto.ConnectResponseBean;
 import com.wackywozniaks.entity.User;
 import com.wackywozniaks.games.Move;
+import com.wackywozniaks.games.connect.Connect4;
 import com.wackywozniaks.games.connect.ConnectAI;
 import com.wackywozniaks.games.connect.ConnectMove;
 import com.wackywozniaks.games.connect.TicTacToe;
@@ -63,8 +64,6 @@ public class GamesContoller {
 	@ResponseBody
 	public ConnectResponseBean tictactoe(@RequestBody ConnectBean data) {
 		TicTacToe tictactoe = new TicTacToe(data.getBoardState());
-		//ConnectMove move = ConnectAI.chooseMove(tictactoe);
-		//tictactoe.doMove(move);
 		
 		ConnectResponseBean response = new ConnectResponseBean();
 		if(tictactoe.gameOver()) {
@@ -73,7 +72,7 @@ public class GamesContoller {
 			response.setHighlight(tictactoe.getHighlight());
 		}
 		else {
-			ConnectMove move = ConnectAI.chooseMove(tictactoe);
+			ConnectMove move = ConnectAI.chooseMove(tictactoe, ConnectAI.MINIMAX);
 			tictactoe = tictactoe.doMove(move);
 			response.setMove(move);
 			if(tictactoe.gameOver()) {
@@ -102,9 +101,31 @@ public class GamesContoller {
         return "getfour";
 	}
 	
-	/*@RequestMapping(value = "getfour", method = RequestMethod.POST) 
-	public String getfour(Model model, TicTacToeBean bean) {
-		model.addAttribute("gameState", Connect4.doMove(bean.getGameState(), true)); //gamestate, isAI
-	}*/
+	@RequestMapping(value = "getfour", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ConnectResponseBean getfour(@RequestBody ConnectBean data) {
+		Connect4 getFour = new Connect4(data.getBoardState());
+		ConnectResponseBean response = new ConnectResponseBean();
+		if(getFour.gameOver()) {
+			response.setWon(true);
+			response.setWinner(getFour.getWinner());
+			response.setHighlight(getFour.getHighlight());
+		}
+		else {
+			ConnectMove move = ConnectAI.chooseMove(getFour, ConnectAI.MINIMAX);
+			getFour = getFour.doMove(move);
+			response.setMove(move);
+			if(getFour.gameOver()) {
+				response.setWon(true);
+				response.setWinner(getFour.getWinner());
+				response.setHighlight(getFour.getHighlight());
+			}
+			else {
+				response.setWon(false);
+			}
+		}
+		
+		return response;
+	}
 
 }

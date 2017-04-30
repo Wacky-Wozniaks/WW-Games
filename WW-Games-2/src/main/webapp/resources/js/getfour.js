@@ -8,24 +8,46 @@ function boardClick(e) {
 		
 		if(nextOpenCell != -1) {
 			lockBoard();
-			$("#" + nextOpenCell).addClass("filled");
-			$("#" + nextOpenCell).css("background-color", "red");
+			$(nextOpenCell).addClass("filled");
+			$(nextOpenCell).css("background-color", "red");
+			var boardState = getBoardState();
+			var name = $(this).attr("id");
+			playerMove(name.charAt(name.length - 2), name.charAt(name.length - 1), boardState);
 		}
-		
-		$(this).find("h1").html("<i class='material-icons'>clear</i>");
 	}
+}
+
+function getBoardState() {
+	var board = [[], [], [], [], [], []];
+	for(var row = 0; row < 6; row++) {
+		for(var col = 0; col < 7; col++) {
+			var cellName = "#cell-" + String(row) + String(col);
+			var innerHtml = $(cellName).css("background-color");
+			if(innerHtml === "rgb(255, 0, 0)") {
+				board[row][col] = 1;
+			}
+			else if(innerHtml === "rgb(255, 255, 0)") {
+				board[row][col] = 2;
+			}
+			else {
+				board[row][col] = 0;
+			}
+		}
+	}
+	console.log(board);
+	return board;
 }
 
 function getNextOpenCell(cell) {
 	var cellName = cell.attr("id");
-	var rowNum = cellName.charAt(cellName.length - 1);
-	var colNum = cellName.charAt(cellName.length - 2);
+	var colNum = cellName.charAt(cellName.length - 1);
+	var rowNum = cellName.charAt(cellName.length - 2);
 	var emptyCell = -1;
 	
 	for(var i = 0; i < 6; i++) {
-		var newCell = "cell" + String(colNum) + String(i);
+		var newCell = "#cell-" + String(i) + String(colNum);
 		
-		if(!$("#" + newCell).hasClass("filled")) {
+		if(!$(newCell).hasClass("filled")) {
 			emptyCell = newCell;
 		}
 		else {
@@ -40,10 +62,6 @@ function boardClickLocked(e) {
 	swal("It's not your turn.", "", "error");
 }
 
-function getBoardState() {
-	
-}
-
 function lockBoard() {
 	$("td.board-cell").off('click');
 	$("td.board-cell").click(boardClickLocked);
@@ -56,26 +74,38 @@ function unlockBoard() {
 	$("#msg").text("It's your turn! Click on a space. (You are red)");
 }
 
-function playerMove() {
-	var data = {};
-	data["gameState"] = getBoardState();
+function playerMove(row, col, boardState) {
+	var data = {
+			"boardState": boardState,
+			"row": row,
+			"col": col
+	};
 	
 	$.ajax({
 		type: "POST",
 		contentType: "application/json",
 		url: "/games/getfour",
 		data: JSON.stringify(data),
-		dataType: 'json',
 		success: function(data) {
-			setBoardState(data["gameState"]);
-			unlockBoard();
+			if(data.won) {
+				if(data.move) {
+					var cellName = "#cell-" + String(data.move.row) + String(data.move.col);
+					$(cellName).addClass("filled");
+					$(cellName).css("background-color", "yellow");
+				}
+				swal("The Game is Over!", (data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!");
+				$("#msg").text("Game over! " + ((data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!"));
+			}
+			else {
+				var cellName = "#cell-" + String(data.move.row) + String(data.move.col);
+				$(cellName).addClass("filled");
+				$(cellName).css("background-color", "yellow");
+				unlockBoard();
+			}
 		},
 		error: function(e) {
 			console.log("ERROR: ", e);
-			alert("Error connecting to server. Please refresh the page.");
-		},
-		done: function(e) {
-			console.log("DONE");
+			swal("Error connecting to server.", "Please refresh the page.", "error");
 		}
 	});
 }
