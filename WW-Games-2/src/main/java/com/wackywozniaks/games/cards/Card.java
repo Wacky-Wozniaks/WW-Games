@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * Represents a playing card, with methods to deal and sort hands.
  * 
  * @author WackyWozniaks Company
- * @version 04/28/2017
+ * @version 04/30/2017
  */
 public class Card implements Comparable<Card>
 {
@@ -154,5 +154,15 @@ public class Card implements Comparable<Card>
 			}
 		};
 		hand.sort(c);
+	}
+	
+	/**
+	 * Checks whether the deck of cards is empty.
+	 * @param deck The deck to check.
+	 * @return True if the deck is empty, false otherwise.
+	 */
+	public static boolean deckEmpty(LinkedList<Card> deck)
+	{
+		return deck.isEmpty();
 	}
 }

@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * Represents the card game War.
  * 
  * @author WackyWozniaks Company
- * @version 04/29/2017
+ * @version 04/30/2017
  */
 public class War
 {
@@ -73,5 +73,25 @@ public class War
 		else if(comp > 0) newCards[newCards.length - 1] = PLAYER1;
 		else newCards[newCards.length - 1] = PLAYER2;
 		return newCards;
+	}
+	
+	/**
+	 * Returns whether the game is over.
+	 * @return If the game is over.
+	 */
+	public boolean gameOver()
+	{
+		return Card.deckEmpty(hands[0]) || Card.deckEmpty(hands[1]);
+	}
+	
+	/**
+	 * Returns the winner, or 0 if the game is not over.
+	 * @return 1 if player 1 has won, 2 if player 2 has won, or 0 is the game is not over.
+	 */
+	public int getWinner()
+	{
+		if(Card.deckEmpty(hands[0])) return 1;
+		else if(Card.deckEmpty(hands[1])) return 2;
+		else return 0;
 	}
 }
