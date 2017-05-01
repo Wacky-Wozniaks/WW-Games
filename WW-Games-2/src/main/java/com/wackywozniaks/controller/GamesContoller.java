@@ -34,19 +34,6 @@ public class GamesContoller {
 	private UserDAOImpl userDAOImpl;
 	private ApplicationContext context;
 	
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String init(Model model, HttpServletRequest request) {
-		String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");
-		if(currSessionUser == null) {
-			return "redirect:/login";
-		}
-		context = new ClassPathXmlApplicationContext("Beans.xml");
-		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
-		User user = userDAOImpl.getUser(currSessionUser);
-		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
-        return "games";
-	}
-	
 	@RequestMapping(value = "tictactoe", method = RequestMethod.GET)
 	public String tictactoe(Model model, HttpServletRequest request) {
 		String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");

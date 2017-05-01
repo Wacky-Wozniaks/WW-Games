@@ -5,8 +5,15 @@
 
 <nav class="top-bar" data-topbar role="navigation">
 	<div class="top-bar-left">
-		<ul class="dropdown menu">
+		<ul class="dropdown menu" data-dropdown-menu="parxkb-dropdown-menu" role="menubar">
 			<li><a href="/home">Home</a></li>
+			<li role="menuitem" class="is-dropdown-submenu-parent opens-right">
+				<a href="#!">Games</a>
+				<ul class="menu submenu is-dropdown-submenu first-sub vertical" role="menu">
+					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/games/tictactoe">Tic Tac Toe</a></li>
+					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/games/getfour">GetFour</a></li>
+				</ul>
+			</li>
 			<c:if test="${fn:contains(pageContext.request.requestURI, '/games/')}">
 				<li><a href="${pageContext.request.requestURI}">Replay</a></li>
 			</c:if>
@@ -14,7 +21,7 @@
 	</div>
 	<div class="top-bar-right">
 		<ul class="dropdown menu" data-dropdown-menu="parxkb-dropdown-menu" role="menubar">
-			<li role="menuitem" class="is-dropdown-submenu-parent opens-right">
+			<li role="menuitem" class="is-dropdown-submenu-parent opens-left">
 				<a href="#!">${name}</a>
 				<ul class="menu submenu is-dropdown-submenu first-sub vertical" role="menu">
 					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/profile">Profile <i class="material-icons">person</i></a></li>
