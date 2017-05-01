@@ -16,16 +16,16 @@ import com.wackywozniaks.dao.impl.UserDAOImpl;
 import com.wackywozniaks.dto.ConnectBean;
 import com.wackywozniaks.dto.ConnectResponseBean;
 import com.wackywozniaks.entity.User;
-import com.wackywozniaks.games.Move;
 import com.wackywozniaks.games.connect.Connect4;
 import com.wackywozniaks.games.connect.ConnectAI;
 import com.wackywozniaks.games.connect.ConnectMove;
 import com.wackywozniaks.games.connect.TicTacToe;
 
 /**
+ * Controller for the games.
  * 
  * @author Wacky Wozniaks Company
- * @version 04/08/2017
+ * @version 05/01/2017
  */
 @Controller
 @RequestMapping("/games")
@@ -49,7 +49,7 @@ public class GamesContoller {
 	
 	@RequestMapping(value = "tictactoe", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ConnectResponseBean tictactoe(@RequestBody ConnectBean data) {
+	public ConnectResponseBean tictactoe(@RequestBody ConnectBean data, HttpServletRequest request) {
 		TicTacToe tictactoe = new TicTacToe(data.getBoardState());
 		
 		ConnectResponseBean response = new ConnectResponseBean();
@@ -66,6 +66,7 @@ public class GamesContoller {
 				response.setWon(true);
 				response.setWinner(tictactoe.getWinner());
 				response.setHighlight(tictactoe.getHighlight());
+				addPoints(request, tictactoe.getWinner());
 			}
 			else {
 				response.setWon(false);
@@ -90,7 +91,7 @@ public class GamesContoller {
 	
 	@RequestMapping(value = "getfour", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ConnectResponseBean getfour(@RequestBody ConnectBean data) {
+	public ConnectResponseBean getfour(@RequestBody ConnectBean data, HttpServletRequest request) {
 		Connect4 getFour = new Connect4(data.getBoardState());
 		ConnectResponseBean response = new ConnectResponseBean();
 		if(getFour.gameOver()) {
@@ -106,6 +107,7 @@ public class GamesContoller {
 				response.setWon(true);
 				response.setWinner(getFour.getWinner());
 				response.setHighlight(getFour.getHighlight());
+				addPoints(request, getFour.getWinner());
 			}
 			else {
 				response.setWon(false);
@@ -113,6 +115,21 @@ public class GamesContoller {
 		}
 		
 		return response;
+	}
+	
+	private void addPoints(HttpServletRequest request, int winner) {
+		context = new ClassPathXmlApplicationContext("Beans.xml");
+		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
+		System.out.println((String) request.getSession().getAttribute("currentSessionUser"));
+		if(winner == 1) {
+			userDAOImpl.addPoints((String) request.getSession().getAttribute("currentSessionUser"), 5);
+		}
+		else if(winner == 0) {
+			userDAOImpl.addPoints((String) request.getSession().getAttribute("currentSessionUser"), 3);
+		}
+		else {
+			userDAOImpl.addPoints((String) request.getSession().getAttribute("currentSessionUser"), 1);
+		}
 	}
 
 }
