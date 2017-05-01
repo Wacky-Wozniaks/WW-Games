@@ -57,6 +57,7 @@ public class GamesContoller {
 			response.setWon(true);
 			response.setWinner(tictactoe.getWinner());
 			response.setHighlight(tictactoe.getHighlight());
+			addPoints(request, tictactoe.getWinner());
 		}
 		else {
 			ConnectMove move = ConnectAI.chooseMove(tictactoe, ConnectAI.MINIMAX);
@@ -98,6 +99,7 @@ public class GamesContoller {
 			response.setWon(true);
 			response.setWinner(getFour.getWinner());
 			response.setHighlight(getFour.getHighlight());
+			addPoints(request, tictactoe.getWinner());
 		}
 		else {
 			ConnectMove move = ConnectAI.chooseMove(getFour, ConnectAI.MINIMAX);
