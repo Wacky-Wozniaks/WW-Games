@@ -42,6 +42,10 @@ public class HomeController {
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+		model.addAttribute("points", user.getPoints());
+		model.addAttribute("level", (int) (user.getPoints() / 25) + 1);
+		model.addAttribute("levelPoints", 25 - (user.getPoints() % 25));
+		model.addAttribute("levelPercent", (int) ((user.getPoints() % 25) / .25));
         return "userLogged";
     }
 

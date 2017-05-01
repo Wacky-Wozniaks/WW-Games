@@ -11,7 +11,7 @@ import com.wackywozniaks.entity.User;
  * Takes the raw data from a query for a user and maps it to a user object.
  * 
  * @author Wacky Wozniaks Company
- * @version 04/05/2017
+ * @version 04/30/2017
  */
 public class UserMapper implements RowMapper<User> {
 	
@@ -27,6 +27,7 @@ public class UserMapper implements RowMapper<User> {
 		user.setFirstName(rs.getString("first_name"));
 		user.setLastName(rs.getString("last_name"));
 		user.setVerified(rs.getBoolean("verified"));
+		user.setPoints(rs.getInt("points"));
 		
 		return user;
 	}

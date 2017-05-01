@@ -9,7 +9,7 @@ import com.wackywozniaks.entity.User;
  * This is the user data access object which handles queries to the database, etc in regards to Users. 
  * 
  * @author WackyWozniaks Company
- * @version 04/21/2017
+ * @version 04/30/2017
  */
 public interface UserDAO {
 	

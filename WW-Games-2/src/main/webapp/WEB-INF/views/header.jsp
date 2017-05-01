@@ -1,4 +1,5 @@
 <%-- This should only show up on pages where the user is logged in! --%>
+<%@ include file="taglibs.jsp" %>
 
 <link rel="stylesheet" href="resources/css/header.css">
 
@@ -6,7 +7,9 @@
 	<div class="top-bar-left">
 		<ul class="dropdown menu">
 			<li><a href="/home">Home</a></li>
-			<li><a href="/games">Games</a></li>
+			<c:if test="${fn:contains(pageContext.request.requestURI, '/games/')}">
+				<li><a href="${pageContext.request.requestURI}">Replay</a></li>
+			</c:if>
 		</ul>
 	</div>
 	<div class="top-bar-right">

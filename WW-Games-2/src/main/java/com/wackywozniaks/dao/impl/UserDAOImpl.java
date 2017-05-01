@@ -21,7 +21,7 @@ import com.wackywozniaks.mapper.UserMapper;
  * The Implementation of the UserDAO interface.
  * 
  * @author Wacky Wozniaks Company
- * @version 04/21/2017
+ * @version 04/30/2017
  */
 @Repository("userDAOImpl")
 public class UserDAOImpl implements UserDAO {
@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public void createUser(SignupBean signupBean) {
-		String sql = "insert into users values(default, ?, ?, ?, ?, false)";
+		String sql = "insert into users values(default, ?, ?, ?, ?, false, default)";
 		try {
 			jdbcTemplate.update(sql, new Object[]{signupBean.getEmail(), BCrypt.hashpw(signupBean.getPassword(), BCrypt.gensalt()), signupBean.getFirstName(), signupBean.getLastName()});
 			SendEmail.sendVerificationEmail(signupBean);

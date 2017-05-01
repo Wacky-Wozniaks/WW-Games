@@ -1,0 +1,12 @@
+.container {
+	width: 80%;
+	margin: auto;
+}
+
+.center {
+	text-align: center;
+}
+
+.side-link {
+	margin-bottom: .5rem;
+}
