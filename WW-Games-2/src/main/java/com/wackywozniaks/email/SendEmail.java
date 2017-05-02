@@ -44,7 +44,7 @@ public class SendEmail {
 			Client client = ClientBuilder.newClient();
 			client.register(HttpAuthenticationFeature.basic(
 					"api",
-					System.getenv("EMAIL_KEY") //Our secret key
+					System.getProperty("EMAIL_KEY") //Our secret key
 					));
 
 			WebTarget mgRoot = client.target("https://api.mailgun.net/v3");
@@ -73,7 +73,7 @@ public class SendEmail {
 	 * @return The ClientResponse from the email
 	 */
 	public static ClientResponse sendVerificationEmail(SignupBean bean) {
-		String link = System.getenv("URL") + "verify?hash=" + BCrypt.hashpw(bean.getEmail(), BCrypt.gensalt());
+		String link = System.getProperty("URL") + "verify?hash=" + BCrypt.hashpw(bean.getEmail(), BCrypt.gensalt());
 		
 		return sendEmail("Wacky Wozniaks <no-reply@wackywozniaks.com>", bean.getEmail(), "Wacky Wozniaks Email Verification", 
 				"Your email does not support HTML!", 
@@ -87,7 +87,7 @@ public class SendEmail {
 	 * @return The ClientResponse from the email
 	 */
 	public static ClientResponse sendRecoveryEmail(ForgotPasswordBean bean, User user, String hash) {
-		String link = System.getenv("URL") + "changePassword?hash=" + hash;
+		String link = System.getProperty("URL") + "changePassword?hash=" + hash;
 		
 		return sendEmail("Wacky Wozniaks <no-reply@wackywozniaks.com>", bean.getEmail(), "Wacky Wozniaks Password Recovery", 
 				"Your email does not support HTML!", 

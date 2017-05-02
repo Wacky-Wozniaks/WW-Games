@@ -15,9 +15,9 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url"
-			value="#{'jdbc:postgresql://' + systemEnvironment.RDS_HOSTNAME + ':' + systemEnvironment.RDS_PORT + '/' + systemEnvironment.RDS_DB_NAME}" />
-		<property name="username" value="#{systemEnvironment.RDS_USERNAME}" />
-		<property name="password" value="#{systemEnvironment.RDS_PASSWORD}" />
+			value="#{'jdbc:postgresql://' + systemProperties.RDS_HOSTNAME + ':' + systemProperties.RDS_PORT + '/' + systemProperties.RDS_DB_NAME}" />
+		<property name="username" value="#{systemProperties.RDS_USERNAME}" />
+		<property name="password" value="#{systemProperties.RDS_PASSWORD}" />
 	</bean>
 	
 	<bean id="userDAOImpl" class="com.wackywozniaks.dao.impl.UserDAOImpl">
