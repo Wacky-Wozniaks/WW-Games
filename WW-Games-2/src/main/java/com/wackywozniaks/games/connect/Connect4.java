@@ -24,6 +24,7 @@ public class Connect4 extends Connect
 	@Override
 	public Connect4 doMove(Move m)
 	{
+		if(m == null) return null;
 		ConnectMove move = (ConnectMove) m;
 		return drop(move.getCol(), move.getPlayer());
 	}
