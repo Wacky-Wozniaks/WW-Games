@@ -48,6 +48,7 @@ public class Connect4 extends Connect
 	{
 		int[][] board = getBoard();
 		LinkedList<Move> list = new LinkedList<Move>();
+		if(this.gameOver()) return list;
 		for(int col = 0; col < board[0].length; col++)
 		{
 			for(int row = board.length - 1; row >= 0; row--)

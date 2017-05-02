@@ -1,6 +1,7 @@
 package com.wackywozniaks.games.connect;
 
 import com.wackywozniaks.games.Game;
+import com.wackywozniaks.games.Test;
 
 /**
  * An abstract framework for games like Connect4 and Tic Tac Toe.
@@ -144,12 +145,19 @@ public abstract class Connect extends Game
 	@Override
 	public int evaluate()
 	{
-		// TODO improve evaluation
-		if(this.gameOver())
+		if(this.getWinner() != 0)
 		{
-			if(getWinner() == 2) return Integer.MAX_VALUE;
+			int count = 0;
+			for(int r = 0; r < board.length; r++)
+			{
+				for(int c = 0; c < board[0].length; c++)
+				{
+					if(board[r][c] != EMPTY) count++;
+				}
+			}
+			if(getWinner() == 2) return 1000 / count;
 			else if(getWinner() == 0) return 0;
-			else return Integer.MIN_VALUE;
+			else return -1000 / count;
 		}
 		return 0;
 	}

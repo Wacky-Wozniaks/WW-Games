@@ -43,6 +43,7 @@ public class TicTacToe extends Connect
 	{
 		int[][] board = getBoard();
 		LinkedList<Move> list = new LinkedList<Move>();
+		if(this.gameOver()) return list;
 		for(int row = 0; row < board.length; row++)
 		{
 			for(int col = 0; col < board[0].length; col++)
