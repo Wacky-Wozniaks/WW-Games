@@ -1,12 +1,13 @@
 package com.wackywozniaks.games.cards;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  * Represents the card game War.
  * 
  * @author WackyWozniaks Company
- * @version 04/30/2017
+ * @version 05/02/2017
  */
 public class War
 {
@@ -54,25 +55,39 @@ public class War
 	 */
 	public Object[] war(Object[] cards)
 	{
-		Object[] newCards = new Object[cards.length + 4];
-		for(int i = 0; i < (cards.length - 1) / 2; i++)
+		Object[] newCards = {new ArrayList<Card>(), new ArrayList<Card>(), null};
+		((ArrayList<Card>)(newCards[0])).add((Card)cards[0]);
+		((ArrayList<Card>)(newCards[1])).add((Card)cards[1]);
+		return continueWar(newCards);
+	}
+	
+	/**
+	 * Continues an already begun war.
+	 * @param cards Two array lists of cards and an integer value which is not relevant to the method.
+	 * @return The same array as passed in, but with cards added and the integer representing the winner of the war.
+	 */
+	public Object[] continueWar(Object[] cards)
+	{
+		((ArrayList<Card>)(cards[0])).add(Card.draw(hands[0]));
+		((ArrayList<Card>)(cards[1])).add(Card.draw(hands[1]));
+		Card c1 = Card.draw(hands[0]), c2 = Card.draw(hands[1]);
+		int won;
+		if(c1 == null) won = PLAYER1;
+		else if(c2 == null) won = PLAYER2;
+		else
 		{
-			newCards[i]= cards[i];
+			((ArrayList<Card>)(cards[0])).add(c1);
+			((ArrayList<Card>)(cards[1])).add(c2);
+			int comp = c1.compareTo(c2);
+			won = comp > 0 ? PLAYER1 : comp < 0 ? PLAYER2 : DRAW;
 		}
-		newCards[(cards.length - 1) / 2] = Card.draw(hands[0]);
-		newCards[(cards.length - 1) / 2 + 1] = Card.draw(hands[0]);
-		for(int i = (cards.length - 1) / 2, j = i + 2; i < cards.length - 1; i++, j++)
+		for(int i = 0; i < 2; i++)
 		{
-			newCards[j] = cards[i];
+			ArrayList<Card> stack = (ArrayList<Card>)cards[i];
+			for(Card c: stack) Card.addCard(hands[won - 1], c);
 		}
-		newCards[cards.length + 1] = Card.draw(hands[1]);
-		newCards[cards.length + 2] = Card.draw(hands[1]);
-		
-		int comp = ((Card)newCards[(cards.length - 1) / 2 + 1]).compareTo((Card)newCards[cards.length]);
-		if(comp == 0) newCards[newCards.length - 1] = DRAW;
-		else if(comp > 0) newCards[newCards.length - 1] = PLAYER1;
-		else newCards[newCards.length - 1] = PLAYER2;
-		return newCards;
+		cards[2] = won;
+		return cards;
 	}
 	
 	/**
