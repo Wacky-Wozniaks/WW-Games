@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * Represents the card game War.
  * 
  * @author WackyWozniaks Company
- * @version 05/02/2017
+ * @version 05/03/2017
  */
 public class War
 {
@@ -26,26 +26,40 @@ public class War
 	}
 	
 	/**
+	 * Makes the game with the already existing hands.
+	 * @param player1 Player 1's hand
+	 * @param player2 Player 2's hand
+	 */
+	public War(LinkedList<Card> player1, LinkedList<Card> player2)
+	{
+		hands = (LinkedList<Card>[])new LinkedList[2];
+		hands[0] = player1;
+		hands[1] = player2;
+	}
+	
+	/**
 	 * Draws the next card from each deck
 	 * @return an array with three elements: the card drawn by player 1, the card drawn by player 2, and an integer constant representing which player won the cards.
 	 */
 	public Object[] next()
 	{
-		Card c1 = Card.draw(hands[0]), c2 = Card.draw(hands[1]);
-		int comp = c1.compareTo(c2);
+		ArrayList<Card> a1 = new ArrayList<Card>(), a2 = new ArrayList<Card>();
+		a1.add(Card.draw(hands[0]));
+		a2.add(Card.draw(hands[1]));
+		int comp = a1.get(0).compareTo(a1.get(1));
 		if(comp > 0)
 		{
-			Card.addCard(hands[0], c1);
-			Card.addCard(hands[0], c2);
-			return new Object[]{c1, c2, PLAYER1};
+			Card.addCard(hands[0], a1.get(0));
+			Card.addCard(hands[0], a2.get(0));
+			return new Object[]{a1, a2, PLAYER1};
 		}
 		else if(comp < 0)
 		{
-			Card.addCard(hands[1], c1);
-			Card.addCard(hands[1], c2);
-			return new Object[]{c1, c2, PLAYER2};
+			Card.addCard(hands[1], a1.get(0));
+			Card.addCard(hands[1], a2.get(0));
+			return new Object[]{a1, a2, PLAYER2};
 		}
-		else return new Object[]{c1, c2, DRAW};
+		else return new Object[]{a1, a2, DRAW};
 	}
 	
 	/**
@@ -54,19 +68,6 @@ public class War
 	 * @return The new set of cards
 	 */
 	public Object[] war(Object[] cards)
-	{
-		Object[] newCards = {new ArrayList<Card>(), new ArrayList<Card>(), null};
-		((ArrayList<Card>)(newCards[0])).add((Card)cards[0]);
-		((ArrayList<Card>)(newCards[1])).add((Card)cards[1]);
-		return continueWar(newCards);
-	}
-	
-	/**
-	 * Continues an already begun war.
-	 * @param cards Two array lists of cards and an integer value which is not relevant to the method.
-	 * @return The same array as passed in, but with cards added and the integer representing the winner of the war.
-	 */
-	public Object[] continueWar(Object[] cards)
 	{
 		((ArrayList<Card>)(cards[0])).add(Card.draw(hands[0]));
 		((ArrayList<Card>)(cards[1])).add(Card.draw(hands[1]));
@@ -88,6 +89,15 @@ public class War
 		}
 		cards[2] = won;
 		return cards;
+	}
+	
+	/**
+	 * Returns how many cards each player has in their hand.
+	 * @return A 2 cell array with the number of cards each player has.
+	 */
+	public int[] getCounts()
+	{
+		return new int[]{hands[0].size(), hands[1].size()};
 	}
 	
 	/**
