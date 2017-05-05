@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * Represents the card game War.
  * 
  * @author WackyWozniaks Company
- * @version 05/03/2017
+ * @version 05/05/2017
  */
 public class War
 {
@@ -16,25 +16,24 @@ public class War
 	private LinkedList<Card>[] hands;
 	
 	/**
-	 * Creates a new game of war.
-	 */
-	public War()
-	{
-		LinkedList<Card> deck = Card.createDeck();
-		Card.shuffle(deck);
-		hands = Card.split(deck);
-	}
-	
-	/**
-	 * Makes the game with the already existing hands.
+	 * Makes the game with the already existing hands, or a new game if the hands are null;
 	 * @param player1 Player 1's hand
 	 * @param player2 Player 2's hand
 	 */
 	public War(LinkedList<Card> player1, LinkedList<Card> player2)
 	{
-		hands = (LinkedList<Card>[])new LinkedList[2];
-		hands[0] = player1;
-		hands[1] = player2;
+		if(player1 == null)
+		{
+			LinkedList<Card> deck = Card.createDeck();
+			Card.shuffle(deck);
+			hands = Card.split(deck);
+		}
+		else
+		{
+			hands = (LinkedList<Card>[])new LinkedList[2];
+			hands[0] = player1;
+			hands[1] = player2;
+		}
 	}
 	
 	/**
