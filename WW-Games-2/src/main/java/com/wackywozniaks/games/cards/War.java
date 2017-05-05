@@ -45,7 +45,7 @@ public class War
 		ArrayList<Card> a1 = new ArrayList<Card>(), a2 = new ArrayList<Card>();
 		a1.add(Card.draw(hands[0]));
 		a2.add(Card.draw(hands[1]));
-		int comp = a1.get(0).compareTo(a1.get(1));
+		int comp = a1.get(0).compareTo(a2.get(0));
 		if(comp > 0)
 		{
 			Card.addCard(hands[0], a1.get(0));
