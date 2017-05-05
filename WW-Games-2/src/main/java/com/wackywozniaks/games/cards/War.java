@@ -100,6 +100,24 @@ public class War
 	}
 	
 	/**
+	 * Returns the cards in player 1's hand currently.
+	 * @return Player 1's card.
+	 */
+	public LinkedList<Card> getPlayer1()
+	{
+		return hands[0];
+	}
+	
+	/**
+	 * Returns the cards in player 2's hand currently.
+	 * @return Player 2's card.
+	 */
+	public LinkedList<Card> getPlayer2()
+	{
+		return hands[1];
+	}
+	
+	/**
 	 * Returns whether the game is over.
 	 * @return If the game is over.
 	 */
