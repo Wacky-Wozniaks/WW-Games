@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * Represents the card game War.
  * 
  * @author WackyWozniaks Company
- * @version 05/05/2017
+ * @version 05/06/2017
  */
 public class War
 {
@@ -80,6 +80,11 @@ public class War
 			((ArrayList<Card>)(cards[1])).add(c2);
 			int comp = c1.compareTo(c2);
 			won = comp > 0 ? PLAYER1 : comp < 0 ? PLAYER2 : DRAW;
+			if(won == DRAW)
+			{
+				cards[2] = DRAW;
+				return cards;
+			}
 		}
 		for(int i = 0; i < 2; i++)
 		{
