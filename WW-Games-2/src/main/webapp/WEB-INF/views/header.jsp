@@ -12,6 +12,7 @@
 				<ul class="menu submenu is-dropdown-submenu first-sub vertical" role="menu">
 					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/games/tictactoe">Tic Tac Toe</a></li>
 					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/games/getfour">GetFour</a></li>
+					<li role="menuitem" class="is-submenu-item is-dropdown-submenu-item"><a class="icon" href="/games/war">War</a></li>
 				</ul>
 			</li>
 			<c:if test="${fn:contains(pageContext.request.requestURI, '/games/')}">

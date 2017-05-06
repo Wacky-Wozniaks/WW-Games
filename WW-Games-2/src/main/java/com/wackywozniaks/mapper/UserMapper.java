@@ -15,7 +15,7 @@ import com.wackywozniaks.entity.User;
  */
 public class UserMapper implements RowMapper<User> {
 	
-	public User mapRow(ResultSet rs, int fowNum) throws SQLException {
+	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 		if(rs.getString("email") == null) {
 			return null;
 		}

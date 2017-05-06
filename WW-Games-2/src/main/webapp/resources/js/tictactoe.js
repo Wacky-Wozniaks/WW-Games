@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	//jQuery(".board-cell .text").fitText(.15);
 	$("td.board-cell").click(boardClick);
 });
 

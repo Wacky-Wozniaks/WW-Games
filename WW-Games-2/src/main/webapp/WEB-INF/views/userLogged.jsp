@@ -24,6 +24,7 @@
 			<h5><i>Games</i></h5>
 			<p class="side-link"><a href="games/tictactoe">Tic Tac Toe</a></p>
 			<p class="side-link"><a href="games/getfour">GetFour</a></p>
+			<p class="side-link"><a href="games/war">War</a></p>
 		</div>
 	</div>
 </div>

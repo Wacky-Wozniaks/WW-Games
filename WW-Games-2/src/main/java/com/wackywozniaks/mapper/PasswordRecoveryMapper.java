@@ -15,7 +15,7 @@ import com.wackywozniaks.entity.PasswordRecovery;
  */
 public class PasswordRecoveryMapper implements RowMapper<PasswordRecovery> {
 	
-	public PasswordRecovery mapRow(ResultSet rs, int fowNum) throws SQLException {
+	public PasswordRecovery mapRow(ResultSet rs, int rowNum) throws SQLException {
 		if(rs.getString("email") == null) {
 			return null;
 		}

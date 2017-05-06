@@ -1,0 +1,21 @@
+.container {
+	width: 80%;
+	margin: auto;
+}
+
+.playing-card {
+	height: 36vh;
+	padding: 10px;
+}
+
+.right {
+	float: right;
+}
+
+p {
+	margin-bottom: 0;
+}
+
+.right-text {
+	text-align: right;
+}

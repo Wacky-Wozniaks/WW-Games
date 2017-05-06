@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a playing card, with methods to deal and sort hands.
  * 
@@ -18,28 +20,28 @@ public class Card implements Comparable<Card>
 	
 	private int suit, rank;
 	
-	private Card(int suit, int rank)
+	public Card(@JsonProperty("suit") int suit, @JsonProperty("rank") int rank)
 	{
 		this.suit = suit;
 		this.rank = rank;
 	}
 	
-	public String getSuit()
+	public String getSuitText()
 	{
 		return SUITS[suit];
 	}
 	
-	private int getSuitNum()
+	public int getSuit()
 	{
 		return suit;
 	}
 	
-	public String getRank()
+	public String getRankText()
 	{
 		return RANKS[rank];
 	}
 	
-	private int getRankNum()
+	public int getRank()
 	{
 		return rank;
 	}
@@ -47,8 +49,8 @@ public class Card implements Comparable<Card>
 	@Override
 	public int compareTo(Card other)
 	{
-		if(other.getRankNum() < this.getRankNum()) return 1;
-		else if(other.getRankNum() > this.getRankNum()) return -1;
+		if(other.getRank() < this.getRank()) return 1;
+		else if(other.getRank() > this.getRank()) return -1;
 		else return 0;
 	}
 	
@@ -148,12 +150,12 @@ public class Card implements Comparable<Card>
 			@Override
 			public int compare(Card arg0, Card arg1)
 			{
-				if(arg0.getRankNum() > arg1.getRankNum()) return 1;
-				else if(arg0.getRankNum() < arg1.getRankNum()) return -1;
+				if(arg0.getRank() > arg1.getRank()) return 1;
+				else if(arg0.getRank() < arg1.getRank()) return -1;
 				else return 0;
 			}
 		};
-		hand.sort(c);
+		Collections.sort(hand, c);
 	}
 	
 	/**
