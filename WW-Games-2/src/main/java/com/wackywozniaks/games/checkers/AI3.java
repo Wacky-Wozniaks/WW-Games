@@ -1,6 +1,8 @@
 package com.wackywozniaks.games.checkers;
 import java.util.ArrayList;
 
+import com.wackywozniaks.games.Move;
+
 
 public class AI3 extends MoveAI{
 
@@ -8,7 +10,7 @@ public class AI3 extends MoveAI{
 	private double aggression;       //Higher values result in a more defensive AI
 	private static final double[] aggrList = {.25,1.25,1,1.5,1.75,2.0,.5,.75};
 
-	private ArrayList<Move> moves = new ArrayList<Move>();
+	private ArrayList<CheckersMove> moves = new ArrayList<CheckersMove>();
 
 	public AI3(Board board, boolean isWhite) {
 		super(board, isWhite);
@@ -19,13 +21,15 @@ public class AI3 extends MoveAI{
 		this(board,false);
 	}
 
-	public boolean makeMove() {
-		if(board.isWhiteTurn()!=isWhite) return false;
+	public Move makeMove() {
+		if(board.isWhiteTurn()!=isWhite) return null;
 		Node<Board> moveTree = new Node<Board>(board);
 		makeTree(baseRecur, moveTree);
 		System.out.println("Done making tree!");
 		setTreeVal(moveTree);
-		return board.makeMove(chooseMove(moveTree).getBoard().getLastMove());
+		Move move = chooseMove(moveTree).getBoard().getLastMove();
+		board.makeMove(move);
+		return move;
 		
 	}
 	
@@ -86,7 +90,7 @@ public class AI3 extends MoveAI{
 		Board board = node.getBoard();
 		moves = findPosMoves(board);
 		if(moves.size()==0) return false;
-		for(Move move: moves){
+		for(CheckersMove move: moves){
 			Board testBoard = new Board(board);
 			testBoard.makeMove(move);
 			node.addChild(testBoard); 
@@ -94,8 +98,8 @@ public class AI3 extends MoveAI{
 		return true;
 	}
 
-	private ArrayList<Move> findPosMoves(Board board){
-		ArrayList<Move> moves = new ArrayList<Move>();
+	private ArrayList<CheckersMove> findPosMoves(Board board){
+		ArrayList<CheckersMove> moves = new ArrayList<CheckersMove>();
 		for(int x = 0; x < 8; x++){                   //Find possible captures
 			for(int y = 0; y < 8; y++){
 				if(board.isValidSelection(x,y)){
@@ -106,7 +110,7 @@ public class AI3 extends MoveAI{
 							if(validTarget(tryX, tryY)){
 								Board newMove = new Board(board);
 								if(newMove.makeMove(x,y,tryX,tryY)){
-									moves.add(new Move(x,y,tryX,tryY));
+									moves.add(new CheckersMove(1, x,y,tryX,tryY));
 								}
 							}
 						}
@@ -117,7 +121,7 @@ public class AI3 extends MoveAI{
 							if(validTarget(tryX, tryY)){
 								Board newMove = new Board(board);
 								if(newMove.makeMove(x,y,tryX,tryY)){ 
-									moves.add(new Move(x,y,tryX,tryY));
+									moves.add(new CheckersMove(1, x,y,tryX,tryY));
 								}
 							}
 				}

@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/resources/css/checkers.css">
 <script src="/resources/js/checkers.js"></script>
 
-<p id="msg">It's your turn! Click on a space. (You are red)</p>
+<p id="msg">It's your turn! Click on a piece then click where you want to move it. (You are red)</p>
 
 <br>
 

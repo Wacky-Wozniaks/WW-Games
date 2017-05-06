@@ -43,8 +43,8 @@ public class Checkers extends Game  {
 	//AI implementation
 	private MoveAI ai;
 	private boolean aiActive;
-	private JSlider difficulty;
-	private JSlider lookAhead;
+	//private JSlider difficulty;
+	//private JSlider lookAhead;
 
 	private boolean selected = false; //if a piece is selected or not
 	private int[][] currentSelected; //coordinates of the selected piece and the target area
@@ -56,17 +56,32 @@ public class Checkers extends Game  {
 	public Checkers() {
 		selected = false;
 		board = new Board();
-		
+		ai = new AI3(board);
+	}
+	
+	public Checkers(Board b) {
+		selected = false;
+		board = b;
+		ai = new AI3(board);
 	}
 
-	private void makeAllAIMoves(){
+	public Board getBoard() {
+		return board;
+	}
+	
+	public MoveAI getAI() {
+		return ai;
+	}
+	
+	public void makeAllAIMoves(){
 		if(ai!=null)
 			while(!board.isWhiteTurn() && board.gameIsWon()==null){
 				ai.makeMove();
 				//renderBoard();
 			}
 	}
-
+	
+	/*
 	private int[] pressed(MouseEvent e) //returns pixel coordinates where clicked
 	{
 		int[] coordinates = new int[2]; //[x,y]
@@ -77,14 +92,13 @@ public class Checkers extends Game  {
 
 	private int[] arrayCoord(int[] pixelCoord) //returns coordinates within the checkerboard, limited to [0,0] to [7,7]
 	{
-
 		for (int i=0; i<2; i++)
 			pixelCoord[i] /= MULTIPLIER;        //Divide the pixel by the width of each piece
 
 		return pixelCoord;
 	}
 
-	/*
+	
 	private void move(int[][] currentSelected) //moves the pieces in the Board variable
 	{
 		board.makeMove(currentSelected[0][1],currentSelected[0][0],currentSelected[1][1],currentSelected[1][0]);
@@ -99,11 +113,15 @@ public class Checkers extends Game  {
 
 	/* (non-Javadoc)
 	 * @see com.wackywozniaks.games.Game#doMove(com.wackywozniaks.games.Move)
+	 * 
+	 * USED ONLY WHEN HUMAN MAKES MOVE; as it is now, the AI is called upon after the human move is made
 	 */
 	@Override
 	public Game doMove(Move m) {
 		CheckersMove move = (CheckersMove) m;
 		board.makeMove(move.getX(), move.getY(), move.getNewX(), move.getNewY());
+
+		makeAllAIMoves();
 		return this;
 	}
 
