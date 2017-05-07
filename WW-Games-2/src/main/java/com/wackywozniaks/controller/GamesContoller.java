@@ -156,6 +156,40 @@ public class GamesContoller {
 		return response;
 	}
 	
+	@RequestMapping(value = "checkers", method = RequestMethod.GET)
+	public String checkers(Model model, HttpServletRequest request) {
+		String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");
+		if(currSessionUser == null) {
+			return "redirect:/login";
+		}
+		context = new ClassPathXmlApplicationContext("Beans.xml");
+		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
+		User user = userDAOImpl.getUser(currSessionUser);
+		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+        return "checkers";
+	}
+	
+	@RequestMapping(value = "checkers", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public WarResponseBean checkers(@RequestBody WarBean data, HttpServletRequest request) {
+		War war = new War(data.getPlayer1(), data.getPlayer2());
+		WarResponseBean response = new WarResponseBean();
+		Object[] stuff = war.next();
+		while(((Integer) stuff[2]).equals(War.DRAW)) {
+			stuff = war.war(stuff);
+		}
+		if(war.gameOver()) {
+			response.setGameOver(true);
+			response.setWinner(war.getWinner());
+		}
+		response.setCounts(war.getCounts());
+		response.setDraw(stuff);
+		response.setPlayer1(war.getPlayer1());
+		response.setPlayer2(war.getPlayer2());
+		
+		return response;
+	}
+	
 	private void addPoints(HttpServletRequest request, int winner) {
 		context = new ClassPathXmlApplicationContext("Beans.xml");
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");

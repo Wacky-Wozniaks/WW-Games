@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="/resources/css/war.css">
 <script src="/resources/js/war.js"></script>
 
-<div class="container">
+<%@ include file="cardLoading.jsp" %>
+
+<div id="game" class="container hidden">
 	<br>
 	<div>
 		<span id="player2Count"><b>26</b></span>

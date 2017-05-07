@@ -4,6 +4,11 @@ var cardTagBack = ".svg\"></img>";
 var player1Cards = null;
 var player2Cards = null;
 
+$(window).load(function() {
+	$("#loading-screen").addClass("hidden");
+	$("#game").removeClass("hidden");
+});
+
 $(document).ready(function() {
 	$("#draw").click(function() {
 		playerMove();
