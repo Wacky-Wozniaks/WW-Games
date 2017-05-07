@@ -17,6 +17,7 @@
 			</li>
 			<c:if test="${fn:contains(pageContext.request.requestURI, '/games/')}">
 				<li><a href="${pageContext.request.requestURI}">Replay</a></li>
+				<li><a href="#!" onclick="instructions()">Instructions</a></li>
 			</c:if>
 		</ul>
 	</div>

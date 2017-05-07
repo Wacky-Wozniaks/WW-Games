@@ -127,3 +127,7 @@ function playerMove(row, col, boardState) {
 		}
 	});
 }
+
+function instructions() {
+	swal("GetFour Instructions", "Click on an empty space. Get four red pieces in a row to win!");
+}

@@ -84,3 +84,7 @@ function playerMove(row, col, boardState) {
 		}
 	});
 }
+
+function instructions() {
+	swal("Tic Tac Toe Instructions", "Click on an empty square. Get three X in a row to win!");
+}

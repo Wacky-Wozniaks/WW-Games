@@ -61,3 +61,7 @@ function playerMove() {
 		}
 	});
 }
+
+function instructions() {
+	swal("War Instructions", "Click on draw. You and the computer will draw a card and whoever has the larger card wins. If the cards are equal, a war will occur. Collect all the cards to win!");
+}
