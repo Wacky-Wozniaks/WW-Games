@@ -1,7 +1,6 @@
 package com.wackywozniaks.games.connect;
 
 import com.wackywozniaks.games.Game;
-import com.wackywozniaks.games.Test;
 
 /**
  * An abstract framework for games like Connect4 and Tic Tac Toe.
