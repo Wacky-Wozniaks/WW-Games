@@ -30,12 +30,12 @@
 	margin-top: 13%;
 }
 
-.vertical {
+.vertical-cell {
 	border-left: 5px solid #000;
     border-right: 5px solid #000;
 }
 
-.horizontal {
+.horizontal-cell {
 	border-top: 5px solid #000;
     border-bottom: 5px solid #000;
 }

@@ -25,6 +25,8 @@
 			<p class="side-link"><a href="games/tictactoe">Tic Tac Toe</a></p>
 			<p class="side-link"><a href="games/getfour">GetFour</a></p>
 			<p class="side-link"><a href="games/war">War</a></p>
+			<p class="side-link"><a href="games/gofish">Go Fish</a></p>
+			<p class="side-link"><a href="games/checkers">Checkers</a></p>
 		</div>
 	</div>
 </div>

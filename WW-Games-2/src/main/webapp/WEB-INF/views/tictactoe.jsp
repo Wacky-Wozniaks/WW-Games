@@ -12,17 +12,17 @@
 <table class="board" cellspacing="0">
 	<tr class="board-row">
 		<td class="board-cell"><h1 id="cell-00" class="text"></h1></td>
-		<td class="board-cell vertical"><h1 id="cell-01" class="text"></h1></td>
+		<td class="board-cell vertical-cell"><h1 id="cell-01" class="text"></h1></td>
 		<td class="board-cell"><h1 id="cell-02" class="text"></h1></td>
 	</tr>
 	<tr class="board-row">
-		<td class="board-cell horizontal"><h1 id="cell-10" class="text"></h1></td>
-		<td class="board-cell horizontal vertical"><h1 id="cell-11" class="text"></h1></td>
-		<td class="board-cell horizontal"><h1 id="cell-12" class="text"></h1></td>
+		<td class="board-cell horizontal-cell"><h1 id="cell-10" class="text"></h1></td>
+		<td class="board-cell horizontal-cell vertical-cell"><h1 id="cell-11" class="text"></h1></td>
+		<td class="board-cell horizontal-cell"><h1 id="cell-12" class="text"></h1></td>
 	</tr>
 	<tr class="board-row">
 		<td class="board-cell"><h1 id="cell-20" class="text"></h1></td>
-		<td class="board-cell vertical"><h1 id="cell-21" class="text"></h1></td>
+		<td class="board-cell vertical-cell"><h1 id="cell-21" class="text"></h1></td>
 		<td class="board-cell"><h1 id="cell-22" class="text"></h1></td>
 	</tr>
 </table>

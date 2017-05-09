@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wackywozniaks.dao.impl.UserDAOImpl;
+import com.wackywozniaks.dto.CheckersBean;
+import com.wackywozniaks.dto.CheckersResponseBean;
 import com.wackywozniaks.dto.ConnectBean;
 import com.wackywozniaks.dto.ConnectResponseBean;
 import com.wackywozniaks.dto.WarBean;
@@ -28,7 +30,7 @@ import com.wackywozniaks.games.connect.TicTacToe;
  * Controller for the games.
  * 
  * @author Wacky Wozniaks Company
- * @version 05/01/2017
+ * @version 05/09/2017
  */
 @Controller
 @RequestMapping("/games")
@@ -171,7 +173,7 @@ public class GamesContoller {
 	
 	@RequestMapping(value = "checkers", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public WarResponseBean checkers(@RequestBody WarBean data, HttpServletRequest request) {
+	public CheckersResponseBean checkers(@RequestBody CheckersBean data, HttpServletRequest request) {
 		War war = new War(data.getPlayer1(), data.getPlayer2());
 		WarResponseBean response = new WarResponseBean();
 		Object[] stuff = war.next();
@@ -187,7 +189,7 @@ public class GamesContoller {
 		response.setPlayer1(war.getPlayer1());
 		response.setPlayer2(war.getPlayer2());
 		
-		return response;
+		return null;
 	}
 	
 	private void addPoints(HttpServletRequest request, int winner) {

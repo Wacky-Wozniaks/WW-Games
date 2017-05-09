@@ -7,91 +7,87 @@
 
 <p id="msg">It's your turn! Click on a piece then click where you want to move it. (You are red)</p>
 
-<br>
-
-<table>
+<table class="board" cellspacing="0">
 	<tbody>
-		<tr>
-			<td id="cell00" class="board-cell"></td>
-			<td id="cell10" class="board-cell"></td>
-			<td id="cell20" class="board-cell"></td>
-			<td id="cell30" class="board-cell"></td>
-			<td id="cell40" class="board-cell"></td>
-			<td id="cell50" class="board-cell"></td>
-			<td id="cell60" class="board-cell"></td>
-			<td id="cell70" class="board-cell"></td>
+		<tr class="board-row">
+			<td id="cell-00" class="board-cell board-cell-1"></td>
+			<td id="cell-01" class="board-cell board-cell-2"></td>
+			<td id="cell-02" class="board-cell board-cell-1"></td>
+			<td id="cell-03" class="board-cell board-cell-2"></td>
+			<td id="cell-04" class="board-cell board-cell-1"></td>
+			<td id="cell-05" class="board-cell board-cell-2"></td>
+			<td id="cell-06" class="board-cell board-cell-1"></td>
+			<td id="cell-07" class="board-cell board-cell-2"></td>
 		</tr>
-		<tr>
-			<td id="cell01" class="board-cell"></td>
-			<td id="cell11" class="board-cell"></td>
-			<td id="cell21" class="board-cell"></td>
-			<td id="cell31" class="board-cell"></td>
-			<td id="cell41" class="board-cell"></td>
-			<td id="cell51" class="board-cell"></td>
-			<td id="cell61" class="board-cell"></td>
-			<td id="cell71" class="board-cell"></td>
+		<tr class="board-row">
+			<td id="cell-10" class="board-cell board-cell-2"></td>
+			<td id="cell-11" class="board-cell board-cell-1"></td>
+			<td id="cell-12" class="board-cell board-cell-2"></td>
+			<td id="cell-13" class="board-cell board-cell-1"></td>
+			<td id="cell-14" class="board-cell board-cell-2"></td>
+			<td id="cell-15" class="board-cell board-cell-1"></td>
+			<td id="cell-16" class="board-cell board-cell-2"></td>
+			<td id="cell-17" class="board-cell board-cell-1"></td>
 		</tr>
-		<tr>
-			<td id="cell02" class="board-cell"></td>
-			<td id="cell12" class="board-cell"></td>
-			<td id="cell22" class="board-cell"></td>
-			<td id="cell32" class="board-cell"></td>
-			<td id="cell42" class="board-cell"></td>
-			<td id="cell52" class="board-cell"></td>
-			<td id="cell62" class="board-cell"></td>
-			<td id="cell72" class="board-cell"></td>
+		<tr class="board-row">
+			<td id="cell-20" class="board-cell board-cell-1"></td>
+			<td id="cell-21" class="board-cell board-cell-2"></td>
+			<td id="cell-22" class="board-cell board-cell-1"></td>
+			<td id="cell-23" class="board-cell board-cell-2"></td>
+			<td id="cell-24" class="board-cell board-cell-1"></td>
+			<td id="cell-25" class="board-cell board-cell-2"></td>
+			<td id="cell-26" class="board-cell board-cell-1"></td>
+			<td id="cell-27" class="board-cell board-cell-2"></td>
 		</tr>
-		<tr>
-			<td id="cell03" class="board-cell"></td>
-			<td id="cell13" class="board-cell"></td>
-			<td id="cell23" class="board-cell"></td>
-			<td id="cell33" class="board-cell"></td>
-			<td id="cell43" class="board-cell"></td>
-			<td id="cell53" class="board-cell"></td>
-			<td id="cell63" class="board-cell"></td>
-			<td id="cell73" class="board-cell"></td>
+		<tr class="board-row">
+			<td id="cell-30" class="board-cell board-cell-2"></td>
+			<td id="cell-31" class="board-cell board-cell-1"></td>
+			<td id="cell-32" class="board-cell board-cell-2"></td>
+			<td id="cell-33" class="board-cell board-cell-1"></td>
+			<td id="cell-34" class="board-cell board-cell-2"></td>
+			<td id="cell-35" class="board-cell board-cell-1"></td>
+			<td id="cell-36" class="board-cell board-cell-2"></td>
+			<td id="cell-37" class="board-cell board-cell-1"></td>
 		</tr>
-		<tr>
-			<td id="cell04" class="board-cell"></td>
-			<td id="cell14" class="board-cell"></td>
-			<td id="cell24" class="board-cell"></td>
-			<td id="cell34" class="board-cell"></td>
-			<td id="cell44" class="board-cell"></td>
-			<td id="cell54" class="board-cell"></td>
-			<td id="cell64" class="board-cell"></td>
-			<td id="cell74" class="board-cell"></td>
+		<tr class="board-row">
+			<td id="cell-40" class="board-cell board-cell-1"></td>
+			<td id="cell-41" class="board-cell board-cell-2"></td>
+			<td id="cell-42" class="board-cell board-cell-1"></td>
+			<td id="cell-43" class="board-cell board-cell-2"></td>
+			<td id="cell-44" class="board-cell board-cell-1"></td>
+			<td id="cell-45" class="board-cell board-cell-2"></td>
+			<td id="cell-46" class="board-cell board-cell-1"></td>
+			<td id="cell-47" class="board-cell board-cell-2"></td>
 		</tr>
-		<tr>
-			<td id="cell05" class="board-cell"></td>
-			<td id="cell15" class="board-cell"></td>
-			<td id="cell25" class="board-cell"></td>
-			<td id="cell35" class="board-cell"></td>
-			<td id="cell45" class="board-cell"></td>
-			<td id="cell55" class="board-cell"></td>
-			<td id="cell65" class="board-cell"></td>
-			<td id="cell75" class="board-cell"></td>
+		<tr class="board-row">
+			<td id="cell-50" class="board-cell board-cell-2"></td>
+			<td id="cell-51" class="board-cell board-cell-1"></td>
+			<td id="cell-52" class="board-cell board-cell-2"></td>
+			<td id="cell-53" class="board-cell board-cell-1"></td>
+			<td id="cell-54" class="board-cell board-cell-2"></td>
+			<td id="cell-55" class="board-cell board-cell-1"></td>
+			<td id="cell-56" class="board-cell board-cell-2"></td>
+			<td id="cell-57" class="board-cell board-cell-1"></td>
 		</tr>
-		<tr>
-			<td id="cell06" class="board-cell"></td>
-			<td id="cell16" class="board-cell"></td>
-			<td id="cell26" class="board-cell"></td>
-			<td id="cell36" class="board-cell"></td>
-			<td id="cell46" class="board-cell"></td>
-			<td id="cell56" class="board-cell"></td>
-			<td id="cell66" class="board-cell"></td>
-			<td id="cell76" class="board-cell"></td>
+		<tr class="board-row">
+			<td id="cell-60" class="board-cell board-cell-1"></td>
+			<td id="cell-61" class="board-cell board-cell-2"></td>
+			<td id="cell-62" class="board-cell board-cell-1"></td>
+			<td id="cell-63" class="board-cell board-cell-2"></td>
+			<td id="cell-64" class="board-cell board-cell-1"></td>
+			<td id="cell-65" class="board-cell board-cell-2"></td>
+			<td id="cell-66" class="board-cell board-cell-1"></td>
+			<td id="cell-67" class="board-cell board-cell-2"></td>
 		</tr>
-		<tr>
-			<td id="cell07" class="board-cell"></td>
-			<td id="cell17" class="board-cell"></td>
-			<td id="cell27" class="board-cell"></td>
-			<td id="cell37" class="board-cell"></td>
-			<td id="cell47" class="board-cell"></td>
-			<td id="cell57" class="board-cell"></td>
-			<td id="cell67" class="board-cell"></td>
-			<td id="cell77" class="board-cell"></td>
+		<tr class="board-row">
+			<td id="cell-70" class="board-cell board-cell-2"></td>
+			<td id="cell-71" class="board-cell board-cell-1"></td>
+			<td id="cell-72" class="board-cell board-cell-2"></td>
+			<td id="cell-73" class="board-cell board-cell-1"></td>
+			<td id="cell-74" class="board-cell board-cell-2"></td>
+			<td id="cell-75" class="board-cell board-cell-1"></td>
+			<td id="cell-76" class="board-cell board-cell-2"></td>
+			<td id="cell-77" class="board-cell board-cell-1"></td>
 		</tr>
 	</tbody>
 </table>
-
-<br>

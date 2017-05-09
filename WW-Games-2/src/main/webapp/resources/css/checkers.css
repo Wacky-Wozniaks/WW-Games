@@ -1,0 +1,31 @@
+#msg {
+	text-align: center;
+}
+
+.board {
+	width: 43%;
+	margin: auto;
+	table-layout: fixed;
+}
+
+.board-row {
+	padding-top: 12.5%;
+}
+.board-cell {
+	width: 12.5%;
+	position: relative;
+}
+
+.board-cell:after {
+  content: '';
+  display: block;
+  margin-top: 100%;
+}
+
+.board-cell-1 {
+	background-color: rgb(254, 237, 190) !important;
+}
+
+.board-cell-2 {
+	background-color: rgb(63, 110, 22) !important;
+}
