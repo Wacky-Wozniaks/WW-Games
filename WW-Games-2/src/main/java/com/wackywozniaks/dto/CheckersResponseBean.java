@@ -1,18 +1,22 @@
 package com.wackywozniaks.dto;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import com.wackywozniaks.games.checkers2.CheckersMove;
 
 /**
  * The response sent to the game of checkers
  * 
  * @author WackyWozniaks Company
- * @version 05/13/2017
+ * @version 05/14/2017
  */
 public class CheckersResponseBean {
 	
 	private boolean won;
 	private int winner;
 	private CheckersMove move;
+	private Map<String, ArrayList<CheckersMove>> legalMoves;
 	
 	/**
 	 * @return the won
@@ -54,6 +58,20 @@ public class CheckersResponseBean {
 	 */
 	public void setMove(CheckersMove move) {
 		this.move = move;
+	}
+
+	/**
+	 * @return the legalMoves
+	 */
+	public Map<String, ArrayList<CheckersMove>> getLegalMoves() {
+		return legalMoves;
+	}
+
+	/**
+	 * @param legalMoves the legalMoves to set
+	 */
+	public void setLegalMoves(Map<String, ArrayList<CheckersMove>> legalMoves) {
+		this.legalMoves = legalMoves;
 	}
 
 }

@@ -212,6 +212,7 @@ public class GamesContoller {
 				addPoints(request, checkers.getWinner());
 			}
 			else {
+				response.setLegalMoves(checkers.getMapOfMoves(Checkers.RED_PLAYER));
 				response.setWon(false);
 			}
 		}
@@ -222,7 +223,6 @@ public class GamesContoller {
 	private void addPoints(HttpServletRequest request, int winner) {
 		context = new ClassPathXmlApplicationContext("Beans.xml");
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
-		System.out.println((String) request.getSession().getAttribute("currentSessionUser"));
 		if(winner == 1) {
 			userDAOImpl.addPoints((String) request.getSession().getAttribute("currentSessionUser"), 5);
 		}

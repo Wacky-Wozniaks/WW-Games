@@ -13,7 +13,7 @@ import com.wackywozniaks.games.Move;
  * Represents a game of checkers
  * 
  * @author WackyWozniaks Company
- * @version 05/13/2017
+ * @version 05/14/2017
  */
 public class Checkers extends Game {
 	
@@ -45,6 +45,11 @@ public class Checkers extends Game {
 		};
 	}
 	
+	/**
+	 * Creates a new Checkers with the given board.
+	 * 
+	 * @param board The board used to initialize the checkers object.
+	 */
 	public Checkers(int[][] board) {
 		this.board = board;
 	}
@@ -52,11 +57,11 @@ public class Checkers extends Game {
 	@Override
 	public Checkers doMove(Move m) {
 		CheckersMove move = (CheckersMove) m;
-		System.out.println(m);
-		System.out.println(move);
-		System.out.println(board);
-		board = makeMove(board, move);
-		return new Checkers(board);
+		int[][] board2 = makeMove(board, move);
+		if(board2 == null) {
+			System.out.println("NULL");
+		}
+		return new Checkers(board2);
 	}
 	
 	/**
@@ -91,11 +96,12 @@ public class Checkers extends Game {
 	public LinkedList<Move> getLegalActions(int player) {
 		LinkedList<Move> normalMoves = new LinkedList<Move>();
 		LinkedList<Move> jumpMoves = new LinkedList<Move>();
-		
+		//System.out.println(board);
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
+				//System.out.println(board[i][j] + ", " + i + ", " + j);
 				if(isPlayersPiece(board[i][j], player)) {
-					normalMoves.addAll(getNormalMoves(i, j, player));
+					normalMoves.addAll(getNormalMoves(i, j, player, board));
 					jumpMoves.addAll(getJumpMoves(i, j, player, board, null));
 				}
 			}
@@ -117,7 +123,7 @@ public class Checkers extends Game {
 	 * @param player The player to test
 	 * @return Whether the piece belongs to the player
 	 */
-	private boolean isPlayersPiece(int piece, int player) {
+	private static boolean isPlayersPiece(int piece, int player) {
 		if(player == RED_PLAYER) {
 			return piece == RED || piece == RED_KING;
 		}
@@ -137,20 +143,20 @@ public class Checkers extends Game {
 	 * @param player The player who the piece belongs to
 	 * @return A list of possible normal moves for a given piece.
 	 */
-	private LinkedList<CheckersMove> getNormalMoves(int row, int col, int player) {
+	private static LinkedList<CheckersMove> getNormalMoves(int row, int col, int player, int[][] board2) {
 		LinkedList<CheckersMove> moves = new LinkedList<CheckersMove>();
 		
-		if((player == RED_PLAYER || board[row][col] == WHITE_KING) && row > 0) {
-			if(col >= 1 && board[row - 1][col - 1] == EMPTY) {
-				if(row - 1 == 0 || board[row][col] == WHITE_KING) {
+		if((player == RED_PLAYER || board2[row][col] == WHITE_KING) && row > 0) {
+			if(col >= 1 && board2[row - 1][col - 1] == EMPTY) {
+				if(row - 1 == 0 || board2[row][col] == WHITE_KING) {
 					moves.add(new CheckersMove(row, col, row - 1, col - 1, true, player, false, null));
 				}
 				else {
 					moves.add(new CheckersMove(row, col, row - 1, col - 1, false, player, false, null));
 				}
 			}
-			if(col <= 6 && board[row - 1][col + 1] == EMPTY) {
-				if(row - 1 == 0 || board[row][col] == WHITE_KING) {
+			if(col <= 6 && board2[row - 1][col + 1] == EMPTY) {
+				if(row - 1 == 0 || board2[row][col] == WHITE_KING) {
 					moves.add(new CheckersMove(row, col, row - 1, col + 1, true, player, false, null));
 				}
 				else {
@@ -158,17 +164,17 @@ public class Checkers extends Game {
 				}
 			}
 		}
-		else if((player == RED_PLAYER || board[row][col] == WHITE_KING) && row < 7) {
-			if(col >= 1 && board[row + 1][col - 1] == EMPTY) {
-				if(row + 1 == 7 || board[row][col] == WHITE_KING) {
+		else if((player == WHITE_PLAYER || board2[row][col] == RED_KING) && row < 7) {
+			if(col >= 1 && board2[row + 1][col - 1] == EMPTY) {
+				if(row + 1 == 7 || board2[row][col] == RED_KING) {
 					moves.add(new CheckersMove(row, col, row + 1, col - 1, true, player, false, null));
 				}
 				else {
 					moves.add(new CheckersMove(row, col, row + 1, col - 1, false, player, false, null));
 				}
 			}
-			if(col <= 6 && board[row + 1][col + 1] == EMPTY) {
-				if(row + 1 == 7 || board[row][col] == WHITE_KING) {
+			if(col <= 6 && board2[row + 1][col + 1] == EMPTY) {
+				if(row + 1 == 7 || board2[row][col] == RED_KING) {
 					moves.add(new CheckersMove(row, col, row + 1, col + 1, true, player, false, null));
 				}
 				else {
@@ -219,9 +225,9 @@ public class Checkers extends Game {
 				}
 			}
 		}
-		else if((player == RED_PLAYER || board2[row][col] == WHITE_KING) && row < 6) {
+		else if((player == WHITE_PLAYER || board2[row][col] == RED_KING) && row < 6) {
 			if(col >= 2 && board2[row + 2][col - 2] == EMPTY && board2[row + 1][col - 1] != EMPTY && !isPlayersPiece(board2[row + 1][col - 1], player)) {
-				if(row + 2 == 7 || board2[row][col] == WHITE_KING) {
+				if(row + 2 == 7 || board2[row][col] == RED_KING) {
 					CheckersMove cm = new CheckersMove(row, col, row + 2, col - 2, true, player, true, lastMove);
 					moves.add(cm);
 					moves.addAll(getJumpMoves(row + 2, col - 2, player, makeMove(board2, cm), cm));
@@ -233,7 +239,7 @@ public class Checkers extends Game {
 				}
 			}
 			if(col <= 5 && board2[row + 2][col + 2] == EMPTY && board2[row + 1][col + 1] != EMPTY && !isPlayersPiece(board2[row + 1][col + 1], player)) {
-				if(row + 2 == 7 || board2[row][col] == WHITE_KING) {
+				if(row + 2 == 7 || board2[row][col] == RED_KING) {
 					CheckersMove cm = new CheckersMove(row, col, row + 2, col + 2, true, player, true, lastMove);
 					moves.add(cm);
 					moves.addAll(getJumpMoves(row + 2, col + 2, player, makeMove(board2, cm), cm));
@@ -257,8 +263,14 @@ public class Checkers extends Game {
 	 * @return The new board with the move performed.
 	 */
 	public static int[][] makeMove(int[][] board2, CheckersMove move) {
-		if(board2[move.getRow()][move.getCol()] != EMPTY) return null;
-		board2 = board2.clone();
+		if(move.getLastMove() != null) {
+			board2 = makeMove(board2, move.getLastMove());
+		}
+		//System.out.println(move.getOriginalRow() + ", " + move.getOriginalCol() + ", " + move.getRow() + ", " + move.getCol() + ", " + move.isJump() + ", " + board2[move.getRow()][move.getCol()] + ", " + move.getLastMove());
+		if(board2[move.getRow()][move.getCol()] != EMPTY) {
+			return null;
+		}
+		board2 = copyBoard(board2);
 		
 		board2[move.getRow()][move.getCol()] = board2[move.getOriginalRow()][move.getOriginalCol()];
 		board2[move.getOriginalRow()][move.getOriginalCol()] = EMPTY;
@@ -316,10 +328,10 @@ public class Checkers extends Game {
 	}
 
 	/**
-	 * @return the board
+	 * @return A deep copy of the board
 	 */
 	public int[][] getBoard() {
-		return board;
+		return copyBoard(board);
 	}
 
 	/**
@@ -327,6 +339,22 @@ public class Checkers extends Game {
 	 */
 	public void setBoard(int[][] board) {
 		this.board = board;
+	}
+	
+	/**
+	 * Create a deep copy of a checkers board.
+	 * 
+	 * @param board The board to copy.
+	 * @return A deep copy of the given board
+	 */
+	public static int[][] copyBoard(int[][] board) {
+		int[][] newBoard = new int[8][8];
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				newBoard[i][j] = board[i][j];
+			}
+		}
+		return newBoard;
 	}
 	
 }

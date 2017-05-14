@@ -130,7 +130,9 @@ function playerMove(boardState) {
 			}
 			else {
 				$("#cell-" + data.move.row + data.move.col).append("<img class=\"red-piece\" src=\"/resources/images/checkers/white.svg\">");
-				$("#cell-" + data.move.originalRow + data.move.originalCol).remove();
+				$("#cell-" + data.move.originalRow + data.move.originalCol).find("img").remove();
+				legalMoves = data.legalMoves;
+				unlockBoard();
 			}
 		},
 		error: function(e) {
