@@ -23,8 +23,21 @@ function boardClick(e) {
 		pieceClick(e, $(this).children("img"));
 	}
 	else if($("img.selected-piece").length > 0 && $(this).hasClass("board-cell-highlight")) {
-		$(this).append("<img class=\"red-piece\" src=\"/resources/images/checkers/red.svg\">");
+		/*$(this).append("<img class=\"red-piece\" src=\"/resources/images/checkers/red.svg\">");
 		$("img.selected-piece").remove();
+		$(".board-cell-highlight").removeClass("board-cell-highlight");
+		lockBoard();
+		playerMove(getBoardState());*/
+		var thisId = $(this).attr("id");
+		var thisRow = thisId.charAt(thisId.length - 2);
+		var thisCol = thisId.charAt(thisId.length - 1);
+		var possibleMoves = legalMoves[$("img.selected-piece").parent().attr("id")];
+		for(var i = 0; i < possibleMoves.length; i++) {
+			if(possibleMoves[i].row == thisRow && possibleMoves[i].col == thisCol) {
+				movePiece(possibleMoves[i], true);
+				break;
+			}
+		}
 		$(".board-cell-highlight").removeClass("board-cell-highlight");
 		lockBoard();
 		playerMove(getBoardState());
@@ -54,6 +67,65 @@ function pieceClick(e, piece) {
 			$("#cell-" + possibleMoves[i].row + possibleMoves[i].col).removeClass("board-cell-highlight");
 		}
 	}
+}
+
+async function movePiece(move, isRed) {
+	var moveStack = [];
+	while(move != null) {
+		moveStack.push(move);
+		move = move.lastMove;
+	}
+	while(moveStack.length > 0) {
+		var currMove = moveStack.pop();
+		if(currMove.jump) {
+			if(isRed) {
+				if(currMove.king) {
+					$("#cell-" + currMove.row + currMove.col).append("<img class=\"red-piece king\" src=\"/resources/images/checkers/redking.svg\">");
+				}
+				else {
+					$("#cell-" + currMove.row + currMove.col).append("<img class=\"red-piece\" src=\"/resources/images/checkers/red.svg\">");
+				}
+			}
+			else {
+				if(currMove.king) {
+					$("#cell-" + currMove.row + currMove.col).append("<img class=\"white-piece king\" src=\"/resources/images/checkers/whiteking.svg\">");
+				}
+				else {
+					$("#cell-" + currMove.row + currMove.col).append("<img class=\"white-piece\" src=\"/resources/images/checkers/white.svg\">");
+				}
+			}
+			var midCellRow = (currMove.originalRow + currMove.row) / 2;
+			var midCellCol = (currMove.originalCol + currMove.col) / 2;
+			$("#cell-" + midCellRow + midCellCol).find("img").remove();
+			$("#cell-" + currMove.originalRow + currMove.originalCol).find("img").remove();
+		}
+		else {
+			if(isRed) {
+				if(currMove.king) {
+					$("#cell-" + currMove.row + currMove.col).append("<img class=\"red-piece king\" src=\"/resources/images/checkers/redking.svg\">");
+				}
+				else {
+					$("#cell-" + currMove.row + currMove.col).append("<img class=\"red-piece\" src=\"/resources/images/checkers/red.svg\">");
+				}
+			}
+			else {
+				if(currMove.king) {
+					$("#cell-" + currMove.row + currMove.col).append("<img class=\"white-piece king\" src=\"/resources/images/checkers/whiteking.svg\">");
+				}
+				else {
+					$("#cell-" + currMove.row + currMove.col).append("<img class=\"white-piece\" src=\"/resources/images/checkers/white.svg\">");
+				}
+			}
+			$("#cell-" + currMove.originalRow + currMove.originalCol).find("img").remove();
+		}
+		if(moveStack.length > 0) {
+			await sleep(500);
+		}
+	}
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function lockBoard() {
@@ -129,8 +201,9 @@ function playerMove(boardState) {
 				
 			}
 			else {
-				$("#cell-" + data.move.row + data.move.col).append("<img class=\"red-piece\" src=\"/resources/images/checkers/white.svg\">");
-				$("#cell-" + data.move.originalRow + data.move.originalCol).find("img").remove();
+				/*$("#cell-" + data.move.row + data.move.col).append("<img class=\"white-piece\" src=\"/resources/images/checkers/white.svg\">");
+				$("#cell-" + data.move.originalRow + data.move.originalCol).find("img").remove();*/
+				movePiece(data.move, false);
 				legalMoves = data.legalMoves;
 				unlockBoard();
 			}
