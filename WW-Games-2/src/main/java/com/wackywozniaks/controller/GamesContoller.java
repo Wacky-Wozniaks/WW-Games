@@ -1,5 +1,6 @@
 package com.wackywozniaks.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +25,15 @@ import com.wackywozniaks.dto.CheckersBean;
 import com.wackywozniaks.dto.CheckersResponseBean;
 import com.wackywozniaks.dto.ConnectBean;
 import com.wackywozniaks.dto.ConnectResponseBean;
+import com.wackywozniaks.dto.GoFishBean;
+import com.wackywozniaks.dto.GoFishResponseBean;
 import com.wackywozniaks.dto.WarBean;
 import com.wackywozniaks.dto.WarResponseBean;
 import com.wackywozniaks.entity.User;
+import com.wackywozniaks.games.cards.Card;
+import com.wackywozniaks.games.cards.GoFish;
+import com.wackywozniaks.games.cards.GoFishAI;
+import com.wackywozniaks.games.cards.GoFishMove;
 import com.wackywozniaks.games.cards.War;
 import com.wackywozniaks.games.checkers2.Checkers;
 import com.wackywozniaks.games.checkers2.CheckersAI;
@@ -217,6 +224,89 @@ public class GamesContoller {
 			}
 		}
 		
+		return response;
+	}
+	
+	@RequestMapping(value = "gofish", method = RequestMethod.GET)
+	public String gofish(Model model, HttpServletRequest request)
+	{
+		String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");
+		if(currSessionUser == null) return "redirect:/login";
+		
+		context = new ClassPathXmlApplicationContext("Beans.xml");
+		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
+		User user = userDAOImpl.getUser(currSessionUser);
+		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+		return "gofish";
+	}
+	
+	@RequestMapping(value = "gofish", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public GoFishResponseBean gofish(@RequestBody GoFishBean data, HttpServletRequest request)
+	{
+		int type = data.getType();
+		GoFish game;
+		if(type == 0) game = new GoFish();
+		else game = new GoFish(data.getDeck(), data.getHand1(), data.getHand2(), data.getBooks());
+		
+		GoFishResponseBean response = new GoFishResponseBean();
+		response.setOldHand1(new ArrayList<Card>(game.getHand1()));
+		response.setOldHand2(new ArrayList<Card>(game.getHand2()));
+		if(type == 0 || type == 3)
+		{
+			game.wasEmpty(1);
+			response.setPossible(game.getLegalActions(1));
+			response.setStep(1);
+		}
+		else if(type == 1)
+		{
+			response.setStep(2);	
+			String ask = data.getMove();
+			GoFishMove move = new GoFishMove(1, ask, 0);
+			boolean has = game.otherHas(move);
+			if(has)
+			{
+				response.setGoFish(false);
+				response.setGoAgain(true);
+				game.transfer(1, move);
+			}
+			else
+			{
+				response.setGoFish(true);
+				response.setGoAgain(game.goFish(1, move));
+			}
+			response.setTransfer(game.getTransfer());
+			game.formBook(1);
+		}
+		else if(type == 2)
+		{
+			game.wasEmpty(2);
+			GoFishMove m = GoFishAI.chooseMove(game);
+			response.setRequested(m.getVal());
+			boolean has = game.otherHas(m);
+			if(has)
+			{
+				response.setGoFish(false);
+				response.setGoAgain(true);
+				game.transfer(2, m);
+			}
+			else
+			{
+				response.setGoFish(true);
+				response.setGoAgain(game.goFish(2, m));
+			}
+			game.formBook(2);
+		}
+		
+		if(game.gameOver())
+		{
+			response.setGameOver(true);
+			response.setWinner(game.getWinner());
+		}
+		response.setDeck(game.getDeck());
+		response.setHand1(game.getHand1());
+		response.setHand2(game.getHand2());
+		response.setBooks(game.getBooks());
 		return response;
 	}
 	
