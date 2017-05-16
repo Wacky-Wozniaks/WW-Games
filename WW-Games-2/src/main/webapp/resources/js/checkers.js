@@ -23,11 +23,6 @@ function boardClick(e) {
 		pieceClick(e, $(this).children("img"));
 	}
 	else if($("img.selected-piece").length > 0 && $(this).hasClass("board-cell-highlight")) {
-		/*$(this).append("<img class=\"red-piece\" src=\"/resources/images/checkers/red.svg\">");
-		$("img.selected-piece").remove();
-		$(".board-cell-highlight").removeClass("board-cell-highlight");
-		lockBoard();
-		playerMove(getBoardState());*/
 		var thisId = $(this).attr("id");
 		var thisRow = thisId.charAt(thisId.length - 2);
 		var thisCol = thisId.charAt(thisId.length - 1);
@@ -50,8 +45,12 @@ function boardClickLocked(e) {
 
 function pieceClick(e, piece) {
 	if($("img.selected-piece").length <= 0 && piece.is("img.red-piece")) {
-		piece.attr("src", SELECTED_PIECE);
-		piece.removeClass("red-piece");
+		if(piece.hasClass("king")) {
+			piece.attr("src", SELECTED_RED_KING_PIECE);
+		}
+		else {
+			piece.attr("src", SELECTED_PIECE);
+		}
 		piece.addClass("selected-piece");
 		var possibleMoves = legalMoves[piece.parent().attr("id")];
 		for(var i = 0; i < possibleMoves.length; i++) {
@@ -59,9 +58,13 @@ function pieceClick(e, piece) {
 		}
 	}
 	else if(piece.is("img.selected-piece")) {
-		piece.attr("src", RED_PIECE);
+		if(piece.hasClass("king")) {
+			piece.attr("src", RED_KING_PIECE);
+		}
+		else {
+			piece.attr("src", RED_PIECE);
+		}
 		piece.removeClass("selected-piece");
-		piece.addClass("red-piece");
 		var possibleMoves = legalMoves[piece.parent().attr("id")];
 		for(var i = 0; i < possibleMoves.length; i++) {
 			$("#cell-" + possibleMoves[i].row + possibleMoves[i].col).removeClass("board-cell-highlight");
@@ -77,6 +80,9 @@ async function movePiece(move, isRed) {
 	}
 	while(moveStack.length > 0) {
 		var currMove = moveStack.pop();
+		if(currMove.player === WHITE_PLAYER) {
+			await sleep(300);
+		}
 		if(currMove.jump) {
 			if(isRed) {
 				if(currMove.king) {
@@ -117,9 +123,6 @@ async function movePiece(move, isRed) {
 				}
 			}
 			$("#cell-" + currMove.originalRow + currMove.originalCol).find("img").remove();
-		}
-		if(moveStack.length > 0) {
-			await sleep(500);
 		}
 	}
 }
@@ -181,28 +184,11 @@ function playerMove(boardState) {
 		url: "/games/checkers",
 		data: JSON.stringify(data),
 		success: function(data) {
-			/*if(data.won) {
-				if(data.move) {
-					var cellName = "#cell-" + String(data.move.row) + String(data.move.col);
-					$(cellName).html("<i class=\"material-icons\">radio_button_unchecked</i>");
-				}
-				for(var i = 0; i < data.highlight.length; i++) {
-					$("#cell-" + data.highlight[i][0] + data.highlight[i][1]).css("color", "red");
-				}
+			if(data.won) {
 				swal("The Game is Over!", (data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!");
 				$("#msg").text("Game over! " + ((data.winner === 0) ? "It's a tie!" : (data.winner === 1) ? "You won!" : "You lost!"));
 			}
 			else {
-				var cellName = "#cell-" + String(data.move.row) + String(data.move.col);
-				$(cellName).html("<i class=\"material-icons\">radio_button_unchecked</i>");
-				unlockBoard();
-			}*/
-			if(data.won) {
-				
-			}
-			else {
-				/*$("#cell-" + data.move.row + data.move.col).append("<img class=\"white-piece\" src=\"/resources/images/checkers/white.svg\">");
-				$("#cell-" + data.move.originalRow + data.move.originalCol).find("img").remove();*/
 				movePiece(data.move, false);
 				legalMoves = data.legalMoves;
 				unlockBoard();
