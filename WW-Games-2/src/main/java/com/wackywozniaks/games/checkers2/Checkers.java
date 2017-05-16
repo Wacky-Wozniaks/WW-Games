@@ -164,7 +164,7 @@ public class Checkers extends Game {
 				}
 			}
 		}
-		else if((player == WHITE_PLAYER || board2[row][col] == RED_KING) && row < 7) {
+		if((player == WHITE_PLAYER || board2[row][col] == RED_KING) && row < 7) {
 			if(col >= 1 && board2[row + 1][col - 1] == EMPTY) {
 				if(row + 1 == 7 || board2[row][col] == RED_KING || board2[row][col] == WHITE_KING) {
 					moves.add(new CheckersMove(row, col, row + 1, col - 1, true, player, false, null));
@@ -225,7 +225,7 @@ public class Checkers extends Game {
 				}
 			}
 		}
-		else if((player == WHITE_PLAYER || board2[row][col] == RED_KING) && row < 6) {
+		if((player == WHITE_PLAYER || board2[row][col] == RED_KING) && row < 6) {
 			if(col >= 2 && board2[row + 2][col - 2] == EMPTY && board2[row + 1][col - 1] != EMPTY && !isPlayersPiece(board2[row + 1][col - 1], player)) {
 				if(row + 2 == 7 || board2[row][col] == RED_KING || board2[row][col] == WHITE_KING) {
 					CheckersMove cm = new CheckersMove(row, col, row + 2, col - 2, true, player, true, lastMove);
@@ -275,6 +275,8 @@ public class Checkers extends Game {
 		board2 = copyBoard(board2);
 		
 		board2[move.getRow()][move.getCol()] = board2[move.getOriginalRow()][move.getOriginalCol()];
+		if(move.getRow() == 0 && board2[move.getRow()][move.getCol()] == RED) board2[move.getRow()][move.getCol()] = RED_KING;
+		else if(move.getRow() == 7 && board2[move.getRow()][move.getCol()] == WHITE) board2[move.getRow()][move.getCol()] = WHITE_KING;
 		board2[move.getOriginalRow()][move.getOriginalCol()] = EMPTY;
 		if(move.isJump()) {
 			board2[(move.getOriginalRow() + move.getRow()) / 2][(move.getOriginalCol() + move.getCol()) / 2] = EMPTY;
