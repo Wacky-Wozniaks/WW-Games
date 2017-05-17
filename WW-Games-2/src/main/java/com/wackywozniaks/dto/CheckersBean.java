@@ -9,6 +9,7 @@ package com.wackywozniaks.dto;
 public class CheckersBean {
 	
 	private int[][] boardState;
+	private int difficulty;
 
 	/**
 	 * @return the boardState
@@ -22,6 +23,20 @@ public class CheckersBean {
 	 */
 	public void setBoardState(int[][] boardState) {
 		this.boardState = boardState;
+	}
+
+	/**
+	 * @return the difficulty
+	 */
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	/**
+	 * @param difficulty the difficulty to set
+	 */
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
 	}
 
 }

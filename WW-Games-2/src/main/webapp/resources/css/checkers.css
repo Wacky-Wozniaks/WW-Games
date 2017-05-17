@@ -44,3 +44,11 @@
 .board-cell-highlight {
 	background-color: lightblue !important;
 }
+
+.swal2-radio label {
+	margin-left: 0 !important;
+}
+
+.swal2-modal .swal2-radio label:not(:nth-child(2)) {
+	margin-right: 21px;
+}

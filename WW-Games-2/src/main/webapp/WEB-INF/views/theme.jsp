@@ -10,12 +10,12 @@
 
 		<link rel="stylesheet" href="/resources/css/foundation.min.css"> <%-- Foundation CSS --%>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <%-- Google Icons --%>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"> <%-- Sweetalert --%>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.3/sweetalert2.min.css" rel="stylesheet"> <%-- Sweetalert --%>
 		
 		<script src="/resources/js/jquery.js"></script> <%-- JQuery --%>
 		<script src="/resources/js/what-input.js"></script> <%-- What-Input (for Foundation) --%>
 		<script src="/resources/js/foundation.min.js"></script> <%-- Foundation JS --%>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> <%-- Sweetalert --%>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.3/sweetalert2.min.js"></script> <%-- Sweetalert --%>
 		
 		<script src="resources/js/theme.js"></script>
 		

@@ -82,7 +82,7 @@ public class GamesContoller {
 			addPoints(request, tictactoe.getWinner());
 		}
 		else {
-			ConnectMove move = ConnectAI.chooseMove(tictactoe, ConnectAI.MINIMAX);
+			ConnectMove move = ConnectAI.chooseMove(tictactoe, data.getDifficulty());
 			tictactoe = tictactoe.doMove(move);
 			response.setMove(move);
 			if(tictactoe.gameOver()) {
@@ -124,7 +124,7 @@ public class GamesContoller {
 			addPoints(request, getFour.getWinner());
 		}
 		else {
-			ConnectMove move = ConnectAI.chooseMove(getFour, ConnectAI.MINIMAX);
+			ConnectMove move = ConnectAI.chooseMove(getFour, data.getDifficulty());
 			getFour = getFour.doMove(move);
 			response.setMove(move);
 			if(getFour.gameOver()) {
@@ -210,7 +210,7 @@ public class GamesContoller {
 			addPoints(request, checkers.getWinner());
 		}
 		else {
-			CheckersMove move = CheckersAI.chooseMove(checkers, CheckersAI.MINIMAX);
+			CheckersMove move = CheckersAI.chooseMove(checkers, data.getDifficulty());
 			checkers = checkers.doMove(move);
 			response.setMove(move);
 			if(checkers.gameOver()) {

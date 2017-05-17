@@ -12,8 +12,31 @@ var WHITE_KING = 4;
 var RED_PLAYER = 1;
 var WHITE_PLAYER = 2;
 var legalMoves;
+var difficulty;
 
 $(document).ready(function() {
+	swal({
+		title: 'Select Difficulty',
+		input: 'radio',
+		inputOptions : {
+			'0': 'Easy',
+			'1': 'Medium',
+			'2': 'Hard'
+		},
+		inputValidator : function(result) {
+			return new Promise(function(resolve, reject) {
+				if (result) {
+					resolve();
+				} else {
+					reject('Please Select a Difficulty');
+				}
+			});
+		}
+	}).then(function(result) {
+		if (result) {
+			difficulty = result;
+		}
+	})
 	$("img.game-piece").click(pieceClick);
 	$("td.board-cell").click(boardClick);
 });
@@ -175,7 +198,8 @@ function getBoardState() {
 
 function playerMove(boardState) {
 	var data = {
-			"boardState": boardState
+			"boardState": boardState,
+			"difficulty": difficulty
 	};
 	
 	$.ajax({

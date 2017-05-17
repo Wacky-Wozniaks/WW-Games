@@ -1,4 +1,29 @@
+var difficulty = 0;
+
 $(document).ready(function() {
+	swal({
+		title: 'Select Difficulty',
+		input: 'radio',
+		inputOptions: {
+			'0': 'Easy',
+			'1': 'Medium',
+			'2': 'Hard'
+		},
+		inputValidator: function(result) {
+			return new Promise(function(resolve, reject) {
+				if (result) {
+					resolve();
+				} else {
+					reject('Please Select a Difficulty');
+				}
+			});
+		}
+	}).then(function(result) {
+		if (result) {
+			difficulty = result;
+		}
+	})
+
 	$("td.board-cell").click(boardClick);
 });
 
@@ -52,7 +77,8 @@ function playerMove(row, col, boardState) {
 	var data = {
 			"boardState": boardState,
 			"row": row,
-			"col": col
+			"col": col,
+			"difficulty": difficulty
 	};
 	
 	$.ajax({

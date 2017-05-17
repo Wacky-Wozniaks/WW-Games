@@ -1,12 +1,17 @@
 package com.wackywozniaks.dto;
 
+/**
+ * Sends data from client to server about connect games.
+ * 
+ * @author WackyWozniaks Company
+ * @version 05/16/2017
+ */
 public class ConnectBean {
 	
 	private int[][] boardState;
-	
 	private int row;
-	
 	private int col;
+	private int difficulty;
 
 	/**
 	 * @return the boardState
@@ -48,6 +53,20 @@ public class ConnectBean {
 	 */
 	public void setCol(int col) {
 		this.col = col;
+	}
+
+	/**
+	 * @return the difficulty
+	 */
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	/**
+	 * @param difficulty the difficulty to set
+	 */
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
 	}
 	
 }
