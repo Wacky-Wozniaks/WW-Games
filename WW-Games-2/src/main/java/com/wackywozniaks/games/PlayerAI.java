@@ -6,13 +6,14 @@ import java.util.LinkedList;
  * Generic methods for minimax and expectimax.
  * 
  * @author WackyWozniaks Company
- * @version 04/26/2017
+ * @version 05/16/2017
  */
 public abstract class PlayerAI
 {	
 	protected static Move random(Game s)
 	{
 		LinkedList<Move> moves = s.getLegalActions(2);
+		if(moves.isEmpty()) return null;
 		int index = (int)(Math.random() * moves.size());
 		return moves.get(index);
 	}
