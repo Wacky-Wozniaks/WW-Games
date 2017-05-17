@@ -58,24 +58,6 @@ public class Checkers extends Game {
 	public Checkers doMove(Move m) {
 		CheckersMove move = (CheckersMove) m;
 		int[][] board2 = makeMove(board, move);
-		if(board2 == null) {
-			
-			for(int row = 0; row < board.length; row++)
-			{
-				for(int col = 0; col < board[0].length; col++)
-				{
-					if(board[row][col] == Checkers.RED) System.out.print("O");
-					else if(board[row][col] == Checkers.RED_KING) System.out.print(".");
-					else if(board[row][col] == Checkers.WHITE) System.out.print("X");
-					else if(board[row][col] == Checkers.WHITE_KING) System.out.print("*");
-					else System.out.print("-");
-				}
-				System.out.println();
-			}
-
-			
-			System.out.println("NULL");
-		}
 		return new Checkers(board2);
 	}
 	
