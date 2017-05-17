@@ -1,4 +1,4 @@
-package com.wackywozniaks.games.checkers2;
+package com.wackywozniaks.games.checkers;
 
 import com.wackywozniaks.games.Game;
 import com.wackywozniaks.games.PlayerAI;

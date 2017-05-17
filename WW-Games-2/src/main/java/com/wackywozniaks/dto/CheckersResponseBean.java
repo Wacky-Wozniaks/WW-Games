@@ -3,7 +3,7 @@ package com.wackywozniaks.dto;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.wackywozniaks.games.checkers2.CheckersMove;
+import com.wackywozniaks.games.checkers.CheckersMove;
 
 /**
  * The response sent to the game of checkers
