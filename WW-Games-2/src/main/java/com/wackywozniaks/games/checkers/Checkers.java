@@ -94,6 +94,7 @@ public class Checkers extends Game {
 
 	@Override
 	public LinkedList<Move> getLegalActions(int player) {
+		if(this.gameOver()) return new LinkedList<Move>();
 		LinkedList<Move> normalMoves = new LinkedList<Move>();
 		LinkedList<Move> jumpMoves = new LinkedList<Move>();
 		//System.out.println(board);
