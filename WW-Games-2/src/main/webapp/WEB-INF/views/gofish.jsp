@@ -19,7 +19,7 @@
 		<p id="msg"></p>
 	</div>
 	<div class="bottom">
-		<p><b><i>$(name)</i></b></p>
+		<p><b><i>${name}</i></b></p>
 		<p id= "books2">Books: 0</p>
 		<br>
 		<span id="player1"></span>

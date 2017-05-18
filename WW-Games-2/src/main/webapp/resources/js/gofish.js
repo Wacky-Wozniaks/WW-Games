@@ -9,6 +9,20 @@ var goAgain = false
 var gameOver = false
 var winner = 0
 
+$(window).load(function()
+{
+	$("#loading-screen").addClass("hidden");
+	$("#game").removeClass("hidden");
+});
+
+$(document).ready(function()
+{
+	$("#draw").click(function()
+	{
+		createGame();
+	});
+}
+
 function deckClick(e)
 {
 	setGame1()
@@ -108,6 +122,28 @@ function chooseMove(moves)
 	{
 		makeMove(result)
 	})
+}
+
+function createGame()
+{
+	var data = {
+		"step": 0
+	};
+	$.ajax({
+		type: "POST",
+		contentType: "application/json",
+		url: "/games/gofish",
+		data: JSON.stringify(data),
+		success: function(data)
+		{
+			chooseMove(data.possible)
+		},
+		error: function(e)
+		{
+			console.log("ERROR: ", e);
+			swal("Error connecting to server.", "Please refresh the page.", "error");
+		}
+	});
 }
 
 function requestMoves()
