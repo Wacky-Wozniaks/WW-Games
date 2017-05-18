@@ -8,17 +8,19 @@
 <div class="container">
 	<div class="top">
 		<p><b><i>Computer</i></b></p>
+		<p id= "books1">Books: 0</p>
 		<br>
 		<span id="player2"></span>
 	</div>
 	<div class="center">
-		<img class="playing-card" src="/resources/images/cards/Back.svg"></img>
+		<img id='deck' class="playing-card" src="/resources/images/cards/Back.svg"></img>
 		<p id="count"></p>
 		<br>
-		<div class="message"></div>
+		<p id="msg"></p>
 	</div>
 	<div class="bottom">
 		<p><b><i>$(name)</i></b></p>
+		<p id= "books2">Books: 0</p>
 		<br>
 		<span id="player1"></span>
 		<br>
