@@ -10,7 +10,7 @@
 <div id="game" class="hidden container">
 	<div class="top">
 		<p><b><i>Computer</i></b></p>
-		<p id="books1">Books: 0</p>
+		<p id="books2">Books: 0</p>
 		<br>
 		<span id="player2"></span>
 	</div>
@@ -29,7 +29,7 @@
 	
 	<div class="bottom right">
 		<p><b><i>${name}</i></b></p>
-		<p id= "books2">Books: 0</p>
+		<p id= "books1">Books: 0</p>
 		<br>
 		<span id="player1"></span>
 		
