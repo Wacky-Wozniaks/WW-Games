@@ -307,7 +307,7 @@ public class Checkers extends Game {
 				}
 			}
 		
-		return -(redScore * AGGRESSION) + whiteScore;
+		return (whiteScore * AGGRESSION) - redScore;
 	}
 
 	@Override
