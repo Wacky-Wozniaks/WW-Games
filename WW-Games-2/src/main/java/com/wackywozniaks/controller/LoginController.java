@@ -27,7 +27,7 @@ import com.wackywozniaks.entity.User;
  * This class is the controller for logins, signups, and email verifications.
  * 
  * @author Wacky Wozniaks
- * @version 04/21/2017
+ * @version 05/19/2017
  */
 @Controller
 public class LoginController /*extends WWController*/ {
@@ -47,9 +47,15 @@ public class LoginController /*extends WWController*/ {
 	 * @return Login Page
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String initLogin(Model model) {
-        model.addAttribute("msg", "Please Enter Your Login Details");
-        return "login";
+	public String initLogin(Model model, HttpServletRequest request) {
+        String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");
+		if(currSessionUser == null) {
+			model.addAttribute("msg", "Please Enter Your Login Details");
+	        return "login";
+		}
+		else {
+			return "redirect:/home";
+		}
     }
 	
 	/**
