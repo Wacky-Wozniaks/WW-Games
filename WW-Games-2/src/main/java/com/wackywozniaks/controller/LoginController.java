@@ -144,7 +144,7 @@ public class LoginController /*extends WWController*/ {
 	 * @param password The password to be checked,
 	 * @return Whether the password meets requirements
 	 */
-	private static boolean meetsRequirements(String password) {
+	public static boolean meetsRequirements(String password) {
 		if(password.length() < 8) return false; //password must be at least 8 characters
 		return true;
 	}

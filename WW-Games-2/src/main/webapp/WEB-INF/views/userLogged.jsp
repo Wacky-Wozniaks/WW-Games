@@ -21,6 +21,8 @@
 		<div class="callout secondary">
 			<h5><a href="home">Home</a></h5>
 			<hr>
+			<h5><a href="profile">Profile</a></h5>
+			<hr>
 			<h5><i>Games</i></h5>
 			<p class="side-link"><a href="games/tictactoe">Tic Tac Toe</a></p>
 			<p class="side-link"><a href="games/getfour">GetFour</a></p>
