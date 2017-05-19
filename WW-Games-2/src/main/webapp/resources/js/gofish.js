@@ -325,7 +325,7 @@ function unlockFish()
 
 function instructions()
 {
-	swal("Go Fish Instructions", "Ask your opponent for a card rank. If the computer has cards of that type, he will give them to you. Otherwise, you will have to go fishing (draw a card" +
-			"from the deck). If you receive the card you wanted, you will get to ask again. Try to collect books (collections of all four cards of the same rank). Play continues until" +
+	swal("Go Fish Instructions", "Ask your opponent for a card rank. If the computer has cards of that type, he will give them to you. Otherwise, you will have to go fishing (draw a card " +
+			"from the deck). If you receive the card you wanted, you will get to ask again. Try to collect books (collections of all four cards of the same rank). Play continues until " +
 			"there are no cards left. Collect the most books to win!")
 }

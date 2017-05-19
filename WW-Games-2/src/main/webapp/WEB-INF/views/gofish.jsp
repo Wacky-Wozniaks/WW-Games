@@ -7,27 +7,31 @@
 
 <%@ include file="cardLoading.jsp" %>
 
-<div id="game" class="hidden">
+<div id="game" class="hidden container">
 	<div class="top">
 		<p><b><i>Computer</i></b></p>
-		<p id= "books1">Books: 0</p>
+		<p id="books1">Books: 0</p>
 		<br>
 		<span id="player2"></span>
 	</div>
+	
+	<hr>
+	
 	<div class="center">
-		<img id='deck' class="playing-card" src="/resources/images/cards/Back.svg"></img>
+		<img id="deck" class="playing-card" src="/resources/images/cards/Back.svg"></img>
+		<button id="gofish" class="button right">Go Fish!</button>
 		<p id="count"></p>
 		<br>
 		<p id="msg"></p>
 	</div>
-	<div class="bottom">
+	
+	<hr>
+	
+	<div class="bottom right">
 		<p><b><i>${name}</i></b></p>
 		<p id= "books2">Books: 0</p>
 		<br>
 		<span id="player1"></span>
-		<br>
-		
-		<button id="gofish">Go Fish!</button>
 		
 	</div>
 </div>
