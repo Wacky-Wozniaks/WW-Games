@@ -53,7 +53,7 @@ public class GoFish
 	 */
 	public boolean otherHas(GoFishMove m)
 	{
-		for(Card c: hands[1 - m.getPlayer()])
+		for(Card c: hands[2 - m.getPlayer()])
 		{
 			if(c.getRankText().equals(m.getVal())) return true;
 		}
