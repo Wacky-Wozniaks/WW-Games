@@ -23,3 +23,7 @@ p {
 .right {
 	text-align: right;
 }
+
+.swal2-radio label {
+	margin-left: 0 !important;
+}
