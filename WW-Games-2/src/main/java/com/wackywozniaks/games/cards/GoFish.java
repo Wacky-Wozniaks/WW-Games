@@ -165,7 +165,7 @@ public class GoFish
 		int count = 0;
 		for(int i = 0; i < hands[player].size(); i++)
 		{
-			String rank = hands[player].get(0).getRankText();
+			String rank = hands[player].get(i).getRankText();
 			if(!last.equals(rank))
 			{
 				list.add(new GoFishMove(player, last, count));
