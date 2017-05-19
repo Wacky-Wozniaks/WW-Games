@@ -43,10 +43,32 @@ public class HomeController {
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
 		model.addAttribute("points", user.getPoints());
-		model.addAttribute("level", (int) (user.getPoints() / 25) + 1);
-		model.addAttribute("levelPoints", 25 - (user.getPoints() % 25));
-		model.addAttribute("levelPercent", (int) ((user.getPoints() % 25) / .25));
-        return "userLogged";
+		model.addAttribute("level", getLevel(user.getPoints()));
+		model.addAttribute("levelPoints", getPointsPerLevel(getLevel(user.getPoints()) + 1) - user.getPoints()/*25 - (user.getPoints() % 25)*/);
+		int one = user.getPoints() - getPointsPerLevel(getLevel(user.getPoints()));
+        int two = getPointsPerLevel(getLevel(user.getPoints()) + 1) - getPointsPerLevel(getLevel(user.getPoints()));
+		model.addAttribute("levelPercent", (int) ((double) one / two * 100)/*((user.getPoints() % 25) / .25)*/);
+		return "userLogged";
     }
+	
+	/**
+	 * Gets points needed per level
+	 * 
+	 * @param level The current level
+	 * @return the number of points needed to get that level
+	 */
+	public static int getPointsPerLevel(int level) {
+		return (int) (4 * (level - 1) * (level - 1)) - 1;
+	}
+	
+	/**
+	 * Gets the level based on the number of points
+	 * 
+	 * @param points the number of points
+	 * @return the level based on those points
+	 */
+	public static int getLevel(int points) {
+		return (int) (0.5 * Math.sqrt(points) + 1);
+	}
 
 }
