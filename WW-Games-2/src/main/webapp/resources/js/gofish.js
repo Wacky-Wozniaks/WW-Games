@@ -239,7 +239,7 @@ function computerMove()
 			data: JSON.stringify(data),
 			success: function(data)
 			{
-				swal("Computer's Move", "The computer asked for" + )
+				swal("Computer's Move", "The computer asked for" + data.requested, "question")
 				player1Cards = data.hand1
 				player2Cards = data.hand2
 				deck = data.deck
