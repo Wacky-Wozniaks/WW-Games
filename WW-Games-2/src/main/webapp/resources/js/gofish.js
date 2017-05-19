@@ -22,6 +22,7 @@ $(document).ready(function()
 
 function deckClick(e)
 {
+	if(goAgain) swal("Lucky Draw!", "You got the card you asked for so you get to go again!", "info")
 	setGame1()
 }
 
@@ -32,6 +33,7 @@ function cardsClick(e)
 
 function fishClick(e)
 {
+	if(goAgain) swal("Lucky Draw!", "The computer got the card it asked for so it gets to go again!", "info")
 	setGame2()
 }
 
@@ -76,7 +78,7 @@ function setPlayer1Cards()
 
 function setPlayer2Cards()
 {
-	var cards = player1Cards
+	var cards = player2Cards
 	var newHtml = "";
 	for(var i = 0; i < cards.length; i++)
 	{
