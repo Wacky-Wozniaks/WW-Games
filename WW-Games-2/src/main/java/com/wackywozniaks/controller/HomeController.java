@@ -58,7 +58,9 @@ public class HomeController {
 	 * @return the number of points needed to get that level
 	 */
 	public static int getPointsPerLevel(int level) {
-		return (int) (4 * (level - 1) * (level - 1)) - 1;
+		int num = (int) (4 * (level - 1) * (level - 1)) - 1;
+		if(num < 0) return 0;
+		else return num;
 	}
 	
 	/**
