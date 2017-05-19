@@ -268,7 +268,7 @@ public class GamesContoller {
 		{
 			response.setStep(2);	
 			String ask = data.getMove();
-			GoFishMove move = new GoFishMove(1, ask, 0);
+			GoFishMove move = new GoFishMove(0, ask, 0);
 			boolean has = game.otherHas(move);
 			if(has)
 			{
