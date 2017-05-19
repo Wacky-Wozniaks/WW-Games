@@ -66,6 +66,7 @@ public class GamesContoller {
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+		model.addAttribute("gameName", "Tic Tac Toe");
         return "tictactoe";
 	}
 	
@@ -109,6 +110,7 @@ public class GamesContoller {
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+		model.addAttribute("gameName", "GetFour");
         return "getfour";
 	}
 	
@@ -151,6 +153,7 @@ public class GamesContoller {
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
+		model.addAttribute("gameName", "War");
         return "war";
 	}
 	
@@ -187,6 +190,7 @@ public class GamesContoller {
 		ObjectMapper mapper = new ObjectMapper();
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.put("name", user.getFirstName() + " " + user.getLastName());
+		model.put("gameName", "Checkers");
 		
 		try {
 			model.put("legalMoves", mapper.writeValueAsString((new Checkers()).getMapOfMoves(Checkers.RED_PLAYER)));
@@ -231,13 +235,15 @@ public class GamesContoller {
 	public String gofish(Model model, HttpServletRequest request)
 	{
 		String currSessionUser = (String) request.getSession().getAttribute("currentSessionUser");
-		if(currSessionUser == null) return "redirect:/login";
-		
+		if(currSessionUser == null) {
+			return "redirect:/login";
+		}
 		context = new ClassPathXmlApplicationContext("Beans.xml");
 		userDAOImpl = (UserDAOImpl) context.getBean("userDAOImpl");
 		User user = userDAOImpl.getUser(currSessionUser);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
-		return "gofish";
+		model.addAttribute("gameName", "Go Fish");
+        return "gofish";
 	}
 	
 	@RequestMapping(value = "gofish", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -23,6 +23,11 @@
 			</c:if>
 		</ul>
 	</div>
+	<c:if test="${fn:contains(pageContext.request.requestURI, '/games/')}">
+		<div class="top-bar-title">
+			<strong>${gameName}</strong>
+		</div>
+	</c:if>
 	<div class="top-bar-right">
 		<ul class="dropdown menu" data-dropdown-menu="parxkb-dropdown-menu" role="menubar">
 			<li role="menuitem" class="is-dropdown-submenu-parent opens-left">
