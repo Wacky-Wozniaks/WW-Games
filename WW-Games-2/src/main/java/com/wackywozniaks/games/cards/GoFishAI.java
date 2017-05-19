@@ -16,7 +16,7 @@ public class GoFishAI extends PlayerAI
 {
 	public static GoFishMove chooseMove(GoFish g)
 	{
-		LinkedList<Move> list = g.getLegalActions(1);
+		LinkedList<Move> list = g.getLegalActions(2);
 		ArrayList<GoFishMove> moves = new ArrayList<GoFishMove>();
 		for(Move move : list)
 		{
