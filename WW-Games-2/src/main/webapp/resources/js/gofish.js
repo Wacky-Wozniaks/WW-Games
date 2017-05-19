@@ -17,11 +17,8 @@ $(window).load(function()
 
 $(document).ready(function()
 {
-	$("#draw").click(function()
-	{
-		createGame();
-	});
-}
+	createGame();
+})
 
 function deckClick(e)
 {
@@ -40,8 +37,8 @@ function fishClick(e)
 
 function setGame1()
 {
-	setPlayer1Cards(cards)
-	setPlayer2Cards(cards)
+	setPlayer1Cards()
+	setPlayer2Cards()
 	setBooks()
 	$("#msg").text("");
 	if(gameOver) gameOver()
@@ -51,8 +48,8 @@ function setGame1()
 
 function setGame2()
 {
-	setPlayer1Cards(cards)
-	setPlayer2Cards(cards)
+	setPlayer1Cards()
+	setPlayer2Cards()
 	setBooks()
 	$("#msg").text("");
 	if(gameOver) gameOver()
@@ -66,8 +63,9 @@ function gameOver()
 	$("#msg").text("Game over! " + ((winner === 0) ? "It's a tie!" : (winner === 1) ? "You won!" : "You lost!"));
 }
 
-function setPlayer1Cards(cards)
+function setPlayer1Cards()
 {
+	var cards = player1Cards
 	var newHtml = "";
 	for(var i = 0; i < cards.length; i++)
 	{
@@ -76,8 +74,9 @@ function setPlayer1Cards(cards)
 	$("#player1").html(newHtml);
 }
 
-function setPlayer2Cards(cards)
+function setPlayer2Cards()
 {
+	var cards = player1Cards
 	var newHtml = "";
 	for(var i = 0; i < cards.length; i++)
 	{
@@ -94,15 +93,15 @@ function setBooks()
 
 function chooseMove(moves)
 {
-	var inputOptions = new Object()
+	var inputOptions = {};
 	for(var i = 0, len = moves.length; i < len; i++)
 	{
-		inputOptions[moves[i].rankText] = moves[i].rankText
+		inputOptions["cell - " + i] = moves[i].val
 	}
 	
 	swal({
 		title: "What do you want to ask for?",
-		input: radio,
+		input: 'radio',
 		inputOptions: inputOptions,
 		inputValidator: function(result)
 		{
@@ -120,14 +119,14 @@ function chooseMove(moves)
 		}
 	}).then(function(result)
 	{
-		makeMove(result)
+		makeMove(result.val)
 	})
 }
 
 function createGame()
 {
 	var data = {
-		"step": 0
+		"type": 0
 	};
 	$.ajax({
 		type: "POST",
@@ -136,7 +135,12 @@ function createGame()
 		data: JSON.stringify(data),
 		success: function(data)
 		{
-			chooseMove(data.possible)
+			player1Cards = data.hand1
+			player2Cards = data.hand2
+			deck = data.deck
+			books = data.books
+			goAgain = true
+			setGame1()
 		},
 		error: function(e)
 		{
@@ -149,11 +153,11 @@ function createGame()
 function requestMoves()
 {
 	var data = {
-		"player1": player1Cards,
-		"player2": player2Cards,
+		"hand1": player1Cards,
+		"hand2": player2Cards,
 		"deck": deck,
-		"books": book,
-		"step": 3
+		"books": books,
+		"type": 3
 	};
 	
 	$.ajax({
@@ -176,11 +180,11 @@ function requestMoves()
 function makeMove(move)
 {
 	var data = {
-			"player1": player1Cards,
-			"player2": player2Cards,
+			"hand1": player1Cards,
+			"hand2": player2Cards,
 			"deck": deck,
-			"books": book,
-			"step": 1,
+			"books": books,
+			"type": 1,
 			"move": move
 		};
 		
@@ -201,7 +205,7 @@ function makeMove(move)
 				}
 				else
 				{
-					setGame1
+					setGame1()
 				}
 				goAgain = data.goAgain
 				if(data.gameOver)
@@ -221,11 +225,11 @@ function makeMove(move)
 function computerMove()
 {
 	var data = {
-			"player1": player1Cards,
-			"player2": player2Cards,
+			"hand1": player1Cards,
+			"hand2": player2Cards,
 			"deck": deck,
-			"books": book,
-			"step": 2
+			"books": books,
+			"type": 2
 		};
 		
 		$.ajax({
@@ -235,6 +239,7 @@ function computerMove()
 			data: JSON.stringify(data),
 			success: function(data)
 			{
+				swal("Computer's Move", "The computer asked for" + )
 				player1Cards = data.hand1
 				player2Cards = data.hand2
 				deck = data.deck

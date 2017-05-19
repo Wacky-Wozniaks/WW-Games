@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="/resources/css/gofish.css">
 <script src="/resources/js/gofish.js"></script>
 
-<div class="container">
+<%@ include file="cardLoading.jsp" %>
+
+<div id="game" class="hidden">
 	<div class="top">
 		<p><b><i>Computer</i></b></p>
 		<p id= "books1">Books: 0</p>
