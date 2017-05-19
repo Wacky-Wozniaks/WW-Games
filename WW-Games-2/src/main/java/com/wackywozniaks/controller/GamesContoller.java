@@ -47,7 +47,7 @@ import com.wackywozniaks.games.connect.TicTacToe;
  * Controller for the games.
  * 
  * @author Wacky Wozniaks Company
- * @version 05/09/2017
+ * @version 05/18/2017
  */
 @Controller
 @RequestMapping("/games")
