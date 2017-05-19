@@ -1,12 +1,13 @@
 package com.wackywozniaks.games;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  * Generic methods for minimax and expectimax.
  * 
  * @author WackyWozniaks Company
- * @version 05/16/2017
+ * @version 05/18/2017
  */
 public abstract class PlayerAI
 {	
@@ -63,53 +64,63 @@ public abstract class PlayerAI
 	protected static Object[] max(Game s, LinkedList<Move> next, int agent, int depth, int alpha, int beta, int maxDepth)
 	{
 		int value = Integer.MIN_VALUE;
-		Move m = null;
+		ArrayList<Move> moves = new ArrayList<Move>();
+		//Move m = null;
 		for(Move action: next)
 		{
 			int newValue = (Integer) minimax(s.doMove(action), agent + 1, depth, alpha, beta, maxDepth)[0];
 			if(newValue > value)
 			{
 				value = newValue;
-				m = action;
+				moves.clear();
+				moves.add(action);
+				//m = action;
 			}
+			else if(newValue == value) moves.add(action);
 			if(newValue > beta) return new Object[]{newValue, action};
 			alpha = Math.max(alpha, newValue);
 		}
-		return new Object[]{value, m};
+		return new Object[]{value, moves.get((int)(Math.random() * moves.size()))};
 	}
 	
 	protected static Object[] max(Game s, LinkedList<Move> next, int agent, int depth, int maxDepth)
 	{
 		int value = Integer.MIN_VALUE;
-		Move m = null;
+		ArrayList<Move> moves = new ArrayList<Move>();
+		//Move m = null;
 		for(Move action: next)
 		{
 			int newValue = (Integer) expectimax(s.doMove(action), agent + 1, depth, maxDepth)[0];
 			if(newValue > value)
 			{
 				value = newValue;
-				m = action;
+				//m = action;
+				moves.clear();
+				moves.add(action);
 			}
 		}
-		return new Object[]{value, m};
+		return new Object[]{value, moves.get((int)(Math.random() * moves.size()))};
 	}
 	
 	protected static Object[] min(Game s, LinkedList<Move> next, int agent, int depth, int alpha, int beta, int maxDepth)
 	{
 		int value = Integer.MAX_VALUE;
-		Move m = null;
+		ArrayList<Move> moves = new ArrayList<Move>();
+		//Move m = null;
 		for(Move action: next)
 		{
 			int newValue = (Integer) minimax(s.doMove(action), agent + 1, depth, alpha, beta, maxDepth)[0];
 			if(newValue < value)
 			{
 				value = newValue;
-				m = action;
+				//m = action;
+				moves.clear();
+				moves.add(action);
 			}
 			if(newValue < alpha) return new Object[]{newValue, action};
 			beta = Math.min(beta, newValue);
 		}
-		return new Object[]{value, m};
+		return new Object[]{value, moves.get((int)(Math.random() * moves.size()))};
 	}
 	
 	protected static Object[] expect(Game s, LinkedList<Move> next, int agent, int depth, int maxDepth)
